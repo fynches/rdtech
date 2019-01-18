@@ -1,0 +1,952 @@
+/*    text-decoration:none !important;*/
+/*}*/
+/*---- text decoration needed/  missing closing tag etc.  ------*/
+@font-face {
+  font-family: 'Futura-Bold';
+  src:  url('/public/front/fonts/Futura-Bold/Futura-Bold.ttf') format('ttf'),
+        url('/public/front/fonts/Futura-Bold/Futura-Bold.otf') format('otf'); 
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura';
+  src:  url('/public/front/fonts/Futura') format('');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura-Extra-Black';
+  src:  url('/public/front/fonts/futura_extra_black_font-webfont.woff') format('woff'),
+        url('/public/front/fonts/futura_extra_black_font-webfont.woff2') format('woff2'); 
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura-Medium-BT';
+  src:  url('/public/front/fonts/futura_medium_bt-webfont.woff') format('woff'),
+        url('/public/front/fonts/futura_medium_bt-webfont.woff2') format('woff2'); 
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura-Medium';
+  /*src: url('../fonts/Futura-Medium.eot') format('embedded-opentype');*/
+  src:  url('../fonts/Futura-Medium.ttf')  format('truetype'), 
+        url('../fonts/Futura-Medium.svg#Futura-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Avenir';
+  src:  url('/public/front/fonts/AvenirLTStd-Book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    color: rgba(0, 0, 0, 0);
+    opacity: 1;
+    display: block;
+    background: url(http://fynches.codeandsilver.com/public/front/img/calendar.png) no-repeat;
+    width: 20px;
+    height: 20px;
+    border-width: thin;
+}
+
+body{
+    margin: 0;
+}
+header{
+    background-color: #dff2f6!important;
+    box-shadow: 0 4px 2px -2px #8080805e;
+}x
+h1 {
+    margin: 15px 0;
+    font-weight: bold;
+}
+.go-back {
+    margin-top: 70px;
+    margin-bottom: 35px;
+}
+.border-bottom {
+    border-bottom: 2px solid #4444ce !important;
+    margin: 0 40px;
+}
+.stages {
+    margin-top: 42px;
+}
+.stage-text {
+    border: 2px solid #4444ce;
+    border-radius: 25px;
+    color: #4444ce;
+    padding: 5px;
+    background:white;
+    font-family: 'Avenir-Book';
+    font-weight:bold; 
+    font-size: 12px
+    
+    
+}
+.rule{
+    margin-top: 12rem;
+    margin-bottom: -14.5rem;
+    width:60%;
+    border-top: 2px solid #4444ce !important;
+}
+.num p {
+    color:#4444ce;
+    font-weight:bold;
+    font-family: 'Futura-Medium'; 
+    font-size: 12px
+    
+}
+.stage-text p{
+    color:black;
+}
+.form-section h2{
+    padding: 40px;
+}
+.yellow-submit {
+    margin: 0px 0 60px;
+    background-color: #FFDE33;
+    padding: 10px 100px;
+    border: 2px solid #FFDE33;
+    color: #4444ce;
+    font-weight:400; 
+    font-family: 'Poppins', sans-serif;
+    border-radius:5px;
+    font-size:16px;
+    line-height:16px;
+}
+.yellow-submit:hover{
+     background-color: #fff;
+     border: 2px solid #FFDE33; 
+}
+.tt-header{
+    font-family:'Futura-Medium';
+    font-weight:bold; 
+    font-size:18px;
+    margin-bottom:10px;
+    float: left
+    
+}
+.date-input {
+    padding: 20px!important;
+    margin-bottom: 10px;
+    width: 50%;
+    border: 1px solid black!important;
+    line-height: 34px!important;
+}
+.no-padding {
+    padding:0px!important;
+}
+#drag{ 
+    padding:10px;
+}
+#drag form{
+    left: 50%;
+    border: 1px dashed black;
+    border-radius:5px;
+    width: 80%;
+}
+#rw{
+    margin:50px;
+}
+#rw .form-row .col-md-6{
+    width:100%;
+    padding:0px;
+}
+#rw .form-row .col-md-6 input{
+    width:50%;
+    padding:20px;
+}
+#rw .form-group label{
+     font-family: 'Avenir-Book';
+     font-weight:bold;
+     font-size:12px;
+     margin-top: 10px;
+     line-height:16px;
+     letter-spacing:1.09px;
+     color:#34344A;
+}
+#rw .form-row .col-md-4 input{
+    padding:20px;
+}
+#rw .form-row .col-md-5 input{
+    padding:20px;
+}
+#back{
+    background:#fff;
+    font-family: 'Avenir-Book';
+    border: 2px solid #3BC1B0;
+    font-size: 12px;
+    color: #7fd5ca;
+    padding: 10px 20px;
+    margin-top: 60px;
+    margin-bottom: 35px;
+    line-height:16px;
+    letter-spacing:1px;
+}
+#back:hover{
+    color:#7fd5ca !important;
+    background:#fff !important;
+    border: 2px solid #7fd5ca !important;
+}
+
+#rw1{
+    margin: 20px 50px;
+}
+#fyn_logo_1{
+    margin: 10px 0;
+}
+#rw1 h5{
+    font-family: 'Poppins',sans-serif;
+    color:#34344A;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 25px;
+    letter-spacing: 1px;
+    margin:10px 0;
+}
+.guest{
+    font-family: 'Avenir-Book'; 
+    font-weight: bold;
+    font-size: 12px;
+    line-height:16px;
+    color:#34344A;
+    letter-spacing:auto;
+}
+#rw1 label{
+    font-family: 'Avenir-Book';
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.09px;
+    color:#34344A;
+}
+#zip{
+    padding:0px;
+}
+#zip input{
+    padding:20px;
+}
+#party-time{
+    padding:20px;    
+    margin-bottom:10px;
+    width: 50%;
+    border: 1px solid black;
+}
+
+#your-link{
+    padding: 22px 5px;
+    font-size:12px;
+}
+
+#drag form p{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 70px;
+  color:black;
+  font-family: Arial;
+  padding:10px;
+}
+#drag form input{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+#drag form button{
+  margin: 0;
+  color: black;
+  background: #16a085;
+  border: none;
+  width: 508px;
+  height: 35px;
+  margin-top: -20px;
+  margin-left: -4px;
+  border-radius: 4px;
+  border-bottom: 4px solid #117A60;
+  transition: all .2s ease;
+  outline: none;
+}
+#drag form button:hover{
+  background: #149174;
+	color: #0C5645;
+}
+#drag form button:active{
+  border:0;
+}
+.show-inputbtns .input-buttons {
+    display: inline-block;
+}
+#lk .col-md-6{
+    padding:0px;
+    flex: 0 0 40%;
+}
+#lk .text-right{
+    background: #34344A;
+    color:white;
+    padding:0px;
+}
+#lk{
+    margin:16px 0;
+}
+#gp{
+    padding: 10px;
+    font-size:12px;
+    line-height:16px;
+    margin:5px 0
+}
+.yellow-check{
+   width: 20px;
+    margin: 5px;
+}
+
+#hostChild h2{
+   font-family: 'Futura-Bold';
+   font-size: 24px;
+   font-weight:bold;
+   margin-top:63px;
+   letter-spacing:1.26px;
+   line-height:24px;
+}
+.stage-text a{
+    font-family: 'Avenir-Book';
+    
+}
+.stage-text a:hover{
+    text-decoration:none;
+    
+}
+#header{
+    margin:20px;
+    font-family: 'Futura-Bold'; 
+    font-weight: bold; 
+    font-size: 30px;
+}
+#dateLocation h2{
+    font-family: 'Futura-Bold';
+    font-size: 24px;
+    font-weight:bold;
+}
+#pageLink h2{
+    font-family: 'Futura-Bold';
+    font-size: 24px;
+    font-weight:bold;
+}
+#gift_head{
+    position:absolute;
+    background-color: rgba(255,255,255,0.5) !important;
+    min-height: 100px;
+    box-shadow:none !important;
+}
+section.gift_experience
+{
+    position: relative;
+    width: 100%;
+    min-height: 350px;
+    padding: 50px 0 65px; 
+    background: url('http://fynches.codeandsilver.com/public/front/img/Pepper-the-robot.jpg');
+    transition: all 0.3s ease-in-out; 
+    -moz-transition: all 0.3s ease-in-out; 
+    -ms-transition: all 0.3s ease-in-out; 
+    -o-transition: all 0.3s ease-in-out; 
+    -webkit-transition: all 0.3s ease-in-out; 
+    background-size: cover;
+    
+}
+section.gift_experience #pos_abs{
+    position:absolute;
+    bottom:10%;
+    width:100%;
+}
+#pos_abs_img{
+    position:absolute; 
+    bottom:-10%;
+    width:100%;
+}
+#pos_abs_img img{
+    position:absolute;
+    width: 15%;
+    margin: -142px 40px;
+    z-index: 1000;
+}
+#pos_abs #btn_wht{
+    background:#fff !important;
+    color:#000 !important;
+    margin: 0px 5px;
+    border:1px solid #000;
+    width:fit-content;
+    padding: 0px 30px;
+    font-weight:400;
+    letter-spacing:2px;
+    font-size:12px;
+}
+#pos_abs #btn_wht:hover{
+    background:#fff !important;
+    color:#000 !important;
+    border:1px solid #000;
+}
+
+#pos_abs .btn_wht_pnk{
+    background:#FF0055 !important;
+    color:#fff !important;
+    margin: 0px 5px;
+    width:fit-content;
+    padding: 0px 30px;
+    border:1px solid #FF0055;
+    font-size:12px;
+    font-weight:400;
+    letter-spacing:2px;
+}
+#pos_abs #btn_wht_pnk:hover{
+    background:#FF0055 !important;
+    color:#fff !important;
+    border:1px solid #FF0055; 
+}
+
+#pos_abs .text-right{
+    float:right !important;
+}
+#fyn_logo{
+    margin: 30px 0;
+    height: 25px;
+    width:144px;
+}
+
+#gift_head .ul_top_hypers{
+    margin:30px 0 !important;
+}
+#gift_head .container-fluid{
+    margin:0 40px;
+}
+#gft_title{
+    border: 2px dashed #d9d9d9;
+    }
+
+.gift_box #gft_title{
+    padding: 40px 10px;
+    border-radius: 5px;
+    width: 100%;
+    font-size:24px;
+    color:#d9d9d9;
+    font-family: 'Poppins',sans-serif;
+    font-weight:700;
+    line-height:31px;
+    letter-spacing:auto;
+}
+
+.gift_box #gft_title:hover{
+    border: 2px dashed #FF0055 !important;
+}
+
+#req{
+    margin-top:20px;
+}
+.gift_box .text-right{
+    margin-top:20px;
+    font-size:10px;
+    line-height:11px;
+    font-family: 'Avenir-Book';
+    letter-spacing:0.62px;
+}
+
+.gift_details .cont{
+    margin:60px 40px;
+    padding:0px !important;
+}
+.gift_details .text-right{
+    float:right;
+    font-size:10px;
+    font-family: 'Avenir-Book';
+    line-height:11px;
+    letter-spacing:0.62px;
+}
+#gft_det{
+    padding: 10px 5px;
+    border: 2px dashed #d9d9d9;
+    border-radius: 5px;
+    font-size:15px;
+    color:#d9d9d9;
+    font-family: Avenir;
+    min-height:154px;
+    width: 100%;
+}
+#gft_det:hover{
+    border: 2px dashed #FF0055 !important;
+}
+.gift_details label{
+    font-size:16px;
+    font-weight: 700;
+    font-family: 'Poppins',sans-serif;
+    margin-bottom:0px;
+    margin: 0px 10px;
+    letter-spacing:1.6px;
+    line-height:16px;
+    color:#34344A;
+}
+.chal .input-group{
+    margin-top:10px;
+}
+.chal .input-group input{
+    padding:20px;
+    border:1px solid #35324c;
+}
+.chal .input-group-btn{
+    border: 1px solid #35324c;
+    background: #35324c;
+    border-radius: 0 5px 5px 0;
+}
+
+.chal .btn{
+    border: 1px solid #35324c;
+    background: #34344A;
+    color: #fff;
+    width:150px;
+    padding:8px;
+    font-size:16px;
+    font-family:'Avenir-Book';
+    letter-spacing:0.42px;
+
+}
+.chal .btn-default:hover,.btn:focus,.btn:active{
+    border: 1px solid #35324c !important;
+    background: #35324c !important;
+    color: #fff !important;
+}
+.pointer {
+    cursor: pointer;
+}
+#inp_date{
+    padding: 7px;
+    border: 2px dashed #d9d9d9;
+    border-radius: 5px;
+    font-size:18px;
+    color:#d9d9d9;
+    font-family: Avenir;
+    width: 100%;
+}
+.help-block {
+    float:left!important;
+}
+#inp_age{
+    padding: 8px 10px 6px;
+    border: 2px dashed #d9d9d9;
+    border-radius: 5px;
+    font-size:18px;
+    color:#d9d9d9;
+    font-family: Avenir;
+    width: 100%;
+}
+#inp_host{
+    padding: 20px 10px;
+    border: 2px dashed #d9d9d9;
+    border-radius: 5px;
+    font-size:18px;
+    color:#d9d9d9;
+    font-family: Avenir;
+    width: 100%;
+}
+
+#inp_date:hover,#inp_age:hover,#inp_host:hover{
+ border: 2px dashed #FF0055 !important;
+}
+#gft_col_3 .col3{
+    width:20%;
+}
+#gift_share{
+    margin-top:17px;
+}
+
+#gift_share .chal{
+    padding:0px;
+}
+#face{
+    margin-top:20px;
+}
+#face p{
+    font-weight:bold;
+    font-size:15px;
+    font-family: Futura-Medium;
+    margin: 20px 0px !important;
+}
+#face .btn{
+    padding:10px 20px;
+    font-size:20px;
+    margin: 30px 10px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
+
+.gift_box .cont_title{
+    margin:0 40px !important;
+    padding:0px;
+}
+
+.gift_reco .cont{
+    margin:0 40px;
+    padding:0px !important;
+}
+
+.gift_reco h5{
+    font-size:24px;
+    font-weight:700;
+    font-family: 'Poppins',sans-serif;
+    margin:0px 10px;
+    line-height:31px;
+    color:#34344A;
+    letter-spacing:1px;
+}
+
+.gift_reco #zip_c{
+    font-size: 15px;
+    margin:10px 20px;
+}
+
+.reco_col label{
+    font-size: 14px;
+    padding:10px;
+    font-weight:700;
+    line-height:12px;
+    text-transform: uppercase;
+    font-family:'Poppins',sans-serif;
+    margin:0px;
+    color:#34344A;
+}
+
+.reco_col p{
+    font-size: 12px;
+    padding: 0px 10px;
+    font-family:'Avenir-Book';
+    line-height:12px;
+    color:#34344A;
+    margin: 0px;
+    min-height:90px;
+}
+
+.reco_col .row{
+    margin: 0px 10px;
+}
+.reco_col .col-md-6{
+    padding:0px;
+}
+.gift_reco{
+    margin-bottom:50px;
+}
+
+.reco_col .btn_purp{
+    border: 1px solid #4444ce; 
+    background:#fff;
+    color:#4444ce;
+    font-family: Futura-Medium;
+    font-size: 1rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.reco_col .btn_purp:hover{
+    border: 1px solid #4444ce; 
+    background:#4444ce;
+    color:#fff;
+    font-family: Futura-Medium;
+    
+}
+
+.reco_col .yellow_submit{
+    border: 1px solid #ffdb4c; 
+    background:#ffdb4c;
+    color:#4444ce;
+    font-family: 'Avenir-Medium';
+    font-size: 12px;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 2.18px;
+    margin:5px 0;
+}
+.reco_col .yellow_submit:hover{
+    border: 1px solid yellow; 
+    background:yellow;
+    color:#4444ce;
+}
+#gift_para p{
+    margin: 10px;
+    font-size: 18px;
+    font-weight: 100;
+    float:right;
+}
+
+#gift_price p{
+    font-size:10px;
+    font-family: 'Avenir-Book';
+    font-weight:400;
+    color:#34344A;
+    line-height:7px;
+}
+#gift_price{
+    margin:15px 0;
+}
+
+.shad-effect{
+    border: 1px solid #fafafa;
+    box-shadow: 0px 2px 8px #f2f2f2;
+    min-height: 180px;
+    max-height: 180px;
+}
+
+.add_gifts .cont{
+    margin:0 60px;
+    padding:0px !important;
+}
+
+.add_gifts h5{
+    font-size:24px;
+    font-weight:700;
+    font-family: 'Poppins',sans-serif;
+    letter-spacing:1px;
+    line-height:31px;
+    color:#34344A;
+    letter-spacing:1px;
+}
+.add_gifts h6{
+    font-size:16px;
+    line-height:16px;
+    font-weight:700;
+    color:#34344A;
+    font-family: 'Poppins',sans-serif;
+}
+.add_gifts .dash{
+    border: 2px dashed #d9d9d9;
+    padding: 40px;
+    min-height: 200px;
+    margin: 20px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dash p{
+    font-size:18px;
+    font-weight:bold;
+    font-family: Futura-Medium;
+    margin:20px;
+}
+
+.added_gifts{
+    margin:40px 0;
+}
+
+.added_gifts .cont{
+    margin:0 60px;
+}
+
+.added_gifts h5{
+    font-size:30px;
+    font-weight:bolder;
+    font-family: Futura-Medium;
+}
+
+.added_gifts p{
+    font-family: Avenir-Book;
+}
+.added{
+    padding:40px;
+    min-height: 500px;
+    margin: 100px 0 0 0;
+}
+
+#high{
+    margin:20px;
+}
+.tooltip-inner{
+    background:#fff !important;
+    color: #000!important;
+    padding: 12px 12px!important;
+    font-size: 13px!important;
+}
+.tooltip.top .tooltip-arrow {
+    border-top-color: #fff!important;
+}
+.tooltip.in {
+    filter: alpha(opacity=90);
+    opacity: 1!important;
+}
+#gift_share .tooltip {
+    background: #fff !important;
+    width: 200px!important
+}
+.cir{
+    font-size:17px;
+}
+
+#gift_share .tooltip{
+   background:#fff !important;
+}
+.open>.dropdown-menu {
+    display: grid !important;
+    margin: 79px 83px;
+    padding: 0px;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    background-color: #fff!important;
+    opacity: 1;
+}
+#pos_abs_img .dropdown-menu .dropdown-item{
+    color:#34334A;
+     font-family: 'Avenir';
+     border-bottom:1px solid #f2f2f2;
+     line-height:19px;
+     font-size:14px;
+     text-decoration:none;
+}
+
+#pos_abs_img .dropdown-menu .dropdown-item:hover{
+    background:#fff;
+}
+.footer .pad{
+    padding:0px;
+}
+.footer .pad a{
+    font-size:14px;
+    font-family:'Poppins',sans-serif;
+    color:white;
+    line-height:14px;
+    font-weight:700;
+}
+#f-menu{
+    padding:0px;
+}
+
+
+@media only screen and (max-width: 391px) {
+ .fheader, .fmenu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+}
+@media only screen and (max-width: 768){
+#pos_abs_img img{
+    width: 20%;
+    margin: -43px 44px;
+    }
+}
+
+ 
+@media only screen and (max-width: 767px) {
+
+ #f-menu{
+    margin:20px 0;
+    }
+.open>.dropdown-menu{
+    margin:0px;
+    }
+.chal .btn{
+    width:100px;
+    }
+.add_gifts .cont,.added_gifts .cont{
+    margin:20px;
+    }    
+.added img{
+    width:20% !important;
+    }
+.dash img{
+    width:50% !important;
+    }
+.reco_col{
+    margin:20px 0;
+    }
+.gift_reco .cont{
+    margin:0px !important;
+    padding:0px !important;
+    }
+.gift_box .cont_title{
+    margin:0px !important;
+    }
+#rw {
+    margin:0px;
+    }
+#rw1{
+    margin:0px;
+    }
+#lk{
+    margin:20px;
+    }
+#gp{
+    margin:0 0 16px;
+    font-size:11px;
+    padding:0px;
+    }
+.gift_box{
+    margin-top:40px;
+    }
+.gift_box #gft_title{
+    width:100%;
+    font-size: 20px;
+    }
+#gift_column{
+    left:0;
+    margin-top:0px;
+    }
+    #pos_abs_img img{
+    margin: -80px 0px;
+    width: 20%;
+    }
+.gift_details .cont{
+    margin:0px;
+    }
+#gift_text{
+    padding:0 15px;    
+    }
+#gft_col_3 .col3{
+    width:100%;
+    }
+#gft_col_3{
+    margin: 30px 0px
+    }
+section.gift_experience #pos_abs{
+    text-align:center;
+    }
+#pos_abs #btn_wht{
+    margin:10px;
+    width: -webkit-fill-available;
+    }
+.checkout_content .cont{
+    margin:0 20px !important;
+    }
+#checkout_cont #btn_blk{
+    padding: 0 20px;
+    margin: 0px;
+    }
+.step_1 .cont{
+    margin:0 30px !important;
+    }
+.step_1 #step_gift img{
+    width:100%;
+    }
+.step_1 #gftamt{
+         margin:0px !important;
+    }
+.step_1 .cont .step_price{
+         margin:10px 0;
+    }
+    .footer .pad a{
+        font-size:12px;
+    }
+
+}
+
+#photo-form {
+    cursor:pointer;
+}
+
+#gift_crop .container{
+    width:800px;
+}

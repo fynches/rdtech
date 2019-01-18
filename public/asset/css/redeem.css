@@ -1,0 +1,155 @@
+.redeem_head{
+    min-height:100px;
+}
+
+.redeem_head #ul_top_hypers{
+    margin: 30px 0 !important;
+}
+
+.redeem_head #ul_top_hypers li a{
+    font-size: 14px;
+    color: #34344A;
+    font-family: 'Avenir-Book';
+    text-transform: uppercase;
+    padding: 0;
+    line-height: 22px;
+}
+
+.cont{
+    margin: 0 0px !important;
+}
+
+.dash_link{
+    margin-top:50px;
+}
+
+.dash_link h5 a{
+    font-family:'Avenir-Light';
+    font-size:10px;
+    line-height:14px;
+    color:#000;
+    text-decoration:underline;
+}
+
+.gift_bank .yellow-submit{
+    border: 1px solid #ffdb4c;
+    background: #ffdb4c;
+    color: #4444ce;
+    font-family: Avenir-Medium;
+    padding: 0 20px;
+    margin-top:50px;
+    letter-spacing:2.18px;
+    line-height:16px;
+}
+.gift_bank .yellow-submit:hover{
+    border: 1px solid #ffdb4c;
+    background: #ffdb4c;
+    color: #4444ce;
+}
+.redeem_gift h1{
+    color: #4444ce;
+    font-size:48px;
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+    line-height:48px;
+}
+.redeem_gift p{
+   font-family: Avenir-Book;
+   font-size:18px;
+   line-height:25px;
+   width:75%;
+   margin:auto;
+}
+.gift_table .gift_header{
+    font-size:24px;
+    font-family:'Poppins',sans-serif;
+    font-weight:700;
+    line-height:16px;
+    padding:20px 0;
+    border-bottom: 2px solid #f2f2f2;
+    margin: 10px
+}
+.gift_table p{
+    font-size:20px;
+    padding:20px 0;
+    font-family: Avenir-Book;
+    line-height:27px;
+    letter-spacing:2px;
+}
+.gift_table p a{
+    font-size:10px;
+    color:#4444ce;
+    letter-spacing:0px;
+    line-height:14px;
+}
+.gift_table #gift-border{
+    border-bottom:2px solid #f2f2f2;
+    margin:0 10px;
+}
+.gift_table #gift-total h5{
+    font-size:20px;
+    letter-spacing:2px;
+    line-height:27px;
+    color:#34344A;
+    font-family: Avenir-Heavy;
+    padding: 20px 0;
+}
+.gift_table #gift-total{
+    padding:0 50px;
+}
+.gift_bank{
+    margin: 50px 0;
+}
+.gift_bank h5{
+    font-size:24px;
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+    line-height:16px;
+}
+.gift_bank p{
+    padding:20px;
+    font-size:16px;
+    font-family: Avenir-Book;
+    line-height:21px;
+    color:#34344A;
+}
+.gift_bank label{
+    font-weight:700;
+    font-family:'Poppins',sans-serif;
+    font-size:10px;
+    letter-spacing:1px;
+    line-height:16px;
+}
+.gift_bank input{
+    border:1px solid #000;
+}
+#fyn_logo_1{
+    margin: 10px 0;
+    width: 100px;
+}
+.redeem-success h5{
+    font-size:30px;
+    margin:20px 0;
+}
+.redeem-success p{
+    font-size:20px;
+    margin:20px 0;
+}
+@media only screen and (max-width: 425px) {
+ .fheader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ .topheader{
+     margin: 10px;
+ }
+}
+@media only screen and (max-width: 769) {
+  .Tfooter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+ }
+}

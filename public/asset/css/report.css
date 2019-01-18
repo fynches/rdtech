@@ -1,0 +1,211 @@
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+  margin-left: 155px;
+  margin-top: 20px;
+}
+.report_head{
+    min-height:100px;
+}
+.cont {
+    margin:0 40px !important;
+}
+
+.dash_link h5 a{
+    font-family:'Avenir-Light';
+    font-size:10px;
+    line-height:14px;
+    color:#000;
+    text-decoration:underline;
+}
+#report_head{
+    font-size: 48px;
+    font-weight: 700;
+    color: #4444ce;
+    font-family: 'Poppins',sans-serif;
+    line-height:48px;
+}
+.gift_report h1{
+    font-size: 48px;
+    font-weight: 700;
+    color: #34344A;
+    font-family: 'Poppins',sans-serif;
+    line-height:48px;
+}
+.gift_marg{
+    margin-top:30px;
+    margin-bottom:30px;
+}
+.gift_report p{
+    font-family:'Avenir-Light';
+    font-size:16px;
+    line-height:22px;
+}
+.purchases{
+    padding: 25px 0px;
+}
+#report_info h5{
+    font-family:'Avenir-Heavy';
+    font-size:20px;
+    line-height:16px;
+}
+
+#report_info{
+    margin:20px 0;
+}
+#report_tab{
+    margin:40px 0;
+    padding: 0 100px;
+}
+#report_tab h5{
+    font-family: Avenir-Black ;
+    line-height:22px;
+    font-size:16px;
+}
+#report_tab p{
+     font-family: Avenir-Book ;
+     font-size:14px;
+     line-height:16px;
+}
+
+#report_tab .yellow-submit{
+    border: 1px solid #ffdb4c;
+    background: #ffdb4c;
+    color: #4444ce;
+    font-family: Avenir-Heavy;
+    font-size:11px;
+    line-height:15px;
+    padding:10px 10px;
+    margin:10px !important;
+    
+}
+#report_trans h5{
+    font-family: Avenir-Book;
+    line-height:16px;
+    font-size:14px;
+}
+
+#report_trans h5 strong{
+    font-family: Avenir-Medium;
+    line-height:16px;
+    font-size:16px;
+}
+#report_trans{
+    padding:10px 0;
+    border-top: 1px solid #f2f2f2;
+    border-bottom: 1px solid #f2f2f2;
+}
+#report_trans p{
+     font-family: Avenir-Book;
+     font-size:14px;
+     line-height:16px;
+     margin:10px 0;
+}
+#shop_list{
+    margin:20px 0;
+}
+.gift_report{
+    margin-bottom:100px;
+}
+#thank_you .cont{
+    width:155px;
+}
+#thank_you img{
+    height:100px;
+}
+#thank_you .cont_1{
+    margin:20px 50px;
+}
+#thank_you p{
+    font-size:20px;
+    margin: 20px 0px !important;
+    font-family: Avenir-Book;
+    line-height:20px;
+}
+#thank_you label{
+    font-size:12px;
+    font-weight: 700;
+    font-family: 'Poppins',sans-serif;
+    margin-top:2px;
+    line-height:18px;
+    color:#34344A;
+}
+#thank_you textarea{
+    width:100%;
+    min-height:250px;
+    border:1px solid #000;
+    border-radius:5px;
+}
+#thank_you input{
+    border:1px solid #000;
+    font-size:12px;
+    padding:20px;
+    margin-bottom:10px;
+}
+#thank_you .yellow_submit{
+    background:#FFDE33;
+    color: #4444ce;
+    border:1px solid #FFDE33;
+    margin: 40px 0 0;
+    font-family:'Avenir-Medium';
+    font-size:12px;
+    letter-spacing:2.18px;
+    line-height:16px;
+}
+
+
+@media only screen and (max-width: 767px){
+#report_tab{
+	  padding: 20px 0px;
+	}
+	.gift_report .cont{
+	    padding:0px 20px !important;
+	    margin:0px!important;
+	}
+	#report-cent{
+	    text-align:left;
+	}
+	#report_tab .yellow-submit{
+	    margin: 10px 0 !important;
+	}
+	.arrow-up{
+	width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid black;
+    margin-left: 220px;
+    margin-top: -19px;
+	}
+	.dash_link .cont{
+	    padding:0 20px!important;
+	}
+	
+	.report_head #report-cent{
+	    text-align:center !important;
+	}
+	.report_head #div_top_hypers{
+	    text-align:center;
+	}
+	
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+    .gift_report .container{
+    margin-top: 30px !important;
+    margin-bottom: 30px !important;
+    width:100%;
+    }
+    .arrow-up{
+    margin-left: 95px;
+    margin-top: 15px;
+    }
+    #report_tab{
+        padding:0px 40px;
+    }
+    #report_tab .yellow-submit{
+        margin:0px !important;
+    }
+}
