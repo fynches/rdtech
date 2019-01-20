@@ -1,51 +1,26 @@
 <?php
 
-namespace App;
+namespace App\Domain;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Session;
-use Mail;
-use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Hash;
-use Auth;
-use App\Notifications\PasswordReset;
-use App\EmailTemplates;
-use App\Event;
 
 class User extends Authenticatable
 {
     use SoftDeletes;
     use Notifiable;
     protected $table = "users";
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'first_name','last_name','name', 'email', 'password','token','user_status','user_type', 'provider', 'provider_id'
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password', 'remember_token',
     ];
     
-    public function meta()
+    public function children()
     {
-        return $this->hasOne('App\UserMeta');
-    }
-    
-    public function child()
-    {
-        return $this->hasOne('App\ChildInfo');
+        return $this->hasMany( 'App\Domain\Child' );
     }
     
     public function event()
@@ -55,10 +30,6 @@ class User extends Authenticatable
 
     public static function usercreate($params,$service="") {
 
-        // echo $service;
-        //       echo "<pre>";
-        //       print_r($params['emails'][0]['value']);
-        //       exit;
         if($service!="")
         {
             if($service === "google"){
@@ -299,17 +270,10 @@ class User extends Authenticatable
 
     }
 
-    /**
-     * Send the password reset notification.
-     *
-     * @param  string  $token
-     * @return void
-     */
     public function sendPasswordResetNotification($token)
     {
         $sent_mail= $this->notify(new PasswordReset($token));
     }
-
 
     function getFundingReport(){
         //return $this->belongsTo('App\FundingReport','id','user_id');

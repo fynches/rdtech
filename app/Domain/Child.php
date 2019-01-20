@@ -1,12 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Domain;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ChildInfo extends Model
+class Child extends Model
 {
-    protected $table = 'child_info';
+	use SoftDeletes;
+
+    protected $table = 'children';
     protected $fillable = ['user_id', 'first_name', 'age_range', 'recipient_image', 'child_zipcode', 'gift_page_id', 'dob'];
     protected $appends = ['age'];
     

@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\UserMeta;
 use App\GiftPage;
 use App\Gift;
-use App\ChildInfo;
+use App\Domain\Child;
 use App\GiftPurchase;
 use App\GiftMessages;
 use Carbon\Carbon;
@@ -52,7 +52,7 @@ class LiveGiftController extends Controller
         $childs_id = $request->id;
         $formname = $request->name;
         
-        $child_info =  ChildInfo::where('id', $childs_id)->first();
+        $child_info =  Child::where('id', $childs_id)->first();
         
         $giftMessages = new GiftMessages;
         $giftMessages->child_info_id =  $childs_id;

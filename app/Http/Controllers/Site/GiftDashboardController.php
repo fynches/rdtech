@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Site;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
 use App\Gift;
 use App\GiftPage;
 use App\Offer;
@@ -29,7 +28,7 @@ use App\Experience;
 use App\FundingReport;
 use App\Testimonial;
 use App\StaticBlock;
-use App\ChildInfo;
+use App\Domain\Child;
 
 
 class GiftDashboardController extends Controller

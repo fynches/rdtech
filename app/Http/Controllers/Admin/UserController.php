@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
 use Auth;
-use App\User;
+use App\Domain\User;
 use App\Countries;
 use App\States;
 use App\Cities;

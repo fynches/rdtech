@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Hash;
-use App\User;
 use App\Event;
 use App\UserMeta;
-use App\ChildInfo;
+use App\Domain\Child;
 use App\GiftPage;
 use App\BackgroundImages;
 use App\Gift;
@@ -161,7 +160,7 @@ class AccountController extends Controller
     public function createPage(Request $request)
     {
     	$user = Auth::user();
-    	$child = ChildInfo::create(
+    	$child = Child::create(
             [
                 'user_id' => $user->id,'first_name' =>  $request->input('child_fname'),
                 'dob' => $request->input('dob'), 'recipient_image' => '/front/img/dpImage.png'
@@ -192,7 +191,7 @@ class AccountController extends Controller
             $child_fname = $request->child_fname;
             $child_age = $request->child_age;
             
-        $child = ChildInfo::updateOrCreate(
+        $child = Child::updateOrCreate(
             ['user_id' => $id,'first_name' =>  $child_fname],
             ['user_id' => $id,'first_name' =>  $child_fname, 
             'age_range' => $child_age
@@ -206,7 +205,7 @@ class AccountController extends Controller
             ]
         );    
         
-        ChildInfo::updateOrCreate(
+        Child::updateOrCreate(
             ['user_id' => $id,'first_name' =>  $child_fname],
             ['user_id' => $id,'first_name' =>  $child_fname, 
             'age_range' => $child_age, 'gift_page_id' => $page->id 
@@ -234,7 +233,7 @@ class AccountController extends Controller
             $child = $request->child;
         
   
-        $child = ChildInfo::updateOrCreate(
+        $child = Child::updateOrCreate(
             ['user_id' => $id, 'first_name' =>  $child],
             ['child_zipcode' => $zipcode]
         );
@@ -263,7 +262,7 @@ class AccountController extends Controller
             $gift_link = $request->gift_link;
             $child = $request->child;
         
-        $child = ChildInfo::where('user_id',$id)->where('first_name', $child)->first();
+        $child = Child::where('user_id',$id)->where('first_name', $child)->first();
         
         GiftPage::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
@@ -274,7 +273,7 @@ class AccountController extends Controller
         $output = 'public/images/profile_images/' . $gift_link . '.png';
         file_put_contents($output, file_get_contents($input));
         
-        ChildInfo::updateOrCreate(
+        Child::updateOrCreate(
             ['id' => $child->id, 'user_id' => $id],
             ['recipient_image' => 'http://fynches.codeandsilver.com/public/images/profile_images/' . $gift_link . '.png']
         );

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
 use App\GiftPage;
-use App\ChildInfo;
+use App\Domain\Child;
 use App\BackgroundImages;
 use App\Gift;
 use App\UserGift;
@@ -191,7 +191,7 @@ class GiftController extends Controller
             $child_zipcode = $request->child_zipcode;
             $page_id = $request->page_id;
             
-            $child = ChildInfo::updateOrCreate(
+            $child = Child::updateOrCreate(
             ['user_id' => $user->id, 'gift_page_id' => $page_id],
             ['child_zipcode' => $child_zipcode]
              );

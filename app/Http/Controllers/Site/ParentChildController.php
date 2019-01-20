@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
-use App\ChildInfo;
+use App\Domain\Child;
 use App\GiftPage;
 
 class ParentChildController extends Controller
@@ -56,7 +56,7 @@ class ParentChildController extends Controller
         $event->zipcode = $zipcode;
         $event->publish_url = $link;
         
-        $background = ChildInfo::updateOrCreate(
+        $background = Child::updateOrCreate(
             ['user_id' => $user->id, 'id' => $page_id],
             ['background_id' => $image_id]
         );

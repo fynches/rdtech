@@ -19,7 +19,7 @@ class GiftPurchase extends Model {
     
     public function child()
     {
-        return $this->hasOne('App\ChildInfo', 'gift_page_id', 'gift_page_id' );
+        return $this->hasOne( 'App\Domain\Child', 'gift_page_id', 'gift_page_id' );
     }
     
     public function needed($page_id)

@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\Domain\User;
 use App\EmailTemplates;
 use App\Cms;
 use DB;

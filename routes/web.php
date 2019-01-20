@@ -38,7 +38,7 @@ Route::get('/event', 'Site\EventController@create')->name('event');
 Route::post('/create-page','Site\AccountController@createPage')->middleware('auth');
 
 //Depricated ======================================================
-Route::get('/parent-child-info','Site\ParentChildController@index')->name('info');
+Route::get('/parent-child-info','Site\ParentChildController@index')->name('info')->middleware('auth');
 Route::get('/date-location', function() {return Redirect::to("/parent-child-info");})->name('info');
 Route::get('/page-link', function() {return Redirect::to("/parent-child-info");})->name('info');
 Route::get('/congrats', function() {return Redirect::to("/parent-child-info");})->name('info');

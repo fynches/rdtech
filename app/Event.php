@@ -41,7 +41,7 @@ class Event extends Authenticatable
       $event->save();
       //for child info
       $EventId = $event->id;
-        $childInfo = new ChildInfo;
+        $childInfo = new Child;
         $childInfo->event_id = $EventId;
         $childInfo->first_name = $data['child_name'];
         $childInfo->age_range = $data['age_range'];
@@ -140,11 +140,11 @@ class Event extends Authenticatable
 
     //get User with compare to user_id
     function getUser(){ 
-	    return $this->belongsTo('App\User','user_id','id');
+	    return $this->belongsTo('App\Domain\User','user_id','id');
 	  }
     //get User with compare to id
 	  public function users(){ 
-	    return $this->hasOne('App\User','id','user_id');
+	    return $this->hasOne('App\Domain\User','id','user_id');
 	  }
 
     //get date of event media with mapping table
@@ -194,7 +194,7 @@ class Event extends Authenticatable
     }
 	
 	function getCommentUser(){ 
-	    return $this->hasMany('App\User');
+	    return $this->hasMany('App\Domain\User');
 	  }
 	
 	function FundingReport(){ 

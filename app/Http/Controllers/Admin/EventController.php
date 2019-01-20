@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Session;
-use Auth; 
-use App\User;
-use App\ChildInfo;
+use Auth;
+use App\Domain\Child;
 use App\ActivityLog;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
@@ -245,7 +244,7 @@ class EventController extends Controller {
                     $q->select('image','image_type','id','event_id');
                 }])->with('getEventTags')->select('id','user_id','title','description','event_publish_date','event_end_date','zipcode','status')
                 ->find($id)->toArray();
-        $childInfo=ChildInfo::where('event_id',$event['id'])->get();
+        $childInfo=Child::where('event_id',$event['id'])->get();
         $tags = Tag::where(['status' => 'Active'])->get();
         if (empty($event)) {
             Session::flash('error_msg', 'Event not found.55');

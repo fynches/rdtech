@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Auth;
 use Route;
-use App\User;
+use App\Domain\User;
 use Session;
 use Response;
 

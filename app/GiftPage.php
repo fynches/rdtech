@@ -20,7 +20,7 @@ class GiftPage extends Model {
 
     public function child_info()
     {
-    	return $this->belongsTo('App\ChildInfo');
+    	return $this->belongsTo( 'App\Domain\Child' );
     }
     
     public function background_image()
