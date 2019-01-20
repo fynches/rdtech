@@ -1,11 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Domain;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserGift extends Model {
+
+	use SoftDeletes;
     
     protected $table = 'user_gifts';
     protected $guarded = ['id'];
@@ -17,7 +19,7 @@ class UserGift extends Model {
     
     public function gift()
     {
-        return $this->hasOne('App\Gift','id','gift_id');
+        return $this->hasOne('App\Domain\Gift','id','gift_id');
     }
     
     public function needed($page_id)

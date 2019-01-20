@@ -37,7 +37,7 @@ class Page extends Model {
 
     public function cust_purchases()
     {
-        return $this->hasMany('App\UserGift','gift_id','id')->where('status', 2);
+        return $this->hasMany('App\Domain\UserGift','gift_id','id')->where('status', 2);
     }
 
     public function hydrateGifts()
@@ -48,32 +48,29 @@ class Page extends Model {
 
     private function hydrateFavoriteGifts()
     {
-	    $user = Auth::user();
+	    $user = $this->child->user;
 	    $this->favorite_gift_models = null;
-	    if($this->favorites && count($this->favorites))
+	    if($this->favorite_gifts && count($this->favorite_gifts))
 	    {
-		    $favorites = Gift::whereIn('id',$this->favorites)->get();
+		    $favorites = Gift::whereIn('id',$this->favorite_gifts)->get();
 		    $custom_gifts = UserGift::where('user_id', $user->id)->whereIn('id',$this->favorites)->get();
 		    foreach($custom_gifts as $gift)
 		    {
-			    if(!isset($gift->gift))
-			    {
-				    $newGift = new Gift;
-				    $newGift->id = $gift->id;
-				    $newGift->name = $gift->name;
-				    $newGift->title = $gift->title;
-				    $newGift->for_ages = $gift->for_ages;
-				    $newGift->price = $gift->price;
-				    $newGift->details = $gift->details;
-				    $newGift->description = $gift->description;
-				    $newGift->published = $gift->published;
-				    $newGift->categories = $gift->categories;
-				    $newGift->featured = $gift->featured;
-				    $newGift->gift_image = $gift->gift_image;
-				    $favorites->push($newGift);
-			    }
+			    $newGift = new Gift;
+			    $newGift->id = $gift->id;
+			    $newGift->name = $gift->name;
+			    $newGift->title = $gift->title;
+			    $newGift->for_ages = $gift->for_ages;
+			    $newGift->price = $gift->price;
+			    $newGift->details = $gift->details;
+			    $newGift->description = $gift->description;
+			    $newGift->published = $gift->published;
+			    $newGift->categories = $gift->categories;
+			    $newGift->featured = $gift->featured;
+			    $newGift->gift_image = $gift->gift_image;
+			    $favorites->push($newGift);
 		    }
-		    $favoriteIds = $this->favorites;
+		    $favoriteIds = $this->favorite_gifts;
 		    $this->favorite_gift_models = $favorites->sortBy(function($model) use ($favoriteIds)
 		    {
 			    return array_search($model->getKey(), $favoriteIds);
@@ -83,7 +80,7 @@ class Page extends Model {
 	//
     private function hydrateAddedGifts()
     {
-	    $user = Auth::user();
+	    $user = $this->child->user;
 	    $this->added_gift_models = null;
 	    if($this->added_gifts && count($this->added_gifts))
 	    {
@@ -92,23 +89,19 @@ class Page extends Model {
 		    $custom_gifts = UserGift::where('user_id', $user->id)->whereIn('id',$this->added_gifts)->get();
 		    foreach($custom_gifts as $gift)
 		    {
-			    if(!isset($gift->gift))
-			    {
-				    $newGift = new Gift;
-				    $newGift->id = $gift->id;
-				    $newGift->name = $gift->name;
-				    $newGift->title = $gift->title;
-				    $newGift->for_ages = $gift->for_ages;
-				    $newGift->price = $gift->price;
-				    $newGift->details = $gift->details;
-				    $newGift->description = $gift->description;
-				    $newGift->published = $gift->published;
-				    $newGift->categories = $gift->categories;
-				    $newGift->featured = $gift->featured;
-				    $newGift->gift_image = $gift->gift_image;
-				    $added->push($newGift);
-			    }
-
+			    $newGift = new Gift;
+			    $newGift->id = $gift->id;
+			    $newGift->name = $gift->name;
+			    $newGift->title = $gift->title;
+			    $newGift->for_ages = $gift->for_ages;
+			    $newGift->price = $gift->price;
+			    $newGift->details = $gift->details;
+			    $newGift->description = $gift->description;
+			    $newGift->published = $gift->published;
+			    $newGift->categories = $gift->categories;
+			    $newGift->featured = $gift->featured;
+			    $newGift->gift_image = $gift->gift_image;
+			    $added->push($newGift);
 		    }
 		    $added_gifts_ids = $this->added_gifts;
 		    $this->added_gift_models = $added->sortBy(function($model) use ($added_gifts_ids){
@@ -118,5 +111,3 @@ class Page extends Model {
     }
     
 } 
-
-?>

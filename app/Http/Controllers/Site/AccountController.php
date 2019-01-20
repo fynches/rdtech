@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Domain\Child;
 use App\Domain\Page;
-use App\Gift;
+use App\Domain\Gift;
 
 class AccountController extends Controller
 {

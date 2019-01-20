@@ -5,14 +5,10 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\UserMeta;
 use App\Domain\Page;
 use App\Domain\Child;
 use App\BackgroundImages;
-use App\Gift;
-use App\UserGift;
-use App\GiftMessages;
-use App\Images;
+use App\Domain\Gift;
 
 class GiftController extends Controller
 {
@@ -38,9 +34,17 @@ class GiftController extends Controller
      */ 
     public function index($slug)
     {
-        $user = Auth::user();
-        $child = $user->child;
-        $page =  $user->child->gift_page;
+    	$page = Page::where('slug', $slug)->first();
+    	if(!$page)
+	    {
+	    	return Redirect('/gift-dashboard');
+	    }
+        $child = $page->child;
+    	$user = $page->child->user;
+    	if($user->id != Auth::user()->id)
+	    {
+		    return Redirect('/gift-dashboard');
+	    }
         $page->hydrateGifts();
         $gifts = Gift::all();
         if($child->age >= 13)

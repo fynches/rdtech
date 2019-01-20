@@ -14,7 +14,7 @@ class GiftPurchase extends Model {
     
     public function gift()
     {
-        return $this->hasOne('App\Gift', 'id', 'gift_id' );
+        return $this->hasOne('App\Domain\Gift', 'id', 'gift_id' );
     }
     
     public function child()

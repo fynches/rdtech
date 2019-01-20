@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
 use App\Domain\Page;
-use App\Gift;
+use App\Domain\Gift;
 use App\Domain\Child;
 use App\GiftPurchase;
 use App\GiftMessages;

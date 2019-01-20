@@ -12,6 +12,11 @@ class Child extends Model
     protected $table = 'children';
     protected $fillable = ['user_id', 'first_name', 'image', 'zipcode', 'dob'];
     protected $appends = ['age'];
+
+    public function user()
+    {
+    	return $this->belongsTo('App\Domain\User');
+    }
     
     public function pages()
     {

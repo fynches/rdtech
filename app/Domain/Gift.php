@@ -1,12 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Domain;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
-use Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Gift extends Model {
+
+	use SoftDeletes;
     
     protected $table = 'gifts';
     protected $guarded = ['id'];
@@ -33,7 +35,7 @@ class Gift extends Model {
     
     public function custom() {
         $user_id = Auth::user()->id;
-        return $this->hasOne('App\UserGift','gift_id','id')->where('user_id',$user_id);
+        return $this->hasOne('App\Domain\UserGift','gift_id','id')->where('user_id',$user_id);
     }
     
     public function purchases($page_id)

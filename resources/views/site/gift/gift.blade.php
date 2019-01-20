@@ -327,7 +327,7 @@
 @include('site.gift.gift_Add')
 @include('site.gift.gift-zip')
 @include('site.gift.gift_crop')
-@include('site.gift.contact-us')
+@include('modal.contact')
 @include('site.gift.cash-fund')
 
 <!--@include('site.gift.gift-modal')-->
