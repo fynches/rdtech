@@ -9,7 +9,7 @@
          <h5>ADD A CUSTOM EXPERIENCE</h5>
              <div class="row" id="add_form">
                  <div class="col-md-6">
-                     <a href="#" id="custom-gift-image" data-toggle="modal" data-target="#gift_crop"><img id="gift_image" src="https://fynches.codeandsilver.com/public/front/img/upload.png" style="width:100%"></a>
+                     <a href="#" id="custom-gift-image" data-toggle="modal" data-target="#gift_crop"><img id="gift_image" src="/front/img/upload.png" style="width:100%"></a>
                  </div>
                  <div class="col-md-6">
                      <label class="required">Enter URL of Experience</label>

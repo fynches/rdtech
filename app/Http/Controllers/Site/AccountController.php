@@ -158,81 +158,22 @@ class AccountController extends Controller
      * 
      * @return gift Page
      */
-    public function createPage(Request $request) {
-        
-        if (Auth::check()) {
-            
-            $user = Auth::user();
-            $id = $user->id;
-            
-                $host_name = $request->host_name;
-                $child_fname = $request->child_fname;
-                $dob = $request->dob;
-                $event_date = $request->event_date;
-                $your_link = $request->your_link;
-                
-            $child = ChildInfo::updateOrCreate(
-                ['user_id' => $id,'first_name' =>  $child_fname],
-                ['user_id' => $id,'first_name' =>  $child_fname, 
-                'dob' => $dob, 'recipient_image' => '/public/front/img/dpImage.png'
-                ]
-            );    
-                
-            $page = GiftPage::updateOrCreate(
-                ['user_id' => $id, 'child_info_id' => $child->id],
-                ['user_id' => $id,'page_hostname' =>  $host_name,
-                'child_info_id' => $child->id, 'slug' => $your_link, 
-                'page_date' => $event_date
-                ]
-            );    
-            
-            ChildInfo::updateOrCreate(
-                ['user_id' => $id,'first_name' =>  $child_fname],
-                ['user_id' => $id,'first_name' =>  $child_fname, 
-                'gift_page_id' => $page->id 
-                ]
-            );
-            
-            
-            
-            
-            $gift_page =  GiftPage::where('user_id', $user->id)->where('slug', $your_link)->first();
-          
-            $child_info =  ChildInfo::where('id', $gift_page->child_info_id)->first();
-            $child_image = $child_info->recipient_image;
-            
-            if(!empty(unserialize($gift_page->rec_zip))) {
-            $rec_ids = unserialize($gift_page->rec_zip);
-            $rec_gifts = Gift::whereIn('id',$rec_ids)->get();
-            }
-            
-            if(!empty(unserialize($gift_page->favorites))) {
-            $favorite_ids = unserialize($gift_page->favorites);
-            $favorite_gifts = Gift::whereIn('id',$favorite_ids)->get();
-            }
-            
-            if(!empty(unserialize($gift_page->added_gifts))) {
-            $added_gifts_ids = unserialize($gift_page->added_gifts);
-            $added_gifts = Gift::whereIn('id',$added_gifts_ids)->orderByRaw('FIELD(id, '.implode(',', $added_gifts_ids).')')->get();
-            }
-            
-            if(!isset($gift_page->id)){
-                return redirect()->route('shop');
-            }
-         
-            
-            $background_images =  BackgroundImages::all();
-            
-            $page = '/gift/'.$gift_page->slug;
-            
-            return redirect($page, 302,compact('user', 'gift_page','gifts','background_images', 'rec_gifts', 'favorite_gifts', 'added_gifts', 'added_gifts_ids','child_image'));
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-        
+    public function createPage(Request $request)
+    {
+    	$user = Auth::user();
+    	$child = ChildInfo::create(
+            [
+                'user_id' => $user->id,'first_name' =>  $request->input('child_fname'),
+                'dob' => $request->input('dob'), 'recipient_image' => '/front/img/dpImage.png'
+            ]
+        );
+        $page = GiftPage::create(
+            [
+                'child_info_id' => $child->id, 'page_hostname' =>  $request->input('host_name'),
+                'slug' => $request->input('your_link'), 'page_date' => $request->input('event_date')
+            ]
+        );
+        return redirect('/gift/'.$page->slug);
     }
     
     /**

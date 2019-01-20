@@ -28,21 +28,19 @@ class CheckoutController extends Controller
      *
      * @return checkout view
      */
-    public function index(){
-       
-        $session_id = session()->getId();
-        
-        $gift_purchase = GiftPurchase::where('session_id', $session_id)->where('status', 1)->get();
-        
-        foreach($gift_purchase as $purchase) {
-            $gift_page = GiftPage::where('id', $purchase->gift_page_id)->first();
-        }
+    public function index()
+    {
+        $gift_purchases = GiftPurchase::where('session_id', session()->getId())->where('status', 1)->get();
+        //foreach($gift_purchase as $purchase)
+        //{
+        //    $gift_page = GiftPage::where('id', $purchase->gift_page_id)->first();
+        //}
         
         $page_total = 0;
-        $page_purchuse = GiftPurchase::where('gift_page_id', $gift_page->id)->get();
+        //$page_purchuse = GiftPurchase::where('gift_page_id', $gift_page->id)->get();
         
         if(isset($page_purchase->amount)){
-        $page_total = $page_purchase->sum('amount');
+            $page_total = $page_purchase->sum('amount');
         }
         
         $session_total = $gift_purchase->sum('amount');

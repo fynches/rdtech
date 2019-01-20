@@ -26,21 +26,8 @@ class GiftController extends Controller
     	
     }
 
-   /**
-     * Get age by DOB.
-     * 
-     * @param  @field DOB
-     * 
-     * @return age in years
-     */
     
-    public function getAge($then) {
-            $then_ts = strtotime($then);
-            $then_year = date('Y', $then_ts);
-            $age = date('Y') - $then_year;
-            if(strtotime('+' . $age . ' years', $then_ts) > time()) $age--;
-            return $age;
-        }
+
         
        /**
      * Show Gift Page
@@ -49,116 +36,30 @@ class GiftController extends Controller
      * 
      * @return gift page
      */ 
-    public function index($slug){
-        
-        if (Auth::check()) {
-            
-            $user = Auth::user();
-            $gift_page =  GiftPage::where('slug', $slug)->where('user_id',$user->id)->first();
-          
-          
-            $child_info =  ChildInfo::where('id', $gift_page->child_info_id)->first();
-            $child_image = $child_info->recipient_image;
-            
-            $gifts = Gift::all();
-            if($this->getAge($child_info->dob) >= 13) {
-                $rec_gifts = Gift::where('for_ages', '>=', 5)->get();
-            }
-            
-            else {
-                    foreach($gifts as $i => $gift) {
-                    if(in_array($this->getAge($child_info->dob), unserialize($gift->age_range->age_range))) {
-                        $rec_gifts[$i] = $gift;
-                    }
-                }
-            }
-            
-            if(!empty(unserialize($gift_page->favorites))) {
-            $favorite_ids = unserialize($gift_page->favorites);
-            $favorite_gifts = Gift::whereIn('id',$favorite_ids)->get();
-            }
-            
-            //Added Favorite Gifts
-            
-            if(!empty(unserialize($gift_page->favorites))) {
-            $favorites_gifts_ids = unserialize($gift_page->favorites);
-            $favorites_gifts_string = implode(',',$favorites_gifts_ids);
-            $favorites = Gift::whereIn('id',$favorites_gifts_ids)->get();
-            $custom_gifts = UserGift::where('user_id', $user->id)->whereIn('id',$favorites_gifts_ids)->get();
-            foreach($custom_gifts as $gift) {
-                if(!isset($gift->gift)) {
-                    $newGift = new Gift;
-                    $newGift->id = $gift->id;
-                    $newGift->name = $gift->name;
-                    $newGift->title = $gift->title;
-                    $newGift->for_ages = $gift->for_ages;
-                    $newGift->price = $gift->price;
-                    $newGift->details = $gift->details;
-                    $newGift->description = $gift->description;
-                    $newGift->published = $gift->published;
-                    $newGift->categories = $gift->categories;
-                    $newGift->featured = $gift->featured;
-                    $newGift->gift_image = $gift->gift_image;
-                    $favorites->push($newGift);
-                }
-                
-            }
-                $favorite_gifts = $favorites->sortBy(function($model) use ($favorites_gifts_ids){
-                    return array_search($model->getKey(), $favorites_gifts_ids);
-                });
-            }
-            
-            //End Favorite Gifts
-            
-            //Added Gifts
-            
-            if(!empty(unserialize($gift_page->added_gifts))) {
-            $added_gifts_ids = unserialize($gift_page->added_gifts);
-            $added_gifts_string = implode(',',$added_gifts_ids);
-            $added = Gift::whereIn('id',$added_gifts_ids)->get();
-            $custom_gifts = UserGift::where('user_id', $user->id)->whereIn('id',$added_gifts_ids)->get();
-            foreach($custom_gifts as $gift) {
-                if(!isset($gift->gift)) {
-                    $newGift = new Gift;
-                    $newGift->id = $gift->id;
-                    $newGift->name = $gift->name;
-                    $newGift->title = $gift->title;
-                    $newGift->for_ages = $gift->for_ages;
-                    $newGift->price = $gift->price;
-                    $newGift->details = $gift->details;
-                    $newGift->description = $gift->description;
-                    $newGift->published = $gift->published;
-                    $newGift->categories = $gift->categories;
-                    $newGift->featured = $gift->featured;
-                    $newGift->gift_image = $gift->gift_image;
-                    $added->push($newGift);
-                }
-                
-            }
-                $added_gifts = $added->sortBy(function($model) use ($added_gifts_ids){
-                    return array_search($model->getKey(), $added_gifts_ids);
-                });
-            }
-            
-            //End Added Gifts
-            
-            if(!isset($gift_page->id)){
-                return redirect()->route('shop');
-            }
-         
-            
-            $background_images =  BackgroundImages::all();
-            
-            
-            	return view('site.gift.gift', compact('user', 'gift_page','gifts','background_images', 'rec_gifts', 'favorite_gifts', 'added_gifts', 'added_gifts_ids','child_image'));
-            
-        } else {
-            
-        return redirect()->route('home');
-        
+    public function index($slug)
+    {
+        $user = Auth::user();
+        $child = $user->child;
+        $page =  $user->child->gift_page;
+        $page->hydrateGifts();
+        $gifts = Gift::all();
+        if($child->age >= 13)
+        {
+            $rec_gifts = Gift::where('for_ages', '>=', 5)->get();
         }
-        
-        
+        else
+            {
+            foreach($gifts as $i => $gift) //TODO - get rid of this loop and make a straight query
+            {
+                if(in_array($child->age, unserialize($gift->age_range->age_range)))
+                {
+                    $rec_gifts[$i] = $gift;
+                }
+            }
+        }
+        $background_images =  BackgroundImages::all();
+        return view('site.gift.gift', compact(
+        	'user', 'child', 'page','gifts','background_images', 'rec_gifts'));
       }
       
     /**
@@ -196,44 +97,28 @@ class GiftController extends Controller
           );
           return response()->json(['slug' => $gift_page->slug]);
       }
-      
-       /**
-     * Gift Page Update Fields Ajax
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return jason route slug - child_name
-     */
-      public function updateGiftPage(Request $request){
-           if (Auth::check()) {
-            
-            $user = Auth::user();
-            
-            $gift_title = $request->gft_title;
-            $gift_desc = $request->gft_det;
-            $gift_date = $request->inp_date;
-            $gift_age = $request->inp_age;
-            $gift_host = $request->inp_host;
-            $slug = $request->slug;
-            
-            $gift_page = GiftPage::updateOrCreate(
-            ['user_id' => $user->id, 'slug' => $slug],
-            ['user_id' => $user->id, 'page_title' => $gift_title,'page_desc' => $gift_desc,'page_date' => $gift_date, 'page_hostname' => $gift_host ]
-             );
-             
-             $updated = ChildInfo::updateOrCreate(
-            ['user_id' => $user->id, 'gift_page_id' => $gift_page->id],
-            ['user_id' => $user->id, 'dob' => $gift_age]
-             );
-   
-            	return response()->json(['result' => $slug]);
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-      }
+
+	/**
+	 * Gift Page Update Fields Ajax
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 *
+	 * @return jason route slug - child_name
+	 */
+	public function updateGiftPage(Request $request)
+	{
+		$user = Auth::user();
+		$child = $user->child;
+		$page =  $user->child->gift_page;
+		$page->page_title = $request->input('gft_title');
+		$page->page_desc = $request->input('gft_det');
+		$page->page_date = $request->input('inp_date');
+		$page->page_hostname = $request->input('inp_host');
+		$page->save();
+		$child->dob = $request->input('inp_age');
+		$child->save();
+		return response()->json(['result' => $request->input('slug')]);
+	}
       
     /**
      * Change background Image Gift Page Ajax
@@ -242,29 +127,15 @@ class GiftController extends Controller
      * 
      * @return jason image url
      */
-      public function saveBackgroundImages(Request $request){
-        
-        if (Auth::check()) {
-            
-            $user = Auth::user();
-            $image_id = $request->image_id;
-            $page_id = $request->page_id;
-            
-            $background = GiftPage::updateOrCreate(
-            ['user_id' => $user->id, 'id' => $page_id],
-            ['background_id' => $image_id]
-             );
-            
-            return response()->json(['url' => $background->background_image->image_url]);
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-        
-        
-      }
+	public function saveBackgroundImages(Request $request)
+	{
+		$imageId = $request->image_id;
+		$pageId = $request->page_id;
+		$page = GiftPage::findOrFail($pageId);
+		$page->background_id = $imageId;
+		$page->save();
+		return response()->json(['url' => $page->background_image->image_url]);
+	}
       
       
     /**
@@ -273,22 +144,17 @@ class GiftController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * 
      */
-      public function saveProfileImage(Request $request) {
-          if (Auth::check()) {
-              $user = Auth::user();
-          }
-        $input = $request->image;
-        $slug = $request->slug;
-        $output = 'public/images/profile_images/' . $slug . '.png';
-        file_put_contents($output, file_get_contents($input));
-        
-        $gift_page = GiftPage::where('slug', $slug)->where('user_id',$user->id)->first();
-        
-        $child = ChildInfo::updateOrCreate(
-            ['gift_page_id' => $gift_page->id],
-            ['recipient_image' => '/'.$output]
-             );
-      }
+	public function saveProfileImage(Request $request)
+	{
+		$image = $request->input('image');
+		$slug = $request->input('slug');
+		$output = '/images/profile_images/' . $slug . '.png';
+		file_put_contents(public_path() . $output, file_get_contents($image));
+		$page = GiftPage::where('slug', $slug)->first();
+		$child = $page->child_info;
+		$child->recipient_image = $output;
+		$child->save();
+	}
       
     /**
      * Remove Profile Image Gift Page Ajax
@@ -296,18 +162,19 @@ class GiftController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * 
      */
-      public function removeProfileImage(Request $request) {
-          
-        $slug = $request->slug;
-        $output = '/public/front/img/dpImage.png';
-        
-        $gift_page = GiftPage::where('slug', $slug)->where('user_id',$user->id)->first();
-        
-        $child = ChildInfo::updateOrCreate(
-            ['gift_page_id' => $gift_page->id],
-            ['recipient_image' => $output]
-             );
-      }
+	public function removeProfileImage(Request $request)
+	{
+		$slug = $request->input('slug');
+		$page = GiftPage::where('slug', $slug)->first();
+		$child = $page->child_info;
+		$image = '/front/img/dpImage.png';
+		if($child->recipient_image && $child->recipient_image != $image)
+		{
+			unlink(public_path() . $child->recipient_image);
+		}
+		$child->recipient_image = $image;
+		$child->save();
+	}
       
     /**
      * Update Zipcode Gift Page Ajax

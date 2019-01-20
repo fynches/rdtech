@@ -51,14 +51,10 @@ class GiftDashboardController extends Controller
      */
     public function index()
     {
-        if (Auth::check()) {
-            
         $user = Auth::user();
-        
-	    $giftPages = GiftPage::where('user_id',$user->id)->get();
-	    
-    	return view('site.gift-dashboard.index', compact('giftPages'));
-        }
+        $child = $user->child;
+        $page = $user->child->gift_page;
+    	return view('site.gift-dashboard.index', compact('user', 'child', 'page'));
 	} 
 	
 	/**

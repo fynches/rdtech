@@ -8,7 +8,7 @@
 	<meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	<link href="{{ asset('front/css/bootstrap.css') }}" rel="stylesheet">
-	<link href="{{ asset('public/asset/css/info.css') }}" rel="stylesheet">
+	<link href="{{ asset('asset/css/info.css') }}" rel="stylesheet">
 		<link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
 
 
@@ -29,7 +29,7 @@
 
 <script src="{{ asset('front/js/jquery.min.js')}}"></script>
 <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>	
-<script src="{{ asset('public/js/info.js')}}"></script>
+<script src="{{ asset('js/info.js')}}"></script>
 
 
 

@@ -26,26 +26,18 @@ class LiveGiftController extends Controller
     	
     }
 
-   /**
-     * Show live gift page.
-     *
-     * @return live page view
-     */
-    public function index($slug){
-            
-            $user = Auth::user();
-            $gift_page =  GiftPage::where('slug', $slug)->where('user_id',$user->id)->first();
-            
-            $child_info =  ChildInfo::where('id', $gift_page->child_info_id)->first();
-            $child_image = $child_info->recipient_image;
-            
-            if(!empty(unserialize($gift_page->added_gifts))) {
-            $added_gifts_ids = unserialize($gift_page->added_gifts);
-            $added_gifts = Gift::whereIn('id',$added_gifts_ids)->orderByRaw('FIELD(id, '.implode(',', $added_gifts_ids).')')->get();
-            }
-            
-            return view('site.live-gift-page.live-gift', compact('child_info', 'added_gifts', 'gift_page', 'session_view','child_image'));
-      }
+	/**
+	 * Show live gift page.
+	 *
+	 * @return live page view
+	 */
+	public function index($slug)
+	{
+		$page =  GiftPage::where('slug', $slug)->first();
+		$page->hydrateGifts();
+		$child =  $page->child_info;
+		return view('site.live-gift-page.live-gift', compact('child', 'page'));
+	}
     
     /**
      * Post message
@@ -56,7 +48,7 @@ class LiveGiftController extends Controller
      */
     public function sendMessage(Request $request) {
        
-        $message = $request->message;
+        $message = strip_tags($request->input('message'));
         $childs_id = $request->id;
         $formname = $request->name;
         

@@ -7,7 +7,7 @@
         </button>
          <h5 class="text-center">Zip Code</h5>
          <div class="gift-zipcode">
-         <p>Your current recommendations are based on zip code <span id="base-zip">{{$gift_page->child->child_zipcode}}</span></p>
+         <p>Your current recommendations are based on zip code <span id="base-zip">{{$child->child_zipcode}}</span></p>
          
          <div class="row" id="gift-zipcode">
              

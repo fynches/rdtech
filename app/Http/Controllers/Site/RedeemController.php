@@ -28,57 +28,46 @@ class RedeemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(){
-        
-        if (Auth::check()) {
-            
-            $user = Auth::user();
-            
-                $giftPages = GiftPage::where('user_id',$user->id)->get();
-                
-                $purchases = array();
-                foreach($giftPages as $page){
-                    if(!empty($page)){
-                    $purchases[] = $page->purchases;
-                    }
-                }
-                $now = new DateTime();
-                $hold = array();
-                $amount = array();
-                foreach($purchases as $purchase){
-                    foreach($purchase as $item){
-                        $created_at = $item->created_at;
-                        $datetime1 = new DateTime($created_at);//start time
-                        $datetime2 = new DateTime();//end time
-                        $interval = $datetime1->diff($datetime2);
-                        $hours =  (int)$interval->format('%H');
-                        
-                        if($hours < 72) {
-                            $hold[] = $item->amount * .50;
-                        }
-                            $amount[] = $item->amount;
-                    }
-                }
-                
-                $amount = array_sum($amount);
-                $gifted = number_format((float)$amount, 2, '.', '');
-                
-                $hold = array_sum($hold);
-                $holding = number_format((float)$hold, 2, '.', '');
-                
-                $available = $amount - $hold;
-                $bank = number_format((float)$available, 2, '.', '');
-   
-            	return view('site.redeem.redeem', compact('gifted', 'holding', 'bank'));
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-        
-        
-      }
+	public function index()
+	{
+		$user = Auth::user();
+		$child = $user->child;
+		$giftPages = GiftPage::where('child_info_id',$child->id)->get();
+
+		$purchases = array();
+		foreach($giftPages as $page)
+		{
+			$purchases[] = $page->purchases;
+		}
+
+		$hold = array();
+		$amount = array();
+		foreach($purchases as $purchase){
+			foreach($purchase as $item){
+				$created_at = $item->created_at;
+				$datetime1 = new DateTime($created_at);//start time
+				$datetime2 = new DateTime();//end time
+				$interval = $datetime1->diff($datetime2);
+				$hours =  (int)$interval->format('%H');
+
+				if($hours < 72) {
+					$hold[] = $item->amount * .50;
+				}
+				$amount[] = $item->amount;
+			}
+		}
+
+		$amount = array_sum($amount);
+		$gifted = number_format((float)$amount, 2, '.', '');
+
+		$hold = array_sum($hold);
+		$holding = number_format((float)$hold, 2, '.', '');
+
+		$available = $amount - $hold;
+		$bank = number_format((float)$available, 2, '.', '');
+
+		return view('site.redeem.redeem', compact('gifted', 'holding', 'bank'));
+	}
       
       /**
      * Payout Success

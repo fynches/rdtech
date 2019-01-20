@@ -24,7 +24,7 @@ Route::get('/login', function() {
 });
 
 //*************Start Gift_Dashboard******************//
-Route::get('/gift-dashboard', 'Site\GiftDashboardController@index');
+Route::get('/gift-dashboard', 'Site\GiftDashboardController@index')->middleware('auth');
 Route::get('/gifted', 'Site\GiftDashboardController@gifted');
 Route::post('/gift-dashboard/delete', 'Site\GiftDashboardController@deleteGift')->name('delete-gift');;
 Route::get('/event', 'Site\EventController@create')->name('event');
@@ -35,7 +35,7 @@ Route::get('/event', 'Site\EventController@create')->name('event');
 
 //************* Start Parent Child Info******************//
 
-Route::post('/create-page','Site\AccountController@createPage');
+Route::post('/create-page','Site\AccountController@createPage')->middleware('auth');
 
 //Depricated ======================================================
 Route::get('/parent-child-info','Site\ParentChildController@index')->name('info');
@@ -73,11 +73,11 @@ Route::get('/account/test', 'Site\AccountController@test');
 
 //**************Start Gift_Page***************//
 
-Route::get('/gift/{child_name}', 'Site\GiftController@index')->name('gift');
-Route::post('/update-gift-page', 'Site\GiftController@updateGiftPage');
-Route::post('/background-image', 'Site\GiftController@saveBackgroundImages');
-Route::post('/profile-image', 'Site\GiftController@saveProfileImage');
-Route::post('/remove-image', 'Site\GiftController@removeProfileImage');
+Route::get('/gift/{child_name}', 'Site\GiftController@index')->name('gift')->middleware('auth');
+Route::post('/update-gift-page', 'Site\GiftController@updateGiftPage')->middleware('auth');
+Route::post('/background-image', 'Site\GiftController@saveBackgroundImages')->middleware('auth');
+Route::post('/profile-image', 'Site\GiftController@saveProfileImage')->middleware('auth');
+Route::post('/remove-image', 'Site\GiftController@removeProfileImage')->middleware('auth');
 Route::post('/update-child-zipcode', 'Site\GiftController@updateChildZipcode');
 Route::post('/giftDetails', 'Site\GiftController@giftDetails');
 Route::post('/giftSort', 'Site\GiftController@giftSort');
@@ -115,7 +115,7 @@ Route::get('/checkout-success','Site\CheckoutController@checkoutsuccess');
 
 //**************Start Redeem_Page***************//
 
-Route::get('/redeem-gifts', 'Site\RedeemController@index')->name('redeem');
+Route::get('/redeem-gifts', 'Site\RedeemController@index')->name('redeem')->middleware('auth');
 Route::get('/redeem-success','Site\RedeemController@success');
 
 //**************end Redeem_Page***************//

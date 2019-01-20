@@ -18,36 +18,36 @@
         <div class="row" id="cash-img">
             <div class="col-md-7 text-center">
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/all-gifts"><img src="https://fynches.codeandsilver.com/public/front/img/view.png"><p class="cash-para text-center">VIEW ALL</p></a>
+                    <a href="/shop/{{$page->slug}}/all-gifts"><img src="/front/img/view.png"><p class="cash-para text-center">VIEW ALL</p></a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/arts-and-crafts"><img src="https://fynches.codeandsilver.com/public/front/img/arts.png"><p class="cash-para text-center">ARTS + CRAFT</p></a>
+                    <a href="/shop/{{$page->slug}}/arts-and-crafts"><img src="/front/img/arts.png"><p class="cash-para text-center">ARTS + CRAFT</p></a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/dance"><img src="https://fynches.codeandsilver.com/public/front/img/dance.png"><p class="cash-para text-center">DANCE</p></a>
+                    <a href="/shop/{{$page->slug}}/dance"><img src="/front/img/dance.png"><p class="cash-para text-center">DANCE</p></a>
                 </div>
             </div>
             <div class="col-md-5">
-             <a href="#" onclick="event.preventDefault(); $('#cashfund').modal('hide');" data-toggle="modal" data-target="#gift_Add"><img src="https://fynches.codeandsilver.com/public/front/img/addcustimage.png" style="width:100%;margin: 30px 0;"></a>   
+             <a href="#" onclick="event.preventDefault(); $('#cashfund').modal('hide');" data-toggle="modal" data-target="#gift_Add"><img src="/front/img/addcustimage.png" style="width:100%;margin: 30px 0;"></a>
             </div>
         </div>
         
         <div class="row" id="cash-img">
             <div class="col-md-7 text-center">
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/outdoors"><img src="https://fynches.codeandsilver.com/public/front/img/outdoor.png"><p class="cash-para text-center">OUTDOORS</p></a>
+                    <a href="/shop/{{$page->slug}}/outdoors"><img src="/front/img/outdoor.png"><p class="cash-para text-center">OUTDOORS</p></a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/learning"><img src="https://fynches.codeandsilver.com/public/front/img/learning.png"><p class="cash-para text-center">LEARNING</p></a>
+                    <a href="/shop/{{$page->slug}}/learning"><img src="/front/img/learning.png"><p class="cash-para text-center">LEARNING</p></a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/sports"><img src="https://fynches.codeandsilver.com/public/front/img/sports.png"><p class="cash-para text-center">SPORTS</p></a>
+                    <a href="/shop/{{$page->slug}}/sports"><img src="/front/img/sports.png"><p class="cash-para text-center">SPORTS</p></a>
                 </div>
             </div>
             <div class="col-md-5">
                 <h6><strong>SHOP TOYS</strong>&nbsp;&nbsp; COMING SOON !</h6>
                 <div class="col-md-4" style="margin:10px 0;padding: 0px;">
-                    <img src="https://fynches.codeandsilver.com/public/front/img/toys.jpg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">   
+                    <img src="/front/img/toys.jpg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">
                 </div>
                 <div class="col-md-7" style="margin:10px 0">
                     <p style="font-family:'Avenir-Medium';font-size:16px;letter-spacing:1.16px;line-height:24px;color:#34344A">SHOP 100s OF THE BEST TOYS</p>
@@ -59,19 +59,19 @@
         <div class="row" id="cash-img">
             <div class="col-md-7 text-center">
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/amusement"><img src="https://fynches.codeandsilver.com/public/front/img/amuse.png"><p class="cash-para text-center">AMUSEMENT</p></a>
+                    <a href="/shop/{{$page->slug}}/amusement"><img src="/front/img/amuse.png"><p class="cash-para text-center">AMUSEMENT</p></a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/cooking"><img src="https://fynches.codeandsilver.com/public/front/img/cook.png"><p class="cash-para text-center">COOKING</p></a>
+                    <a href="/shop/{{$page->slug}}/cooking"><img src="/front/img/cook.png"><p class="cash-para text-center">COOKING</p></a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/shop/{{$gift_page->slug}}/subscription"><img src="https://fynches.codeandsilver.com/public/front/img/subs.png"><p class="cash-para text-center">SUBSCRIPTION</p></a>
+                    <a href="/shop/{{$page->slug}}/subscription"><img src="/front/img/subs.png"><p class="cash-para text-center">SUBSCRIPTION</p></a>
                 </div>
             </div>
             <div class="col-md-5">
                 <h6><strong>SHOP EXPERIENCES</strong>&nbsp;&nbsp; COMING SOON !</h6>
                 <div class="col-md-4" style="margin:10px 0;padding: 0px;">
-                    <img src="https://fynches.codeandsilver.com/public/front/img/paint.jpeg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">   
+                    <img src="/front/img/paint.jpeg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">
                 </div>
                 <div class="col-md-8" style="margin:10px 0">
                     <p style="font-family:'Avenir-Medium';font-size:16px;letter-spacing:1.16px;line-height:24px;color:#34344A">DISCOVER AMAZING ACTIVITIES FOR KIDS</p>
