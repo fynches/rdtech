@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
-use App\GiftPage;
+use App\Domain\Page;
 use App\Domain\Child;
 use App\BackgroundImages;
 use App\Gift;
@@ -73,7 +73,7 @@ class GiftController extends Controller
       public function makeLive(Request $request){
           $user = Auth::user();
           $id = $request->id;
-          $gift_page = GiftPage::updateOrCreate(
+          $gift_page = Page::updateOrCreate(
             ['user_id' => $user->id, 'id' => $id],
             ['live' => 1]
           );
@@ -91,7 +91,7 @@ class GiftController extends Controller
       public function makePrivate(Request $request){
           $user = Auth::user();
           $id = $request->id;
-          $gift_page = GiftPage::updateOrCreate(
+          $gift_page = Page::updateOrCreate(
             ['user_id' => $user->id, 'id' => $id],
             ['live' => 0]
           );
@@ -131,7 +131,7 @@ class GiftController extends Controller
 	{
 		$imageId = $request->image_id;
 		$pageId = $request->page_id;
-		$page = GiftPage::findOrFail($pageId);
+		$page = Page::findOrFail($pageId);
 		$page->background_id = $imageId;
 		$page->save();
 		return response()->json(['url' => $page->background_image->image_url]);
@@ -150,7 +150,7 @@ class GiftController extends Controller
 		$slug = $request->input('slug');
 		$output = '/images/profile_images/' . $slug . '.png';
 		file_put_contents(public_path() . $output, file_get_contents($image));
-		$page = GiftPage::where('slug', $slug)->first();
+		$page = Page::where('slug', $slug)->first();
 		$child = $page->child_info;
 		$child->recipient_image = $output;
 		$child->save();
@@ -165,7 +165,7 @@ class GiftController extends Controller
 	public function removeProfileImage(Request $request)
 	{
 		$slug = $request->input('slug');
-		$page = GiftPage::where('slug', $slug)->first();
+		$page = Page::where('slug', $slug)->first();
 		$child = $page->child_info;
 		$image = '/front/img/dpImage.png';
 		if($child->recipient_image && $child->recipient_image != $image)
@@ -279,7 +279,7 @@ class GiftController extends Controller
           
           $user = Auth::user();
           
-          $child = GiftPage::updateOrCreate(
+          $child = Page::updateOrCreate(
             ['user_id' => $user->id],
             ['user_id' => $user->id]
           );
@@ -300,7 +300,7 @@ class GiftController extends Controller
           }
           $ids = $request->ids;
           $slug = $request->slug;
-          $giftPage = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
+          $giftPage = Page::where('user_id',$user->id)->where('slug',$slug)->first();
         
           $giftPage->added_gifts = serialize($ids);
           $giftPage->save();

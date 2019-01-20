@@ -6,7 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Gift;
-use App\GiftPage;
+use App\Domain\Page;
 use App\Offer;
 use App\Company;
 use App\Templates;
@@ -84,7 +84,7 @@ class GiftDashboardController extends Controller
 	{
 	    if (Auth::check()) {
         
-	    GiftPage::destroy($request->gift_page_id);
+	    Page::destroy($request->gift_page_id);
 	    
     	return response()->json(['result' => 'success']);
         }

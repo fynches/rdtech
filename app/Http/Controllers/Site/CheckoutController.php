@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
 use App\GiftPurchase;
-use Stripe;
-use App\GiftPage;
+use App\Domain\Page;
 
 class CheckoutController extends Controller
 {

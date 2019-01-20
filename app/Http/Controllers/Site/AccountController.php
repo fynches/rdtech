@@ -5,12 +5,8 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Hash;
-use App\Event;
-use App\UserMeta;
 use App\Domain\Child;
-use App\GiftPage;
-use App\BackgroundImages;
+use App\Domain\Page;
 use App\Gift;
 
 class AccountController extends Controller
@@ -149,27 +145,23 @@ class AccountController extends Controller
         }
         
     }
-    
-    /**
-     * Create Gift Page, Ajax.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return gift Page
-     */
+
     public function createPage(Request $request)
     {
     	$user = Auth::user();
+    	$user->first_name = $request->input('hostFirstName');
+    	$user->last_name = $request->input('hostLastName');
+    	$user->save();
     	$child = Child::create(
             [
-                'user_id' => $user->id,'first_name' =>  $request->input('child_fname'),
-                'dob' => $request->input('dob'), 'recipient_image' => '/front/img/dpImage.png'
+                'user_id' => $user->id,'first_name' =>  $request->input('childName'),
+                'dob' => $request->input('dob'), 'image' => '/front/img/dpImage.png'
             ]
         );
-        $page = GiftPage::create(
+        $page = Page::create(
             [
-                'child_info_id' => $child->id, 'page_hostname' =>  $request->input('host_name'),
-                'slug' => $request->input('your_link'), 'page_date' => $request->input('event_date')
+                'child_id' => $child->id, 'hostname' =>  $request->input('hostFirstName') . ' ' . $request->input('hostLastName'),
+                'slug' => $request->input('slug'), 'date' => $request->input('eventDate')
             ]
         );
         return redirect('/gift/'.$page->slug);
@@ -198,7 +190,7 @@ class AccountController extends Controller
             ]
         );    
             
-        $page = GiftPage::updateOrCreate(
+        $page = Page::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
             ['user_id' => $id,'page_hostname' =>  $host_fname.' '.$host_lname,
             'child_info_id' => $child->id
@@ -238,7 +230,7 @@ class AccountController extends Controller
             ['child_zipcode' => $zipcode]
         );
         
-        GiftPage::updateOrCreate(
+        Page::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
             ['page_date' => $event_publish_date
             ]
@@ -264,7 +256,7 @@ class AccountController extends Controller
         
         $child = Child::where('user_id',$id)->where('first_name', $child)->first();
         
-        GiftPage::updateOrCreate(
+        Page::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
             ['slug' =>  $gift_link]
         );

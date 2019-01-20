@@ -5,33 +5,17 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\UserMeta;
 use App\Domain\Child;
-use App\GiftPage;
+
 
 class ParentChildController extends Controller
 {
-    /**
-     * Show Parent Child Info.
-     *
-     * @return parent chold view
-     */
-    public function index(){
-        
-        if (Auth::check()) {
-            
-            $user = Auth::user();
-            
-   
-            return view('site.info.info', compact('user'));
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-        
-    }
+
+	public function index()
+	{
+		$user = Auth::user();
+		return view('site.info.info', compact('user'));
+	}
     
     /**
      * Save Onboarding Info

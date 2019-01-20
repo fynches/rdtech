@@ -1,24 +1,26 @@
 <?php
 
-namespace App;
+namespace App\Domain;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class GiftPage extends Model {
-    
-    protected $table = 'gift_page';
+class Page extends Model {
+
+	use SoftDeletes;
+
     protected $fillable = [
-    	'user_id','child_info_id', 'page_title', 'page_desc','page_date', 'page_hostname', 'added_gifts',
-	    'background_id', 'live', 'rec_zip', 'favorites', 'gifts', 'slug'];
+    	'child_id', 'title', 'description','date', 'hostname', 'added_gifts',
+	    'background_id', 'live', 'received_gifts', 'favorite_gifts', 'slug'];
     protected $casts = [
-    	'rec_zip' => 'array',
-	    'favorites' => 'array',
+    	'received_gifts' => 'array',
+	    'favorite_gifts' => 'array',
 	    'added_gifts' => 'array'
     ];
 
-    public function child_info()
+    public function child()
     {
     	return $this->belongsTo( 'App\Domain\Child' );
     }

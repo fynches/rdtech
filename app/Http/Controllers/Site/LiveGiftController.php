@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
-use App\GiftPage;
+use App\Domain\Page;
 use App\Gift;
 use App\Domain\Child;
 use App\GiftPurchase;
@@ -33,7 +33,7 @@ class LiveGiftController extends Controller
 	 */
 	public function index($slug)
 	{
-		$page =  GiftPage::where('slug', $slug)->first();
+		$page =  Page::where('slug', $slug)->first();
 		$page->hydrateGifts();
 		$child =  $page->child_info;
 		return view('site.live-gift-page.live-gift', compact('child', 'page'));

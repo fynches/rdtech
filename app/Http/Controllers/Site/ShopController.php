@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\UserMeta;
 use App\Gift;
 use App\UserGift;
-use App\GiftPage;
+use App\Domain\Page;
 use App\AgeRange;
 use DOMDocument;
 
@@ -34,7 +34,7 @@ class ShopController extends Controller
           if (Auth::check()) {
             
             $user = Auth::user();
-            $gift_page =  GiftPage::where('user_id', $user->id)->where('slug', $slug)->first();
+            $gift_page =  Page::where('user_id', $user->id)->where('slug', $slug)->first();
             
             if(isset($gift_page->added_gifts)) {
                 $added_gifts_ids = unserialize($gift_page->added_gifts);
@@ -73,7 +73,7 @@ class ShopController extends Controller
          if (Auth::check()) {
             
             $user = Auth::user();
-            $gift_page =  GiftPage::where('user_id', $user->id)->where('slug', $slug)->first();
+            $gift_page =  Page::where('user_id', $user->id)->where('slug', $slug)->first();
             
             if(isset($gift_page->added_gifts)) {
                 $added_gifts_ids = unserialize($gift_page->added_gifts);
@@ -126,7 +126,7 @@ class ShopController extends Controller
             $user = Auth::user();
    
         $slug = $request->slug;
-        $page_fav = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
+        $page_fav = Page::where('user_id',$user->id)->where('slug',$slug)->first();
         $favorites = unserialize($page_fav->favorites);
         $new_fav = $request->id;
         
@@ -191,7 +191,7 @@ class ShopController extends Controller
             $user = Auth::user();
    
         $slug = $request->slug;
-        $page_fav = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
+        $page_fav = Page::where('user_id',$user->id)->where('slug',$slug)->first();
         $favorites = unserialize($page_fav->favorites);
         $new_fav = $request->id;
         if(!empty($favorites)  && in_array($new_fav,$favorites)){
@@ -226,7 +226,7 @@ class ShopController extends Controller
             $user = Auth::user();
         
         $slug = $request->slug;
-        $giftPage = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
+        $giftPage = Page::where('user_id',$user->id)->where('slug',$slug)->first();
         $added = unserialize($giftPage->added_gifts);
         $favorites = unserialize($giftPage->favorites);
         $id = (int)$request->id;
@@ -284,7 +284,7 @@ class ShopController extends Controller
             $user = Auth::user();
         
         $slug = $request->slug;
-        $giftPage = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
+        $giftPage = Page::where('user_id',$user->id)->where('slug',$slug)->first();
         $added = unserialize($giftPage->added_gifts);
         $id = (int)$request->id;
         
@@ -476,14 +476,14 @@ class ShopController extends Controller
     	   ['gift_image' => 'https://fynches.codeandsilver.com/public/images/user_gift_images/'. $gift->id . '.png']
 	   );
 	   
-	   $gift_page = GiftPage::where('slug', $slug)->where('user_id',$user_id)->first();
+	   $gift_page = Page::where('slug', $slug)->where('user_id',$user_id)->first();
 	   
 	   $added_array = unserialize($gift_page->added_gifts);
 	   
 	   array_push($added_array, $gift->id);
 	   $added_array = serialize($added_array);
 	   
-	   GiftPage::where('slug', $slug)->where('user_id',$user_id)->update(['added_gifts' => $added_array]);
+	   Page::where('slug', $slug)->where('user_id',$user_id)->update([ 'added_gifts' => $added_array]);
 	   
        $output = 'public/images/user_gift_images/'. $gift->id . '.png';
        file_put_contents($output, file_get_contents($image));
@@ -537,14 +537,14 @@ class ShopController extends Controller
     	   ['gift_image' => 'https://fynches.codeandsilver.com/public/images/user_gift_images/'. $gift->id . '.png']
 	   );
 	   
-	   $gift_page = GiftPage::where('slug', $slug)->where('user_id',$user_id->id)->first();
+	   $gift_page = Page::where('slug', $slug)->where('user_id',$user_id->id)->first();
 	   
 	   $added_array = unserialize($gift_page->added_gifts);
 	   
 	   array_push($added_array, $gift->id);
 	   $added_array = serialize($added_array);
 	   
-	   GiftPage::find($gift_page->id)->update(['added_gifts' => $added_array]);
+	   Page::find($gift_page->id)->update([ 'added_gifts' => $added_array]);
 	   
        $output = 'public/images/user_gift_images/'. $gift->id . '.png';
        file_put_contents($output, file_get_contents($image));

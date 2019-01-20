@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
 use App\Gift;
-use App\GiftPage;
+use App\Domain\Page;
 use App\GiftPurchase;
 use DateTime;
 
@@ -32,7 +32,7 @@ class RedeemController extends Controller
 	{
 		$user = Auth::user();
 		$child = $user->child;
-		$giftPages = GiftPage::where('child_info_id',$child->id)->get();
+		$giftPages = Page::where('child_info_id',$child->id)->get();
 
 		$purchases = array();
 		foreach($giftPages as $page)

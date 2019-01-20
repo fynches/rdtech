@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
-use App\GiftPage;
+use App\Domain\Page;
 
 class SearchController extends Controller
 {
@@ -42,7 +42,7 @@ class SearchController extends Controller
 	   
 	    $lastName = $request->lastName;
 	    
-	    if(($giftPages = GiftPage::where('page_hostname','LIKE',"%$lastName"))->exists()) {
+	    if(($giftPages = Page::where('page_hostname','LIKE',"%$lastName"))->exists()) {
 	        $giftPages = $giftPages->get();
     	    foreach($giftPages as $i => $page) {
     	        $childInfo[$i] = $page->child;

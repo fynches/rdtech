@@ -10,12 +10,12 @@ class Child extends Model
 	use SoftDeletes;
 
     protected $table = 'children';
-    protected $fillable = ['user_id', 'first_name', 'age_range', 'recipient_image', 'child_zipcode', 'gift_page_id', 'dob'];
+    protected $fillable = ['user_id', 'first_name', 'image', 'zipcode', 'dob'];
     protected $appends = ['age'];
     
-    public function gift_page()
+    public function pages()
     {
-        return $this->hasOne('App\GiftPage');
+        return $this->hasMany( 'App\Domain\Page' );
     }
     
     public function message() 
