@@ -38,7 +38,7 @@
 		    <div class="col-md-3 text-left" id="pos_abs_img">
 		        <div class="dropdown">
     		        <a id="Mychild_photo" data-toggle="dropdown" aria-haspopup="true" >
-    		            <img @if(isset($child->recipient_image)) src="{{$child->recipient_image}}" width="75px" id="prof_pic" style="cursor:pointer" @else src="/front/img/dpImage.png" width="75px" id="prof_pic" style="cursor:pointer" @endif />
+    		            <img @if($child->image) src="{{$child->image}}" width="75px" id="prof_pic" style="cursor:pointer" @else src="/front/img/dpImage.png" width="75px" id="prof_pic" style="cursor:pointer" @endif />
     		        </a>
     		        <div class="dropdown-menu">
                       <a class="dropdown-item" id="profile-image" href="#" data-toggle="modal" data-target="#gift_crop" >UPLOAD PHOTO</a>
@@ -65,7 +65,6 @@
 
 <form id="gift_form" method="post" onsubmit="event.preventDefault();">
       {{ csrf_field() }}
-
     <section class="gift_box">
         <div class="container-fluid cont_title">
             <div class="text-right" id="gft_title-req">Required</div>
@@ -73,8 +72,8 @@
                     <div class="col-md-2 col-sm-2" id="gift_column">
                     </div>
                     <div class="col-md-10 col-sm-10" id="gift_column">
-                        <input type="text" id="gft_title" aria-describedby="gift_title" name="gift_title" placeholder="Create a title for your gift page" maxlength="60" @if(isset($page)) style="color:#000;" value="{{$page->page_title}}"@endif>
-                        <div class="text-right" id="title-limit" @if(isset($page->page_title)) @endif>{{60 - strlen($page->page_title)}} of 60 characters remaining</div>
+                        <input type="text" id="page_title" aria-describedby="page_title" name="page_title" placeholder="Create a title for your gift page" maxlength="60" style="color:#000;" value="{{$page->title}}">
+                        <div class="text-right" id="title-limit">{{60 - strlen($page->title)}} of 60 characters remaining</div>
                     </div>
             </div>
         </div>
@@ -83,26 +82,26 @@
     <section class="gift_details">
         <div class="container-fluid cont">
             <div class="row">
-                <input id="slug" type="hidden" value="@if(isset($page->slug)){{$page->slug}}@endif">
+                <input id="slug" type="hidden" value="{{$page->slug}}">
                 <div class="col-md-4" id="gift_text">
                     <label for="details">Details</label><div class="text-right" id="gft_det-req">Required</div>
-                        <textarea type="text" name="message" id="gft_det" style="resize:none; color:#000;" placeholder="Share some info about the gift recepient and events" maxlength="360">{{isset($page->page_desc) ? "$page->page_desc" : ""}}</textarea>
-                    <div class="text-right" id="details-limit" @if(isset($page->page_desc)) @endif>{{360 - strlen($page->page_desc)}} of 360 characters remaining</div>
+                        <textarea type="text" id="page_description" style="resize:none; color:#000;" placeholder="Share some information about the event" maxlength="360">{{$page->description}}</textarea>
+                    <div class="text-right" id="details-limit">{{360 - strlen($page->description)}} of 360 characters remaining</div>
                 </div>
                 <div class="col-md-8" id="gft_col_3">
                     <div class="row">
                         <div class="col-md-4">
                             <label>Date</label>
                             <div class="text-right" id="inp_date-req">Required</div>
-                            <input required id="inp_date" name="inp_date" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="{{$page->page_date}}" style="color:#000;" />
+                            <input required id="event_date" name="event_date" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="{{$page->date}}" style="color:#000;" />
                         </div>
                         <div class="col-md-4">
                            <label>DOB</label><div class="text-right" id="inp_age-req">Required</div>
-                           <input required id="inp_age" name="inp_age" type="date" value="{{$child->dob}}" style="color:#000; height:45px;">
+                           <input required id="dob" name="dob" type="date" value="{{$child->dob}}" style="color:#000; height:45px;">
                         </div>
                         <div class="col-md-4">
                            <label>Host</label><div class="text-right" id="inp_host-req">Required</div>
-                           <input id="inp_host" name="inp_host" type="text" placeholder="Enter Host's Name" value="{{$page->page_hostname}}" style="color:#000;">
+                           <input id="hostname" name="hostname" type="text" placeholder="Enter Host's Name" value="{{$page->hostname}}" style="color:#000;">
                         </div>
                     </div>
                     <div class="row" id="gift_share">
@@ -110,7 +109,7 @@
                             <label>Share Your Custom Page Link</label>
                             <div class="col-md-12 chal">
                                 <div class="input-group">
-                                    <input readonly type="text" class="form-control" id="inp_link" @if($page->live) value="/gift-page/{{$page->slug}}" @else placeholder="/gift-page/{{$page->slug}} @endif">
+                                    <input readonly type="text" class="form-control" id="inp_link" @if($page->live) value="{{config('app.url')}}/gift-page/{{$page->slug}}" @else placeholder="{{ config('app.url') }}/gift-page/{{$page->slug}} @endif">
                                     <span class="input-group-btn">
                                         <a class="btn btn-default tooltips" type="button" onclick="copyURL()" data-toggle="tooltip" data-placement="top" title="Your page must be live before you copy and share your live gift share URL">COPY</a>
                                     </span>
@@ -134,7 +133,7 @@
                     <div class="col-md-3 col-sm-6 reco_col" id="{{$gift->id}}">
                         <div id="img-height" style="position: relative; background: url({{$gift->gift_image}}); width:100%; height:250px; background-size:100% 100%; ">
                             <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if($page->favorites && !in_array($gift->id,$page->favorites))  style="color:#fff;" @else style="color:red;" @endif></i></a>
+                                <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if($page->favorite_gifts && !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
                             </div>
                         </div>
                         <div class="shad-effect">

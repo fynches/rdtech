@@ -111,17 +111,17 @@ class GiftController extends Controller
 	 */
 	public function updateGiftPage(Request $request)
 	{
-		$user = Auth::user();
-		$child = $user->child;
-		$page =  $user->child->gift_page;
-		$page->page_title = $request->input('gft_title');
-		$page->page_desc = $request->input('gft_det');
-		$page->page_date = $request->input('inp_date');
-		$page->page_hostname = $request->input('inp_host');
+		$slug = $request->input('slug');
+		$page = Page::where("slug", $slug)->first();
+		$child = $page->child;
+		$page->title = $request->input('title');
+		$page->Description = $request->input('description');
+		$page->date = $request->input('date');
+		$page->hostname = $request->input('hostname');
 		$page->save();
-		$child->dob = $request->input('inp_age');
+		$child->dob = $request->input('dob');
 		$child->save();
-		return response()->json(['result' => $request->input('slug')]);
+		return response()->json(['result' => $page->slug]);
 	}
       
     /**

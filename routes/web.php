@@ -94,7 +94,7 @@ Route::get('/shop/{slug}', 'Site\ShopController@index')->name('shop');
 Route::get('/shop/{slug}/{category}', 'Site\ShopController@indexCategory');
 Route::post('/favorite','Site\ShopController@favorite');
 Route::post('/favorited','Site\ShopController@favorited');
-Route::post('/addGift','Site\ShopController@addGift');
+Route::post('/addGift','Site\ShopController@addGift')->middleware('auth');
 Route::post('/removeGift','Site\ShopController@removeGift');
 Route::post('/category','Site\ShopController@category');
 Route::post('/customDetails','Site\ShopController@getInfo');

@@ -32,12 +32,12 @@ jQuery(document).ready(function( $ ) {
 	        rules: {
 				gift_title: {required: true},
 				message: {required: true},
-				inp_date: {required: true,},
-				inp_age: {required: true},
-				inp_host: {required: true, lettersonly: true},
+				event_date: {required: true,},
+				dob: {required: true},
+				hostname: {required: true, lettersonly: true},
 			},
 			messages: {
-			    inp_host: {lettersonly: "Please Enter Valid Name"},
+			    hostname: {lettersonly: "Please Enter Valid Name"},
 			},
 	        errorPlacement: function (error, element) {         
 	                error.insertAfter(element);           
@@ -289,12 +289,12 @@ jQuery(document).ready(function( $ ) {
 		
 			
 		});
-	$('#gft_title').keyup(function() {
+	$('#page_title').keyup(function() {
 	    var limit = 60;
         var chars = $(this).val().length;
         $('#title-limit').text((limit - chars) + ' of 60 characters remaining');
 	});
-    $('#gft_det').keyup(function() {
+    $('#page_description').keyup(function() {
 	    var limit = 360;
         var chars = $(this).val().length;
         $('#details-limit').text((limit - chars) + ' of 360 characters remaining');
@@ -462,18 +462,18 @@ jQuery(document).ready(function( $ ) {
 	
 	
     
-    $( '#gft_title, #gft_det, #inp_date, #inp_age, #inp_host ' ).on( 'focusout', function(e) {
-        
+    $( '#page_title, #page_description, #event_date, #dob, #hostname ' ).on( 'focusout', function(e) {
+
 				$.ajax({
 					type: 'post',
 					url: '/update-gift-page',
 					data: {
 						'_token': $('input[name=_token]').val(),
-						'gft_title': $('#gft_title').val(),
-						'gft_det': $('#gft_det').val(),
-						'inp_date': $('#inp_date').val(),
-						'inp_age': $('#inp_age').val(),
-						'inp_host': $('#inp_host').val(),
+						'title': $('#page_title').val(),
+						'description': $('#page_description').val(),
+						'date': $('#event_date').val(),
+						'dob': $('#dob').val(),
+						'hostname': $('#hostname').val(),
 						'slug': $('#slug').val()
 					},
 				   success: function(data) {

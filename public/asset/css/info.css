@@ -425,11 +425,11 @@ section.gift_experience #pos_abs{
 #gift_head .container-fluid{
     margin:0 40px;
 }
-#gft_title{
+#page_title{
     border: 2px dashed #d9d9d9;
     }
 
-.gift_box #gft_title{
+.gift_box #page_title{
     padding: 40px 10px;
     border-radius: 5px;
     width: 100%;
@@ -441,7 +441,7 @@ section.gift_experience #pos_abs{
     letter-spacing:auto;
 }
 
-.gift_box #gft_title:hover{
+.gift_box #page_title:hover{
     border: 2px dashed #FF0055 !important;
 }
 
@@ -467,7 +467,7 @@ section.gift_experience #pos_abs{
     line-height:11px;
     letter-spacing:0.62px;
 }
-#gft_det{
+#page_description{
     padding: 10px 5px;
     border: 2px dashed #d9d9d9;
     border-radius: 5px;
@@ -477,7 +477,7 @@ section.gift_experience #pos_abs{
     min-height:154px;
     width: 100%;
 }
-#gft_det:hover{
+#page_description:hover{
     border: 2px dashed #FF0055 !important;
 }
 .gift_details label{
@@ -522,7 +522,7 @@ section.gift_experience #pos_abs{
 .pointer {
     cursor: pointer;
 }
-#inp_date{
+#event_date{
     padding: 7px;
     border: 2px dashed #d9d9d9;
     border-radius: 5px;
@@ -534,7 +534,7 @@ section.gift_experience #pos_abs{
 .help-block {
     float:left!important;
 }
-#inp_age{
+#dob{
     padding: 8px 10px 6px;
     border: 2px dashed #d9d9d9;
     border-radius: 5px;
@@ -543,7 +543,7 @@ section.gift_experience #pos_abs{
     font-family: Avenir;
     width: 100%;
 }
-#inp_host{
+#hostname{
     padding: 20px 10px;
     border: 2px dashed #d9d9d9;
     border-radius: 5px;
@@ -553,7 +553,7 @@ section.gift_experience #pos_abs{
     width: 100%;
 }
 
-#inp_date:hover,#inp_age:hover,#inp_host:hover{
+#event_date:hover,#dob:hover,#hostname:hover{
  border: 2px dashed #FF0055 !important;
 }
 #gft_col_3 .col3{
@@ -887,7 +887,7 @@ section.gift_experience #pos_abs{
 .gift_box{
     margin-top:40px;
     }
-.gift_box #gft_title{
+.gift_box #page_title{
     width:100%;
     font-size: 20px;
     }
