@@ -399,31 +399,31 @@ jQuery(document).ready(function( $ ) {
 	    });
 	});
 	
-	 var category = window.location.pathname.split('/')[3];
-	 var age = $('#child-ages').val();
-    console.log(category);
-    console.log(age);
+	 // var category = window.location.pathname.split('/')[3];
+	 // var age = $('#child-ages').val();
+    // console.log(category);
+    // console.log(age);
     
-    if(category) {
-        $('#'+category).click();
-    }
+    // if(category) {
+    //     $('#'+category).click();
+    // }
     
-    if(category == 'all-gifts') {
-        $('#all').click();
-        return;
-    }
+    // if(category == 'all-gifts') {
+    //     $('#all').click();
+    //     return;
+    // }
     
     
-    if(age) {
-        if(age >= 13) {age = 5};
-        if(age <= 13 && age >= 8) {ager = 4};
-        if(age <= 8 && age >= 5) {ager = 3};
-        if(age <= 5 && age >= 2) {ager = 2};
-        if(age <= 2 && age >= 0) {ager = 1};
-        $('input[data-id="age"]').each(function(){
-            if($(this).attr('id') == ager) {
-                $(this).click();
-            }
-        });
-    }
+    // if(age) {
+    //     if(age >= 13) {age = 5};
+    //     if(age <= 13 && age >= 8) {ager = 4};
+    //     if(age <= 8 && age >= 5) {ager = 3};
+    //     if(age <= 5 && age >= 2) {ager = 2};
+    //     if(age <= 2 && age >= 0) {ager = 1};
+    //     $('input[data-id="age"]').each(function(){
+    //         if($(this).attr('id') == ager) {
+    //             $(this).click();
+    //         }
+    //     });
+    // }
 });

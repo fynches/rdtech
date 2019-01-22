@@ -91,12 +91,12 @@ Route::post('/make-private','Site\GiftController@makePrivate');
 //**************Start Shop_Page***************//
 
 Route::get('/shop/{slug}', 'Site\ShopController@index')->name('shop');
-Route::get('/shop/{slug}/{category}', 'Site\ShopController@indexCategory');
-Route::post('/favorite','Site\ShopController@favorite');
-Route::post('/favorited','Site\ShopController@favorited');
+Route::get('/shop/{slug}/{category}', 'Site\ShopController@indexCategory')->middleware('auth');
+Route::post('/favorite','Site\ShopController@favorite')->middleware('auth');
+Route::post('/favorited','Site\ShopController@favorited')->middleware('auth');
 Route::post('/addGift','Site\ShopController@addGift')->middleware('auth');
-Route::post('/removeGift','Site\ShopController@removeGift');
-Route::post('/category','Site\ShopController@category');
+Route::post('/removeGift','Site\ShopController@removeGift')->middleware('auth');
+Route::post('/category','Site\ShopController@category')->middleware('auth');
 Route::post('/customDetails','Site\ShopController@getInfo');
 Route::post('/addCustomGift','Site\ShopController@addCustomGift');
 Route::get('/test', 'Site\ShopController@test');

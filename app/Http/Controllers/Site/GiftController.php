@@ -46,24 +46,14 @@ class GiftController extends Controller
 		    return Redirect('/gift-dashboard');
 	    }
         $page->hydrateGifts();
-        $gifts = Gift::all();
-        if($child->age >= 13)
+        $gifts = $recommendedGifts = Gift::getPublicGifts();
+        if($child->age)
         {
-            $rec_gifts = Gift::where('for_ages', '>=', 5)->get();
-        }
-        else
-            {
-            foreach($gifts as $i => $gift) //TODO - get rid of this loop and make a straight query
-            {
-                if(in_array($child->age, unserialize($gift->age_range->age_range)))
-                {
-                    $rec_gifts[$i] = $gift;
-                }
-            }
+            $recommendedGifts = Gift::getChildRecommendedGifts($child);
         }
         $background_images =  BackgroundImages::all();
         return view('site.gift.gift', compact(
-        	'user', 'child', 'page','gifts','background_images', 'rec_gifts'));
+        	'user', 'child', 'page','gifts','background_images', 'recommendedGifts'));
       }
       
     /**

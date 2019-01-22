@@ -127,13 +127,14 @@
 <section class="gift_reco">
     <div class="container-fluid cont">
         <div class="row" id="recommended">
-            @if(isset($rec_gifts))
+            @if(isset($recommendedGifts))
                 <h5 style="margin-bottom:30px;">RECOMMENDED GIFTS FOR {{strToUpper($child->first_name)}}</h5>
-                @foreach($rec_gifts as $gift)
+                @foreach($recommendedGifts as $gift)
                     <div class="col-md-3 col-sm-6 reco_col" id="{{$gift->id}}">
-                        <div id="img-height" style="position: relative; background: url({{$gift->gift_image}}); width:100%; height:250px; background-size:100% 100%; ">
+                        <div id="img-height" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">
+                            <?php //dd($page); ?>
                             <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if($page->favorite_gifts && !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
+                                <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
                             </div>
                         </div>
                         <div class="shad-effect">
@@ -166,7 +167,7 @@
                                                 <button class="btn btn-primary btn-lg yellow_submit" name="add" data-id="{{$gift->id}}">QUICK ADD</button>
                                             </div>
                                             <div class="col-md-6 col-xs-6 text-right gift_price" id="gift_price" data-id="{{$gift->id}}">
-                                                <p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->est_price, 2)}}</p>
+                                                <p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->cost, 2)}}</p>
                                                 <p>Est. Price <i class="fas fa-info-circle tooltips" data-toggle="tooltip" data-placement="top" title="Estimated gift cost."></i></p>
                                             </div>
                                         </div>
@@ -210,20 +211,14 @@
                         </div>
                     </div>
                 </div>
-                @if(isset($page->added_gifts))
-                    @foreach($page->added_gifts as $gift)
-                        @if(isset($gift->custom))
-                            @php
-                                $gift = $gift->custom;
-                                $gift->id = $gift->gift_id;
-                            @endphp
-                        @endif
+                @if($page->added_gift_models && count($page->added_gift_models))
+                    @foreach($page->added_gift_models as $gift)
                         @php
                             $gifted = $gift->purchases($page->id)->sum('amount');
                             $needed = $gift->price - $gifted;
                         @endphp
                         <div class="col-md-3 col-sm-6 reco_col pointer" id="{{$gift->id}}">
-                            <div id="hoverimg-{{$gift->id}}" class="hoverimg" data-id="{{$gift->id}}" style="position: relative; background: url({{$gift->gift_image}}); width:100%; height:250px; background-size:100% 100%; ">
+                            <div id="hoverimg-{{$gift->id}}" class="hoverimg" data-id="{{$gift->id}}" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">
                                 <div id="cartimg-{{$gift->id}}" class="cart_1" data-id="{{$gift->id}}"></div>
                                 <div class="row cancel_1"  data-id="{{$gift->id}}" id="cancel_1-{{$gift->id}}">
                                     <div class="col-md-6 col-sm-6 col-xs-6 text-left"></div>
@@ -235,7 +230,7 @@
                                     </div>
                                 </div>
                                 <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                    <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id,$page->favorites))  style="color:#fff;" @else style="color:red;" @endif></i></a>
+                                    <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
                                 </div>
                             </div>
                             <div class="shad-effect">
@@ -263,18 +258,12 @@
     <div class="container-fluid cont">
         <div class="row" id="favorites">
             <h5 id="high">SAVED FAVORITES <i class="fas fa-info-circle cir tooltips" data-toggle="tooltip" data-placement="top" title="Click the heart on any gift to save here as a favorite."></i> </h5>
-            @if(isset($favorite_gifts))
-                @foreach($favorite_gifts as $gift)
-                    @if(isset($gift->custom))
-                        @php
-                            $gift = $gift->custom;
-                            $gift->id = $gift->gift_id;
-                        @endphp
-                    @endif
+            @if($page->favorite_gift_models && count($page->favorite_gift_models))
+                @foreach($page->favorite_gift_models as $gift)
                     <div class="col-md-3 col-sm-6 reco_col pointer" id="{{$gift->id}}">
-                        <div id="img-height" style="position: relative; background: url({{$gift->gift_image}}); width:100%; height:250px; background-size:100% 100%; ">
+                        <div id="img-height" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">
                             <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                <a href="javascript:void(0)" class="favorited-button"  data-pnum="{{$gift->id}}"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id, $page->favorites))  style="color:#fff;" @else style="color:red;" @endif></i></a>
+                                <a href="javascript:void(0)" class="favorited-button"  data-pnum="{{$gift->id}}"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id, $page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
                             </div>
                         </div>
                         <div class="shad-effect">
@@ -307,7 +296,7 @@
                                                 <button class="btn btn-primary btn-lg yellow_submit" name="add" data-id="{{$gift->id}}">QUICK ADD</button>
                                             </div>
                                             <div class="col-md-6 col-xs-6 text-right gift_price" id="gift_price" data-id="{{$gift->id}}">
-                                                <p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->est_price, 2)}}</p>
+                                                <p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->cost, 2)}}</p>
                                                 <p>Est. Price <i class="fas fa-info-circle tooltips" data-toggle="tooltip" data-placement="top" title="Estimated gift cost."></i></p>
                                             </div>
                                         </div>
