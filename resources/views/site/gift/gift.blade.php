@@ -230,7 +230,7 @@
                                     </div>
                                 </div>
                                 <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                    <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
+                                    <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
                                 </div>
                             </div>
                             <div class="shad-effect">

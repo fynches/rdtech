@@ -10,14 +10,14 @@
     <meta name="twitter:site" content="@fynches">
     <meta name="twitter:title" content="{{$page->page_title}}">
     <meta name="twitter:description" content="{{$page->page_desc}}">
-    <meta name="twitter:image" content="@isset($child->recipient_image){{ config('app.url') . $child->recipient_image }}@endisset">
+    <meta name="twitter:image" content="@isset($page->child->image){{ config('app.url') . $page->child->image }}@endisset">
     <meta name="twitter:domain" content="{{ config('app.url') }}">
 
     <meta property="og:url"                content="{{ config('app.url') }}/gift-page/{{$page->slug}}" />
     <meta property="og:type"               content="page" />
-    <meta property="og:title"              content="{{$page->page_title}}" />
-    <meta property="og:description"        content="{{$page->page_desc}}" />
-    <meta property="og:image"              content="@isset($child->recipient_image){{ config('app.url') . $child->recipient_image }}@endisset" />
+    <meta property="og:title"              content="{{$page->title}}" />
+    <meta property="og:description"        content="{{$page->description}}" />
+    <meta property="og:image"              content="@isset($page->child->image){{ config('app.url') . $page->child->image }}@endisset" />
 
     <meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">

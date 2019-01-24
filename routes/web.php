@@ -83,8 +83,8 @@ Route::post('/giftDetails', 'Site\GiftController@giftDetails');
 Route::post('/giftSort', 'Site\GiftController@giftSort');
 Route::post('/addPrice','Site\GiftController@addPrice');
 Route::post('/editGift','Site\GiftController@editGift');
-Route::post('/make-live','Site\GiftController@makeLive');
-Route::post('/make-private','Site\GiftController@makePrivate');
+Route::post('/make-live','Site\GiftController@makeLive')->middleware('auth');
+Route::post('/make-private','Site\GiftController@makePrivate')->middleware('auth');
 
 //**************end Gift_Page***************//
 

@@ -36,7 +36,7 @@
             <div class="row" >
                 <div class="col-md-12 text-left" id="child_col">
                     <div class="dropdown" id="my_child">
-                        <a  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img  src="{{$child->recipient_image}}"></a>
+                        <a  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img  src="{{$page->child->image}}"></a>
                     </div>
                 </div>
              </div>
@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12" id="live_column">
                      <h5 id="ctitle">
-                         {{$page->page_title}}
+                         {{$page->title}}
                      </h5>
                 </div>
             </div>
@@ -59,26 +59,26 @@
             <div class="row">
                 <div class="col-md-4 col-sm-4 col-xs-12" id="live_text">
                     <label for="details">Details</label>
-                       <p>{{$page->page_desc}}</p>
+                       <p>{{$page->description}}</p>
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12" id="live_col_2" style="padding: 0px;">
                     <div class="row">
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <label>Name</label>
-                            <h5><strong>{{$child->first_name}}</strong></h5>
+                            <h5><strong>{{$page->child->first_name}}</strong></h5>
                             <input id="page-id" type="hidden" value="{{$page->id}}">
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <label>Age</label>
-                            <h5><strong>{{$child->age}}</strong></h5>
+                            <h5><strong>{{$page->child->age}}</strong></h5>
                         </div>
                         <div class="col-md-2 col-sm-2 col-xs-6">
                             <label>Host</label>
-                             <h5><strong>{{$page->page_hostname}}</strong></h5>
+                             <h5><strong>{{$page->hostname}}</strong></h5>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-6">
                             <label>Date</label>
-                            <h5><strong>@isset($page->page_date){{date('F d,Y',strtotime($page->page_date))}}@endisset</strong></h5>
+                            <h5><strong>@isset($page->date){{date('F d,Y',strtotime($page->date))}}@endisset</strong></h5>
                         </div>
                         <div class="col-md-2 col-sm-3 col-xs-12">
                             <p>Share</p>
@@ -87,7 +87,7 @@
                                     <a class="twitter-share-button" target= "_blank" href="https://twitter.com/intent/tweet?url={{ config('app.url') }}/gift-page/{{$page->slug}}"><i class="fab fa-twitter"></i></a>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-2">
-                                    <a target= "_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ config('app.url') . $child->recipient_image }}&display=popup" style="color:#000"><i class="fab fa-facebook-f"></i></a>
+                                    <a target= "_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ config('app.url') . $page->child->image }}&display=popup" style="color:#000"><i class="fab fa-facebook-f"></i></a>
                                 </div>
                                 <div class="col-md-3 col-sm-3 col-xs-2">
                                    <a target= "_blank" href="https://www.instagram.com" style="color:#000"><i class="fab fa-instagram"></i></a>
@@ -128,17 +128,10 @@
                     </div>
                 </div>
                 @if(isset($page->added_gifts) && count($page->added_gifts))
-                    @foreach($page->added_gifts as $gift)
-                        @if(isset($gift->custom))
-                            @php
-                                $oldGift = $gift;
-                                $gift = $gift->custom;
-                                $gift->id = $gift->gift_id;
-                            @endphp
-                        @endif
+                    @foreach($page->added_gift_models as $gift)
                         <div class="col-md-3 reco_col" id="reco_col">
                             <div id="gift-image-{{$gift->id}}" class="add-money" data-id="{{$gift->id}}" style="background:url('{{$gift->gift_image}}');background-size:cover">
-                                <img class="img-height" src="{{$gift->gift_image}}" width="100%" id="img-{{$gift->id}}" style="height:250px">
+                                <img class="img-height" src="{{$gift->image}}" width="100%" id="img-{{$gift->id}}" style="height:250px">
                                 <img id="imgrp-{{$gift->id}}" class="cart" data-id="{{$gift->id}}" src="/front/img/whitecheck.png">
                                 <img  id="fagift-{{$gift->id}}" class="gifted_icon" data-id="{{$gift->id}}" src="/front/img/giftbox.png">
                                 <p class="cancel" id="cancel-{{$gift->id}}" data-id="{{$gift->id}}"><i class="fas fa-times-circle"></i>  Cancel</p>
@@ -148,13 +141,8 @@
                                 <p style="font-weight:100">{{$gift->name}}</p>
                                 <div class="row gift_giving text-center four-columns">
                                     <div class="col-md-3 col-xs-3" style="padding:0px">
-                                        @if(isset($gift->custom))
-                                            @php
-                                                $gift = $oldGift;
-                                            @endphp
-                                        @endif
                                         @php
-                                            $sum = $gift->needed($gift_page->id)->sum('amount');
+                                            $sum = $gift->needed($page->id)->sum('amount');
                                             $gifted = number_format((float)$sum, 2, '.', '');
                                         @endphp
                                         <h6><strong>$<span id="gifted-{{$gift->id}}" data-result="" data-amount="{{$gifted}}">{{$gifted}}</span></strong></h6>
@@ -162,7 +150,7 @@
                                     </div>
                                     <div class="col-md-3 col-xs-3" style="padding:0px">
                                         @php
-                                            $sums = $gift->price - $gift->needed($gift_page->id)->sum('amount');
+                                            $sums = $gift->price - $gift->needed($page->id)->sum('amount');
                                             $needed = number_format((float)$sums, 2, '.', '');
                                         @endphp
                                         <h6><strong>$<span  id="needed-{{$gift->id}}" data-result="" data-amount="{{$needed}}">{{$needed}}</span></strong></h6>
@@ -184,9 +172,9 @@
 
     <section class="live_messages">
         <p id="titlemessage" class="text-center">MESSAGES FROM FRIENDS AND FAMILY</p>
-        @if(isset($child->message))
+        @if(isset($page->child->message))
             <div class="container" id="messages">
-                @foreach($child->message as $message)
+                @foreach($page->child->message as $message)
                     @php
                         $datetime = $message->created_at;
                         $full = false;
@@ -223,7 +211,7 @@
                     @endphp
                     <div class="row" id="msg">
                         <div class="col-md-1 col-sm-2 col-xs-4">
-                            <img  id="photoIcon" src="{{$child->recipient_image}}" style="width:100%">
+                            <img  id="photoIcon" src="{{$page->child->image}}" style="width:100%">
                         </div>
                         <div class="col-md-8 col-sm-8 col-xs-8">
                             <div class="row">
@@ -248,22 +236,22 @@
 
     <section class="live_textbox">
         <div class="container">
-            <form id="message-form" method="POST" action="/gift-live/{{$child->first_name}}">
-                <input id="childs_name" type="hidden" name="childs_name" value="{{$child->first_name}}" />
+            <form id="message-form" method="POST" action="/gift-live/{{$page->child->first_name}}">
+                <input id="childs_name" type="hidden" name="childs_name" value="{{$page->child->first_name}}" />
                 <div class="row" id="msg">
                     <div class="col-md-12"></div>
                     <div class="col-md-1 col-xs-3">
-                        <img src="{{$child->recipient_image}}" style="width:100%">
+                        <img src="{{$page->child->image}}" style="width:100%">
                     </div>
                     <div class="col-md-11 col-xs-8">
                         <label id="inputName" for="message_name">Name:</label>
                         <input id="live_textname" placeholder="Enter Name" type="text" name="message_name"><br>
                         <label for="message">Message:</label>
-                        <textarea type="text" name="message" id="live_textmsg" placeholder="Write a message to {{$child->first_name}}"></textarea>
+                        <textarea type="text" name="message" id="live_textmsg" placeholder="Write a message to {{$page->child->first_name}}"></textarea>
                     </div>
                 </div>
                 <div class="row text-right">
-                     <button class="btn btn-lg btn_blk" data-id="{{$child->id}}" id="post_message">Post Message</button>
+                     <button class="btn btn-lg btn_blk" data-id="{{$page->child->id}}" id="post_message">Post Message</button>
                 </div>
            </form>
         </div>
@@ -277,7 +265,7 @@
     </section>
 
     @include('site.live-gift-page.gift_share')
-    @include('site.gift.contact-us')
+    @include('modal.contact')
 @stop
 
 @section('footer')

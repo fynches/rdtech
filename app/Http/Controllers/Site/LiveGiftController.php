@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\UserMeta;
 use App\Domain\Page;
-use App\Domain\Gift;
 use App\Domain\Child;
 use App\GiftPurchase;
 use App\GiftMessages;
@@ -35,8 +32,7 @@ class LiveGiftController extends Controller
 	{
 		$page =  Page::where('slug', $slug)->first();
 		$page->hydrateGifts();
-		$child =  $page->child_info;
-		return view('site.live-gift-page.live-gift', compact('child', 'page'));
+		return view('site.live-gift-page.live-gift', compact('page'));
 	}
     
     /**

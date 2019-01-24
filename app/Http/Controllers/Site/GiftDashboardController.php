@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Site;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Domain\Gift;
 use App\Domain\Page;
 use App\Offer;
 use App\Company;
@@ -15,20 +14,12 @@ use Session;
 use Route;
 use App\ActivityLog;
 use Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Input;
-
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
-use Laravel\Socialite\Facades\Socialite;
 use Yajra\Datatables\Datatables;
 use App\Site;
 use App\GiftPurchase;
 use App\Experience;
 use App\FundingReport;
 use App\Testimonial;
-use App\StaticBlock;
-use App\Domain\Child;
 
 
 class GiftDashboardController extends Controller
@@ -51,9 +42,7 @@ class GiftDashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $child = $user->child;
-        $page = $user->child->gift_page;
-    	return view('site.gift-dashboard.index', compact('user', 'child', 'page'));
+    	return view('site.gift-dashboard.index', compact('user'));
 	} 
 	
 	/**

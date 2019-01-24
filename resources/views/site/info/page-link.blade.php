@@ -10,7 +10,7 @@
                     <p id="gp">https://www.fynches.com/gift-page/</p>
                 </div>
                 <div class="col-md-7 col-xs-8 text-left no-padding" >
-                    <input required id="slug" name="slug" type="text" placeholder="" style="width: 100%;border-radius: 0 5px 5px 0;" value="" pattern="[A-Za-z0-9]*">
+                    <input required id="slug" name="slug" type="text" placeholder="" style="width: 100%;border-radius: 0 5px 5px 0;" value="{{ old('slug') }}" pattern="[A-Za-z0-9]*">
                     <p style="margin-top:5px;">Please use only letters or numbers only</p>
                 </div>
             </div>

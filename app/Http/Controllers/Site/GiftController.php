@@ -63,16 +63,15 @@ class GiftController extends Controller
      * 
      * @return jason route slug - child_name
      */
-      
-      public function makeLive(Request $request){
-          $user = Auth::user();
-          $id = $request->id;
-          $gift_page = Page::updateOrCreate(
-            ['user_id' => $user->id, 'id' => $id],
-            ['live' => 1]
-          );
-          return response()->json(['slug' => $gift_page->slug]);
-      }
+
+	public function makeLive(Request $request)
+	{
+		$id = $request->id;
+		$page = Page::find($id);
+		$page->live = 1;
+		$page->save();
+		return response()->json(['slug' => $page->slug]);
+	}
       
       
       /**
@@ -82,15 +81,14 @@ class GiftController extends Controller
      * 
      * @return jason route slug - child_name
      */
-      public function makePrivate(Request $request){
-          $user = Auth::user();
-          $id = $request->id;
-          $gift_page = Page::updateOrCreate(
-            ['user_id' => $user->id, 'id' => $id],
-            ['live' => 0]
-          );
-          return response()->json(['slug' => $gift_page->slug]);
-      }
+	public function makePrivate(Request $request)
+	{
+		$id = $request->id;
+		$page = Page::find($id);
+		$page->live = 0;
+		$page->save();
+		return response()->json(['slug' => $page->slug]);
+	}
 
 	/**
 	 * Gift Page Update Fields Ajax
@@ -145,8 +143,8 @@ class GiftController extends Controller
 		$output = '/images/profile_images/' . $slug . '.png';
 		file_put_contents(public_path() . $output, file_get_contents($image));
 		$page = Page::where('slug', $slug)->first();
-		$child = $page->child_info;
-		$child->recipient_image = $output;
+		$child = $page->child;
+		$child->image = $output;
 		$child->save();
 	}
       

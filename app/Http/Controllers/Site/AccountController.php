@@ -148,6 +148,11 @@ class AccountController extends Controller
 
     public function createPage(Request $request)
     {
+    	$pageExists = Page::where("slug", $request->input('slug'))->exists();
+    	if($pageExists)
+	    {
+	    	return back()->withInput()->with('error', "This link already exists, please choose another.");
+	    }
     	$user = Auth::user();
     	$user->first_name = $request->input('hostFirstName');
     	$user->last_name = $request->input('hostLastName');

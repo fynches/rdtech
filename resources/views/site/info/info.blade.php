@@ -21,8 +21,16 @@
                 <h2 id="info-header" style="font-family:'Poppins',sans-serif;font-weight: 700;">LET'S GET STARTED SETTING UP YOUR GIFT PAGE</h2>
             </div>
         </div>
+
         <div class="row border-bottom" style="margin:0 50px"></div>
     </div>
+    @if(session('error'))
+        <div class = 'row'>
+            <div class = 'col-sm-8 col-sm-offset-2 alert alert-danger' style = ' margin-top: 25px; text-align : center'>
+                {{ session('error') }}
+            </div>
+        </div>
+    @endif
     <form id="congrats" method="POST" action="create-page">
         {{csrf_field()}}
         <div id="host-child">

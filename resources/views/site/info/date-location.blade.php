@@ -3,7 +3,7 @@
         <div class="col-md-5">
             <h5>Date of Party</h5>
             <div class="form-row show-inputbtns">
-                <input required id="party-time" name="eventDate" value="" type="date" data-date-inline-picker="false" class="form-control" data-date-open-on-focus="true" style="width:100%" />
+                <input required id="party-time" name="eventDate" value="{{ old('eventDate') }}" type="date" data-date-inline-picker="false" class="form-control" data-date-open-on-focus="true" style="width:100%" />
             </div>
             <div class="pretty p-icon p-curve p-has-indeterminate">
                 <input type="checkbox" id="not-decided" value="1" />
