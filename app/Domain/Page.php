@@ -31,12 +31,7 @@ class Page extends Model {
 
     public function purchases()
     {
-        return $this->hasMany( 'App\Purchase')->where('status', 2);
-    }
-
-    public function cust_purchases()
-    {
-        return $this->hasMany('App\Domain\UserGift','gift_id','id')->where('status', 2);
+        return $this->hasMany( 'App\Domain\Purchase')->where('status', 2);
     }
 
     public function hydrateGifts()

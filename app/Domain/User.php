@@ -28,7 +28,36 @@ class User extends Authenticatable
         return $this->hasOne('App\Event');
     }
 
-    public static function usercreate($params,$service="") {
+	public function completedPurchases()
+	{
+		$purchases = [];
+		if($this->children && count($this->children))
+		{
+			foreach($this->children as $child)
+			{
+				if($child->pages && count($child->pages))
+				{
+					foreach($child->pages as $page)
+					{
+						if($page->purchases && count($page->purchases))
+						{
+							foreach($page->purchases as $purchase)
+							{
+								if($purchase->status > 1)
+								{
+									$purchases[] = $purchase;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return $purchases;
+	}
+
+    public static function usercreate($params,$service="")
+    {
 
         if($service!="")
         {
@@ -63,20 +92,13 @@ class User extends Authenticatable
         $user->password = $password;
         $user->profile_image = "";
         $user->user_type = "3";
-
-
         $user->user_status = $status;
         $user->email_verify_code = $email_verify_code;
-
         $redirect_url= env('SITE_URL');
-
         $VerificationLink = $redirect_url;
-
         $user_name= $first_name.' '.$last_name;
-
         $search = array("[USERNAME]","[EMAIL]","[NEW_PASSWORD]","[WEBSITE_URL]");
         $replace = array($user_name,$user->email,$user->password, $VerificationLink);
-
         if($service == "")
         {
             $emailParams = array(
@@ -90,7 +112,9 @@ class User extends Authenticatable
                 'search' => $search,
                 'replace' => $replace
             );
-        }else{
+        }
+        else
+        	{
             $emailParams = array(
                 'subject' => 'Fynches Signin',
                 'from' => config('constant.fromEmail'),
@@ -102,20 +126,20 @@ class User extends Authenticatable
                 'replace' => $replace
             );
         }
-
-        //pr($emailParams);die;
         $user->save();
         $result = static::SendEmail($emailParams);
-
-        if($result == 1){
+        if($result == 1)
+        {
             return $user;
-        }else{
+        }
+        else
+        	{
             Session::flash('error_msg', 'Something went wrong!, Please try again');
         }
-
     }
 
-    public static function admincreate($params){
+    public static function admincreate($params)
+    {
 
         $user = new User;
         $user->first_name = $params['firstname'];
@@ -158,7 +182,8 @@ class User extends Authenticatable
         }
     }
 
-    public static function userupdate($params) {
+    public static function userupdate($params)
+    {
 
         $authId = Auth::user()->id;
         $edit_user_id= $params['user_id'];
@@ -184,7 +209,8 @@ class User extends Authenticatable
         return $user;
     }
 
-    public static function adminupdate($params) {
+    public static function adminupdate($params)
+    {
 
 
         $user = User::find($params['user_id']);
@@ -199,7 +225,8 @@ class User extends Authenticatable
         return $user;
     }
 
-    public static function updatePassword($params) {
+    public static function updatePassword($params)
+    {
 
         $user = User::find($params['user_id']);
         $user_type= $user->user_type;
@@ -239,7 +266,8 @@ class User extends Authenticatable
         return $user;
     }
 
-    public static function SendEmail($params) {
+    public static function SendEmail($params)
+    {
 
         try {
 

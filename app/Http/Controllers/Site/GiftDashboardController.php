@@ -52,14 +52,8 @@ class GiftDashboardController extends Controller
      */
 	public function gifted()
 	{
-	    if (Auth::check()) {
-            
-        $user = Auth::user();
-        
-	    $purchases =  Purchase::where('status', 2)->where('user_id', $user->id)->get();
-	    
-    	return view('site.gift-dashboard.gifted', compact('purchases'));
-        }
+		$user = Auth::user();
+		return view('site.gift-dashboard.gifted', compact('user'));
 	}
 	
 	 /**

@@ -62,15 +62,16 @@ class CheckoutController extends Controller
      *
      * @return checkout view
      */
-      public function checkoutsuccess(){
-            
-            $session_id = session()->getId();
-            
-            $email = Purchase::where('session_id',  $session_id)->first();
-   
-            return view('site.checkout.checkout-success', compact('email'));
-        
-      }
+	public function checkoutsuccess()
+	{
+
+		$session_id = session()->getId();
+
+		$email = Purchase::where('session_id',  $session_id)->first();
+
+		return view('site.checkout.checkout-success', compact('email'));
+
+	}
       
       /**
      * Remove Purchase.

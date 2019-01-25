@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Domain\Page;
-use App\Domain\Purchase;
 use DateTime;
 
 class RedeemController extends Controller
@@ -28,42 +27,21 @@ class RedeemController extends Controller
 	public function index()
 	{
 		$user = Auth::user();
-		$child = $user->child;
-		$giftPages = Page::where('child_info_id',$child->id)->get();
-
-		$purchases = array();
-		foreach($giftPages as $page)
+		$hold = $total = $previous = 0;
+		foreach($user->completedPurchases() as $purchase)
 		{
-			$purchases[] = $page->purchases;
-		}
-
-		$hold = array();
-		$amount = array();
-		foreach($purchases as $purchase){
-			foreach($purchase as $item){
-				$created_at = $item->created_at;
-				$datetime1 = new DateTime($created_at);//start time
-				$datetime2 = new DateTime();//end time
-				$interval = $datetime1->diff($datetime2);
-				$hours =  (int)$interval->format('%H');
-
-				if($hours < 72) {
-					$hold[] = $item->amount * .50;
-				}
-				$amount[] = $item->amount;
+			$created_at = $purchase->created_at;
+			$datetime1 = new DateTime($created_at);//start time
+			$datetime2 = new DateTime();//end time
+			$interval = $datetime1->diff($datetime2);
+			$hours =  (int)$interval->format('%H');
+			if($hours < 72)
+			{
+				$hold += ($purchase->amount * .50);
 			}
+			$total +=  $purchase->amount; //TODO factor in previous withdrawals
 		}
-
-		$amount = array_sum($amount);
-		$gifted = number_format((float)$amount, 2, '.', '');
-
-		$hold = array_sum($hold);
-		$holding = number_format((float)$hold, 2, '.', '');
-
-		$available = $amount - $hold;
-		$bank = number_format((float)$available, 2, '.', '');
-
-		return view('site.redeem.redeem', compact('gifted', 'holding', 'bank'));
+		return view('site.redeem.redeem', compact('total', 'hold', 'previous'));
 	}
       
       /**
