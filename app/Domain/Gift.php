@@ -36,17 +36,17 @@ class Gift extends Model {
     
     public function needed($page_id)
     {
-        return $this->hasMany('App\GiftPurchase','gift_id','id')->where('status', 2)->where('gift_page_id', $page_id);
+        return $this->hasMany( 'App\Domain\Purchase','gift_id','id')->where('status', 2)->where('page_id', $page_id);
     }
     
-    public function custom() {
-        $user_id = Auth::user()->id;
-        return $this->hasOne('App\Domain\UserGift','gift_id','id')->where('user_id',$user_id);
-    }
+    //public function custom() {
+    //    $user_id = Auth::user()->id;
+    //    return $this->hasOne('App\Domain\UserGift','gift_id','id')->where('user_id',$user_id);
+    //}
     
     public function purchases($page_id)
     {
-        return $this->hasMany('App\GiftPurchase','gift_id','id')->where('status', 2)->where('gift_page_id', $page_id);
+        return $this->hasMany( 'App\Domain\Purchase')->where('status', 2)->where('page_id', $page_id);
     }
 
     public static function getPublicGifts()

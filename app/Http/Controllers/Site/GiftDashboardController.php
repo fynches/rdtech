@@ -16,7 +16,7 @@ use App\ActivityLog;
 use Auth;
 use Yajra\Datatables\Datatables;
 use App\Site;
-use App\GiftPurchase;
+use App\Domain\Purchase;
 use App\Experience;
 use App\FundingReport;
 use App\Testimonial;
@@ -56,7 +56,7 @@ class GiftDashboardController extends Controller
             
         $user = Auth::user();
         
-	    $purchases =  GiftPurchase::where('status', 2)->where('user_id', $user->id)->get();
+	    $purchases =  Purchase::where('status', 2)->where('user_id', $user->id)->get();
 	    
     	return view('site.gift-dashboard.gifted', compact('purchases'));
         }

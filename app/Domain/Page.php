@@ -31,7 +31,7 @@ class Page extends Model {
 
     public function purchases()
     {
-        return $this->hasMany('App\GiftPurchase','gift_page_id','id')->where('status', 2);
+        return $this->hasMany( 'App\Purchase')->where('status', 2);
     }
 
     public function cust_purchases()

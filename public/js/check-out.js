@@ -30,27 +30,24 @@ $(document).ready(function( $ ) {
     $( "#sig_up" ).click(function() {
             $("#largeModalS").modal('hide');
     });
-    
-    $( ".purchase-amounts" ).bind("keyup change", function() {
-      var id = $(this).data( "id" );
-      var amount = $(this).val();
-      var left = $('#left-'+id).data( "left" );
-      var price = $('#left-'+id).data( "price" );
-      
-      var lft = price - left - amount;
-     
-      if(lft < 0){
-          var lft = 0;
-      }
-      
-      var sum = 0;
-        $('.purchase-amounts').each(function(){
-            sum += +$(this).val();
-        });
-        $("#total").text(sum);
-      
-      $('#payment-total').val(sum);
-      $('#left-'+id).text(lft);
+
+    $( ".purchase-amounts" ).bind("keyup change", function()
+    {
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        var id = $(this).data( "id" );
+        var amount = $(this).val();
+
+        $.post('/gift-live/cart-edit', {purchaseId: id, amount: amount}, function(json)
+        {
+            var balance = json.balance;
+            $('#left-'+id).text(balance);
+            var sum = 0;
+            $('.purchase-amounts').each(function(){
+                sum += +$(this).val();
+            });
+            $("#total").text(sum);
+            $('#payment-total').val(sum);
+        }, 'json');
     });
     
     

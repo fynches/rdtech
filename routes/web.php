@@ -143,6 +143,7 @@ Route::get('/gift-report/{slug}', 'Site\ReportController@index')->name('report')
 Route::get('/gift-page/{slug}', 'Site\LiveGiftController@index')->name('livegift');
 Route::post('/gift-live/message','Site\LiveGiftController@sendMessage');
 Route::post('/gift-live/cart','Site\LiveGiftController@cart');
+Route::post('/gift-live/cart-edit', 'Site\LiveGiftController@cartEdit');
 Route::get('/gift-live/test','Site\LiveGiftController@test');
 
 //**************End LiveGift_Page***************//

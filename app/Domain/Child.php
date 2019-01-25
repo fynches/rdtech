@@ -27,11 +27,6 @@ class Child extends Model
     {
         return $this->hasMany('App\GiftMessages','child_info_id','id')->orderByDesc('created_at');
     }
-    
-    public function purchases()
-    {
-        return $this->hasMany('App\GiftPurchase', 'child_info_id', 'id' );
-    }
 
 	public function getAgeAttribute() {
 		$then_ts = strtotime($this->dob);

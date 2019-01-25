@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Domain\Page;
 use App\Domain\Child;
-use App\GiftPurchase;
+use App\Domain\Purchase;
 use App\GiftMessages;
 use Carbon\Carbon;
 
@@ -67,22 +67,40 @@ class LiveGiftController extends Controller
      * 
      * return json success
      */
-    public function cart(Request $request) {
-       
-        $amount = $request->amount;
-        $gift_page_id = $request->gift_page_id;
-        $gift_id = $request->gift_id;
-        $session_id = session()->getId();
-        
-        $gift_purchase = GiftPurchase::updateOrCreate(
-            ['session_id' => $session_id, 'status' => 1, 'gift_id' => $gift_id],
-            ['status' => 1, 'amount' => $amount,'gift_page_id' => $gift_page_id, 'gift_id' => $gift_id]
-            );
-        
-        return response()->json(['success' => 1]);
-     
-        
-    }
+	public function cart(Request $request)
+	{
+		$amount = $request->amount;
+		$page_id = $request->gift_page_id;
+		$gift_id = $request->gift_id;
+		$session_id = session()->getId();
+		$purchase = Purchase::where("session_id", $session_id)->where('gift_id', $gift_id)->where('page_id', $page_id)->first();
+		if($purchase)
+		{
+			$purchase->amount = $amount;
+			$purchase->save();
+		}
+		else
+		{
+			$purchase = Purchase::create([
+				'session_id' => $session_id,
+				'gift_id' => $gift_id,
+				'page_id' => $page_id,
+				'amount' => $amount,
+				'status' => 1
+			]);
+		}
+		return response()->json(['success' => 1, 'balance' => $purchase->giftBalance()]);
+	}
+
+	public function cartEdit(Request $request)
+	{
+		$amount = $request->input('amount');
+		$purchaseId = $request->input('purchaseId');
+		$purchase = Purchase::find($purchaseId);
+		$purchase->amount = $amount;
+		$purchase->save();
+		return response()->json(['success' => 1, 'balance' => $purchase->giftBalance()]);
+	}
     
     /**
      * Current Date Time String

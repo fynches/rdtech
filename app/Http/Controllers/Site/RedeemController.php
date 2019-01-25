@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
-use App\UserMeta;
-use App\Domain\Gift;
 use App\Domain\Page;
-use App\GiftPurchase;
+use App\Domain\Purchase;
 use DateTime;
 
 class RedeemController extends Controller
