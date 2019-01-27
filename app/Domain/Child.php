@@ -12,6 +12,9 @@ class Child extends Model
     protected $table = 'children';
     protected $fillable = ['user_id', 'first_name', 'image', 'zipcode', 'dob'];
     protected $appends = ['age'];
+    protected $casts = [
+    	'dob' => 'date'
+    ];
 
     public function user()
     {

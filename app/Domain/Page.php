@@ -16,7 +16,8 @@ class Page extends Model {
     protected $casts = [
     	'received_gifts' => 'array',
 	    'favorite_gifts' => 'array',
-	    'added_gifts' => 'array'
+	    'added_gifts' => 'array',
+	    'date' => 'date'
     ];
 
     public function child()
