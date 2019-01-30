@@ -179,6 +179,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\NovaServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+	    Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
 
     ],
 
@@ -231,7 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Autologin' => Watson\Autologin\Facades\Autologin::class,
-
+		'Bugsnag' => \Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 
 ];

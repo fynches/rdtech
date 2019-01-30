@@ -9,14 +9,15 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "bugsnag/bugsnag-laravel": "^2.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
+        "laravel/nova": "*",
         "laravel/socialite": "^4.0",
         "laravel/tinker": "^1.0",
         "stripe/stripe-php": "^6.29",
         "ultraware/roles": "^5.4",
-        "watson/autologin": "^0.5.3",
-        "laravel/nova": "*"
+        "watson/autologin": "^0.5.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
