@@ -49,7 +49,7 @@ class Child extends Resource
 	        Date::make('Date Of Birth', 'dob')
 	            ->sortable(),
 	        HasMany::make('Pages'),
-	        BelongsTo::make('User')
+	        BelongsTo::make('User', 'user', User::class)
         ];
     }
 
