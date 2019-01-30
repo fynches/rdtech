@@ -141,19 +141,11 @@
                                 <p style="font-weight:100">{{$gift->name}}</p>
                                 <div class="row gift_giving text-center four-columns">
                                     <div class="col-md-3 col-xs-3" style="padding:0px">
-                                        @php
-                                            $sum = $gift->needed($page->id)->sum('amount');
-                                            $gifted = number_format((float)$sum, 2, '.', '');
-                                        @endphp
-                                        <h6><strong>$<span id="gifted-{{$gift->id}}" data-result="" data-amount="{{$gifted}}">{{$gifted}}</span></strong></h6>
+                                        <h6><strong>$<span id="gifted-{{$gift->id}}" data-result="" data-amount="{{ $gift->gifted }}">{{ $gift->gifted }}</span></strong></h6>
                                         <p style="font-weight:100">GIFTED</p>
                                     </div>
                                     <div class="col-md-3 col-xs-3" style="padding:0px">
-                                        @php
-                                            $sums = $gift->price - $gift->needed($page->id)->sum('amount');
-                                            $needed = number_format((float)$sums, 2, '.', '');
-                                        @endphp
-                                        <h6><strong>$<span  id="needed-{{$gift->id}}" data-result="" data-amount="{{$needed}}">{{$needed}}</span></strong></h6>
+                                        <h6><strong>$<span  id="needed-{{$gift->id}}" data-result="" data-amount="{{ $gift->balance }}">{{ $gift->balance }}</span></strong></h6>
                                         <p style="font-weight:100 ">NEEDED</p>
                                     </div>
                                     <div class="col-md-6 col-xs-6 gift-item">

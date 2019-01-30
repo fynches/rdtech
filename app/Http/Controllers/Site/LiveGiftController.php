@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Domain\Gift;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Domain\Page;
@@ -89,7 +90,7 @@ class LiveGiftController extends Controller
 				'status' => 1
 			]);
 		}
-		return response()->json(['success' => 1, 'balance' => $purchase->giftBalance()]);
+		return response()->json(['success' => 1, 'balance' => Gift::getBalance($gift_id, $page_id)]);
 	}
 
 	public function cartEdit(Request $request)

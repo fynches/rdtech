@@ -2,10 +2,8 @@
 
 namespace App\Domain;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 
 class Gift extends Model {
 
@@ -49,6 +47,19 @@ class Gift extends Model {
         return $this->hasMany( 'App\Domain\Purchase')->where('status', 2)->where('page_id', $page_id);
     }
 
+    public static function getBalance($giftId, $pageId)
+    {
+	    $purchases = Purchase::where('gift_id', $giftId)->where('page_id', $pageId)->where("status", 2)->get();
+	    $gift = Gift::find($giftId);
+	    $balance = $gift->price;
+	    foreach($purchases as $purchase)
+	    {
+		    $balance -= $purchase->amount;
+	    }
+	    $balance = $balance < 0 ? 0 : $balance;
+	    return $balance;
+    }
+
     public static function getPublicGifts()
     {
     	return self::whereNull("user_id")->get();
@@ -67,5 +78,3 @@ class Gift extends Model {
 		return self::whereRaw("ISNULL(user_id) OR user_id = {$user->id}")->get();
 	}
 }
-
-?>

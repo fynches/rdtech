@@ -2,7 +2,6 @@
 
 namespace App\Domain;
 
-use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -49,14 +48,22 @@ class Page extends Model {
 		    $this->favorite_gift_models = Gift::whereIn('id',$this->favorite_gifts)->get();
 	    }
     }
-	//
+
     private function hydrateAddedGifts()
     {
-	    $this->added_gift_models = null;
+	    $models  = null;
 	    if($this->added_gifts && count($this->added_gifts))
 	    {
-		    $this->added_gift_models = Gift::whereIn('id',$this->added_gifts)->get();
+	    	$models = [];
+		    $gifts = Gift::whereIn('id',$this->added_gifts)->get();
+		    foreach($gifts as $gift)
+		    {
+		    	$gift->balance = Gift::getBalance($gift->id, $this->id);
+		    	$gift->gifted = $gift->price - $gift->balance;
+		    	$models[] = $gift;
+		    }
 	    }
+	    $this->added_gift_models = $models;
     }
     
 } 

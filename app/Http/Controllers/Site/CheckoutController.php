@@ -34,24 +34,11 @@ class CheckoutController extends Controller
 	{
 		$purchases = Purchase::where('session_id', session()->getId())->where('status', 1)->get();
 		$pageTotal = 0;
-
 		foreach($purchases as $purchase)
 		{
 		    $page = $purchase->page;
 		    $pageTotal += $purchase->amount;
 		}
-
-		//$page_total = 0;
-		//$page_purchuse = GiftPurchase::where('gift_page_id', $gift_page->id)->get();
-
-		//if(isset($page_purchase->amount)){
-		//	$page_total = $page_purchase->sum('amount');
-		//}
-		//
-		//$session_total = $gift_purchase->sum('amount');
-		//
-		//$count = count($gift_purchase);
-
 		return view('site.checkout.checkout', compact('purchases', 'page', 'pageTotal'));
 
 
