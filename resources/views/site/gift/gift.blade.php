@@ -93,11 +93,11 @@
                         <div class="col-md-4">
                             <label>Date</label>
                             <div class="text-right" id="inp_date-req">Required</div>
-                            <input required id="event_date" name="event_date" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="{{$page->date}}" style="color:#000;" />
+                            <input required id="event_date" name="event_date" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="{{ date('Y-m-d', strtotime($page->date)) }}" style="color:#000;" />
                         </div>
                         <div class="col-md-4">
                            <label>DOB</label><div class="text-right" id="inp_age-req">Required</div>
-                           <input required id="dob" name="dob" type="date" value="{{$child->dob}}" style="color:#000; height:45px;">
+                           <input required id="dob" name="dob" type="date" value="{{ date('Y-m-d', strtotime($child->dob))}}" style="color:#000; height:45px;">
                         </div>
                         <div class="col-md-4">
                            <label>Host</label><div class="text-right" id="inp_host-req">Required</div>
