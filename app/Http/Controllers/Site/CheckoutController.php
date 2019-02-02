@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Domain\Purchase;
+use Validator;
 use Stripe\Charge;
 use Stripe\Error\Card;
 use Stripe\Stripe;
@@ -40,8 +41,6 @@ class CheckoutController extends Controller
 		    $pageTotal += $purchase->amount;
 		}
 		return view('site.checkout.checkout', compact('purchases', 'page', 'pageTotal'));
-
-
 	}
       
       /**
@@ -82,6 +81,39 @@ class CheckoutController extends Controller
      */
 	public function order(Request $request)
 	{
+		$validator = Validator::make($request->all(), [
+			'name' => 'required',
+			'number' => 'required',
+			'month' => 'required',
+			'year' => 'required',
+			'cvv' => 'required',
+			'address' => 'required',
+			'city' => 'required',
+			'state' => 'required',
+			'zip' => 'required',
+			'email' => 'required|email|confirmed'
+		], [
+			'name.required' => "The card holder name is required",
+			'number.required' => "The credit card number is required",
+			"month.required" => "The expiration month is required",
+			"year.required" => "The expiration year is required",
+			"cvv.required" => "The security code is required",
+			"address.required" => "The street address is required",
+			"city.required" => "The city is required",
+			"state.required" => "The state is required",
+			"zip.required" => "The zip code is required",
+			"email.required" => "The email is required",
+			"email.email" => "The email address is not properly formatted",
+			"email.confirmed" => "The email addresses do not match"
+		]);
+		if($validator->fails())
+		{
+			return response()->json([
+				'errors' => $validator->errors()->all(),
+				'status' => 'fail'
+			]);
+		}
+
 		$name = $request->name;
 		$number = $request->number;
 		$month = $request->month;
@@ -97,8 +129,13 @@ class CheckoutController extends Controller
 		$email = $request->email;
 		$total = $request->total * 100;
 		$purchases = $request->prchs;
+		$message = $request->message;
 		$error = null;
 		$stripeData = null;
+		$returnData = [
+			'errors' => [],
+			'status' => 'success'
+		];
 		try {
 			Stripe::setApiKey(env('STRIPE_SECRET'));
 			$token = Token::create(array("card" => array("number" => $number,
@@ -116,7 +153,8 @@ class CheckoutController extends Controller
 		}
 		catch(Card $e)
 		{
-			$error = $e->getMessage();
+			$returnData['errors'][] = $e->getMessage();
+			$returnData['status'] = 'fail';
 		}
 		$payment = Payment::create([
 			'firstName' => $firstName,
@@ -134,9 +172,9 @@ class CheckoutController extends Controller
 			'outcome_type' => $stripeData['outcome']['type'],
 			'receipt_url' => $stripeData['receipt_url']
 		]);
-		if($error)
+		if(count($returnData['errors']))
 		{
-			return response()->json(['result' => $error]);
+			return response()->json($returnData);
 		}
 		$userId = Auth::check() ? Auth::user()->id : null;
 		foreach($purchases as $id => $amount)
@@ -147,9 +185,10 @@ class CheckoutController extends Controller
 			$purchase->email = $email;
 			$purchase->user_id = $userId;
 			$purchase->payment_id = $payment->id;
+			$purchase->message = $message;
 			$purchase->save();
 		}
-		return response()->json(['result' => 'Success - Payment Processed', 'success' => 1]);
+		return response()->json($returnData);
 	}
       
     

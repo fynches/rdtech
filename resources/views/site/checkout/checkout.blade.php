@@ -37,7 +37,7 @@
     <section class="step_1">
         <div class="container-fluid cont">
             <div class="row">
-                <h5><strong>STEP 1: CONFIRM YOUR GIFTS</strong></h5>
+                <h5><strong>STEP 1: REVIEW YOUR GIFTS</strong></h5>
                 <div class="container cart-items">
                     <h4>YOU HAVE {{count($purchases)}} @if(count($purchases) > 1) GIFTS @else GIFT @endif IN YOUR CART</h4>
                     @foreach($purchases as $purchase)
@@ -100,8 +100,7 @@
                 <div class="container">
                     <div class="col-md-12 msg_pad">
                         <h6><strong>ENTER GIFT MESSAGE</strong> <span> * Optional</span></h6>
-                        <textarea class="col-md-12 col-xs-12" type="text" name="message"></textarea>
-                        <p class="text-right">0/300</p>
+                        <textarea class="col-md-12 col-xs-12" type="text" name="message" id = 'message'></textarea>
                     </div>
                 </div>
             </div>
@@ -110,58 +109,52 @@
 
     <section class="gift_payment">
         <div class="container-fluid cont">
-            <h5><strong>STEP 3 : PAYMENT</strong></h5>
+            <h5><strong>STEP 3 : PAYMENT INFORMATION</strong></h5>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6 col-xs-6 text-right">
+                    <div class="col-md-12">
                         <div class="pretty p-default p-round">
-                            <input id="credit-card" type="radio" name="radio1" checked>
+                            <input id="credit-card" type="radio" name="radio1" checked />
                             <div class="state">
-                                <label></label> <img src="/front/img/card.png" style="width: 80%;margin-top: -12px" id="disc_img">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xs-6 text-left" style="margin-top: -3px;">
-                        <div class="pretty p-default p-round">
-                            <div class="state">
-                               <input id="check-payment" type="radio" name="radio1"><label><p style="margin-top: -9px;font-size: 18px;margin-bottom:0px"><strong>Check</strong></p></label>
+                                <label><img src="/front/img/card.png" style="width: 80%;margin-top: -12px" id="disc_img" /></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>CARDHOLDER NAME</p>
-                        <input id="cc_name" type="text" class="form-control">
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <label><i class="fas fa-asterisk"></i>CARDHOLDER NAME</label>
+                        <input id="cc_name" type="text" class="form-control" />
                     </div>
-                    <div class="col-md-6">
-                        <p>CARDHOLDER NUMBER</p>
-                        <input id="cc_number" type="text" class="form-control" placeholder="1234 567891011" value="">
+                    <div class="col-md-3">
+                        <label><i class="fas fa-asterisk"></i>CARD NUMBER</label>
+                        <input id="cc_number" type="text" class="form-control" value="" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>EXPIRATION</p>
-                        <div class="col-md-3 col-xs-3" style="padding: 0px;">
-                            <select id="cc_month" class="form-control" value="">
-                              <option>MM</option><option>01</option><option>02</option><option>03</option>
-                              <option>04</option><option>05</option><option>06</option><option>07</option>
-                              <option>08</option><option>09</option><option>10</option><option>11</option>
-                              <option>12</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-xs-3" style="padding: 0px;margin: 0 10px;">
-                            <select id="cc_year" class="form-control" value="">
-                              <option>YYYY</option><option>2019</option><option>2020</option><option>2021</option>
-                              <option>2022</option><option>2023</option><option>2024</option><option>2025</option>
-                              <option>2026</option><option>2027</option><option>2028</option><option>2029</option>
-                              <option>2030</option>
-                            </select>
-                        </div>
+                    <div class="col-md-2">
+                        <label>
+                            <i class="fas fa-asterisk"></i>EXP MONTH
+                        </label>
+                        <select id="cc_month" class="form-control" value="">
+                            <option value = ''>MM</option><option>01</option><option>02</option><option>03</option>
+                            <option>04</option><option>05</option><option>06</option><option>07</option>
+                            <option>08</option><option>09</option><option>10</option><option>11</option>
+                            <option>12</option>
+                        </select>
                     </div>
-                    <div class="col-md-2 col-xs-12">
-                        <p>SECURITY CODE <i class="fas fa-info-circle"></i></p>
-                        <input id="cc_cvv" type="text" class="form-control" value="">
+                    <div class="col-md-2">
+                        <label>
+                            <i class="fas fa-asterisk"></i>EXP YEAR
+                        </label>
+                        <select id="cc_year" class="form-control" value="">
+                            <option value = ''>YYYY</option><option>2019</option><option>2020</option><option>2021</option>
+                            <option>2022</option><option>2023</option><option>2024</option><option>2025</option>
+                            <option>2026</option><option>2027</option><option>2028</option><option>2029</option>
+                            <option>2030</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label><i class="fas fa-asterisk"></i>SECURITY CODE</label>
+                        <input id="cc_cvv" type="text" class="form-control" value="" />
                     </div>
                 </div>
             </div>
@@ -169,63 +162,53 @@
     </section>
     <section class="gift_bill">
         <div class="container-fluid cont">
-            <h5><strong>STEP 4 : BILLING INFO</strong></h5>
+            <h5><strong>STEP 4 : BILLING INFORMATION</strong></h5>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>FIRST NAME</p>
-                       <input id="cc_fname" type="text" class="form-control" value="">
+                <div class="row form-group">
+                    <div class="col-md-3">
+                        <label>FIRST NAME</label>
+                        <input id="cc_fname" type="text" class="form-control" value="" />
                     </div>
-                    <div class="col-md-6">
-                        <p>LAST NAME</p>
-                        <input id="cc_lname" type="text" class="form-control" value="">
+                    <div class="col-md-3">
+                        <label>LAST NAME</label>
+                        <input id="cc_lname" type="text" class="form-control" value="" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <p>ADDRESS</p>
-                       <input id="cc_address" type="text" class="form-control" value="">
+                    <div class="col-md-3">
+                        <label><i class="fas fa-asterisk"></i>ADDRESS</label>
+                        <input id="cc_address" type="text" class="form-control" value="" />
                     </div>
-                    <div class="col-md-6" style="padding: 0px;">
-                        <div class="col-md-6">
-                            <p>CITY/TOWN</p>
-                            <input id="cc_city" type="text" class="form-control" >
-                        </div>
-                         <div class="col-md-6">
-                            <p>STATE</p>
-                       <input id="cc_state" type="text" class="form-control" >
-                         </div>
+                    <div class="col-md-3">
+                        <label><i class="fas fa-asterisk"></i>CITY/TOWN</label>
+                        <input id="cc_city" type="text" class="form-control" />
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="col-md-3" style="padding: 0px;">
-                            <p>ZIP-CODE</p>
-                           <input id="cc_zip" type="text" class="form-control" >
-                       </div>
+                <div class="row form-group">
+                    <div class="col-md-2">
+                        <label><i class="fas fa-asterisk"></i>STATE</label>
+                        <input id="cc_state" type="text" class="form-control" />
                     </div>
-                    <div class="col-md-6">
-                        <p>COUNTRY OF RESIDENCE</p>
-                       <input id="cc_country" type="text" class="form-control" >
+                    <div class="col-md-2">
+                        <label><i class="fas fa-asterisk"></i>ZIP CODE</label>
+                        <input id="cc_zip" type="text" class="form-control" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                            <p>EMAIL</p>
-                           <input id="cc_email" type="text" class="form-control" >
+                    <div class="col-md-2">
+                        <label>COUNTRY</label>
+                        <input id="cc_country" type="text" class="form-control" />
                     </div>
-                    <div class="col-md-6">
-                        <p>CONFIRM EMAIL</p>
-                       <input id="cc_confirm" type="text" class="form-control" >
+                    <div class="col-md-3">
+                            <label><i class="fas fa-asterisk"></i>EMAIL</label>
+                           <input id="cc_email" type="text" class="form-control" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="last-row"></div>
+                    <div class="col-md-3">
+                        <label><i class="fas fa-asterisk"></i>CONFIRM EMAIL</label>
+                       <input id="cc_confirm" type="text" class="form-control" />
                     </div>
                 </div>
-                <div class="row text-right">
-                    <a id="place-order" href="" class="btn common btn-border yellow-submit">PLACE ORDER  <i class="fa fa-lock" aria-hidden="true" style="margin: 10px;border: 1px solid;border-radius: 25px;padding: 5px;"></i></a>
+                <div class = 'row form-group'>
+                    <div id = 'error' class = 'col-md-12'></div>
+                </div>
+                <div class="row form-group">
+                    <a id="place-order" href="" class="btn btn-primary">PLACE ORDER  <i class="fa fa-lock" aria-hidden="true" style="margin: 10px;border: 1px solid;border-radius: 25px;padding: 5px;"></i></a>
                 </div>
             </div>
         </div>
