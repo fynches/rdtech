@@ -124,63 +124,62 @@
 </form>
 
 
-<section class="gift_reco">
-    <div class="container-fluid cont">
-        <div class="row" id="recommended">
-            @if(isset($recommendedGifts))
-                <h5 style="margin-bottom:30px;">RECOMMENDED GIFTS FOR {{strToUpper($child->first_name)}}</h5>
-                @foreach($recommendedGifts as $gift)
-                    <div class="col-md-3 col-sm-6 reco_col" id="{{$gift->id}}">
-                        <div id="img-height" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">
-                            <?php //dd($page); ?>
-                            <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
-                            </div>
-                        </div>
-                        <div class="shad-effect">
-                            <label>{{$gift->title}}</label>
-                            <p>{{$gift->description}}</p>
-                            <div class="btns-{{$gift->id}}">
-                                @if(isset($page->added_gifts) && in_array($gift->id, $page->added_gifts))
-                                     <div class="row" id="marg">
-                                        <div class="col-md-6 col-xs-6">
-                                            <button class="btn btn-lg add_submit" data-id="{{$gift->id}}" name="remove">REMOVE</button>
-                                        </div>
-                                        <div class="col-md-6 col-xs-6 text-right">
-                                            @php
-                                            $gifted = $gift->purchases($page->id)->sum('amount');
-                                            $needed = $gift->price - $gifted;
-                                            @endphp
-                                            <div class="col-md-6 col-xs-6"> <p class="text-center" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$gift->purchases($page->id)->sum('amount')}}</p><p class="text-center" style="font-weight:100;font-size:10px;font-family:'Avenir-Book';margin-top:5px">GIFTED</p></div>
-                                            <div class="col-md-6 col-xs-6"><p class="text-center new-{{$gift->id}}" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$needed}}</p><p class="text-center" style="font-size:10px;font-family:'Avenir-Light';line-height:10px;margin-top:5px">NEEDED</p></div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="btns-{{$gift->id}}">
-                                        <div class="row">
-                                            <div id="img_1" class="col-md-6 col-xs-6">
-                                                <button class="btn btn-primary btn-lg btn_purp gift-dets " id="giftdets-{{$gift->id}}" data-id="{{$gift->id}}" data-toggle="modal" data-target="#myModal">GIFT DETAILS</button>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 col-xs-6">
-                                                <button class="btn btn-primary btn-lg yellow_submit" name="add" data-id="{{$gift->id}}">QUICK ADD</button>
-                                            </div>
-                                            <div class="col-md-6 col-xs-6 text-right gift_price" id="gift_price" data-id="{{$gift->id}}">
-                                                <p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->cost, 2)}}</p>
-                                                <p>Est. Price <i class="fas fa-info-circle tooltips" data-toggle="tooltip" data-placement="top" title="Estimated gift cost."></i></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-    </div>
-</section>    
+{{--<section class="gift_reco">--}}
+    {{--<div class="container-fluid cont">--}}
+        {{--<div class="row" id="recommended">--}}
+            {{--@if(isset($recommendedGifts))--}}
+                {{--<h5 style="margin-bottom:30px;">RECOMMENDED GIFTS FOR {{strToUpper($child->first_name)}}</h5>--}}
+                {{--@foreach($recommendedGifts as $gift)--}}
+                    {{--<div class="col-md-3 col-sm-6 reco_col" id="{{$gift->id}}">--}}
+                        {{--<div id="img-height" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">--}}
+                            {{--<div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">--}}
+                                {{--<a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="shad-effect">--}}
+                            {{--<label>{{$gift->title}}</label>--}}
+                            {{--<p>{{$gift->description}}</p>--}}
+                            {{--<div class="btns-{{$gift->id}}">--}}
+                                {{--@if(isset($page->added_gifts) && in_array($gift->id, $page->added_gifts))--}}
+                                     {{--<div class="row" id="marg">--}}
+                                        {{--<div class="col-md-6 col-xs-6">--}}
+                                            {{--<button class="btn btn-lg add_submit" data-id="{{$gift->id}}" name="remove">REMOVE</button>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 col-xs-6 text-right">--}}
+                                            {{--@php--}}
+                                            {{--$gifted = $gift->purchases($page->id)->sum('amount');--}}
+                                            {{--$needed = $gift->price - $gifted;--}}
+                                            {{--@endphp--}}
+                                            {{--<div class="col-md-6 col-xs-6"> <p class="text-center" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$gift->purchases($page->id)->sum('amount')}}</p><p class="text-center" style="font-weight:100;font-size:10px;font-family:'Avenir-Book';margin-top:5px">GIFTED</p></div>--}}
+                                            {{--<div class="col-md-6 col-xs-6"><p class="text-center new-{{$gift->id}}" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$needed}}</p><p class="text-center" style="font-size:10px;font-family:'Avenir-Light';line-height:10px;margin-top:5px">NEEDED</p></div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--@else--}}
+                                    {{--<div class="btns-{{$gift->id}}">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div id="img_1" class="col-md-6 col-xs-6">--}}
+                                                {{--<button class="btn btn-primary btn-lg btn_purp gift-dets " id="giftdets-{{$gift->id}}" data-id="{{$gift->id}}" data-toggle="modal" data-target="#myModal">GIFT DETAILS</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-md-6 col-xs-6">--}}
+                                                {{--<button class="btn btn-primary btn-lg yellow_submit" name="add" data-id="{{$gift->id}}">QUICK ADD</button>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-6 col-xs-6 text-right gift_price" id="gift_price" data-id="{{$gift->id}}">--}}
+                                                {{--<p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->cost, 2)}}</p>--}}
+                                                {{--<p>Est. Price <i class="fas fa-info-circle tooltips" data-toggle="tooltip" data-placement="top" title="Estimated gift cost."></i></p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+            {{--@endif--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</section>--}}
 
 <section class="add_gifts">
     <div class="container-fluid cont">
@@ -229,9 +228,9 @@
                                         @if($needed)<div class="col-md-4 col-sm-4 col-xs-4"><img id="move-{{$gift->id}}" class="trash" data-id="{{$gift->id}}" src="/front/img/Delete_white.png" style="width:100%"></div>@endif
                                     </div>
                                 </div>
-                                <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                    <a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
-                                </div>
+                                {{--<div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">--}}
+                                    {{--<a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>--}}
+                                {{--</div>--}}
                             </div>
                             <div class="shad-effect">
                                 <label class="l-{{$gift->id}}">{{$gift->title}}</label>
@@ -254,62 +253,62 @@
     </div>
 </section>
 
-<section class="gift_reco">
-    <div class="container-fluid cont">
-        <div class="row" id="favorites">
-            <h5 id="high">SAVED FAVORITES <i class="fas fa-info-circle cir tooltips" data-toggle="tooltip" data-placement="top" title="Click the heart on any gift to save here as a favorite."></i> </h5>
-            @if($page->favorite_gift_models && count($page->favorite_gift_models))
-                @foreach($page->favorite_gift_models as $gift)
-                    <div class="col-md-3 col-sm-6 reco_col pointer" id="{{$gift->id}}">
-                        <div id="img-height" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">
-                            <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">
-                                <a href="javascript:void(0)" class="favorited-button"  data-pnum="{{$gift->id}}"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id, $page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>
-                            </div>
-                        </div>
-                        <div class="shad-effect">
-                            <label class="l-{{$gift->id}}">{{$gift->title}}</label>
-                            <p class="d-{{$gift->id}}">{{$gift->description}}</p>
-                            <div class="btns-{{$gift->id}}">
-                                @if(isset($page->added_gifts) && in_array($gift->id, $page->added_gifts))
-                                    <div class="row" id="marg">
-                                        <div class="col-md-6 col-xs-6">
-                                            <button class="btn btn-lg add_submit" name="remove" data-id="{{$gift->id}}">REMOVE</button>
-                                        </div>
-                                        <div class="col-md-6 col-xs-6 text-right">
-                                            @php
-                                            $gifted = $gift->purchases($page->id)->sum('amount');
-                                            $needed = $gift->price - $gifted;
-                                            @endphp
-                                            <div class="col-md-6 col-xs-6"> <p class="text-center" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$gift->purchases($page->id)->sum('amount')}}</p><p class="text-center" style="font-weight:100;font-size:12px;font-family:'Avenir-Book';margin-top:5px">GIFTED</p></div>
-                                            <div class="col-md-6 col-xs-6"><p class="text-center new-{{$gift->id}}" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$needed}}</p><p class="text-center" style="font-weight:100;font-size:12px;font-family:'Avenir-Book';margin-top:5px">NEEDED</p></div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="btns-{{$gift->id}}">
-                                        <div class="row">
-                                            <div class="col-md-6 col-xs-6">
-                                                <button class="btn btn-primary btn-lg btn_purp gift-dets" data-id="{{$gift->id}}" data-toggle="modal" data-target="#myModal">GIFT DETAILS</button>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 col-xs-6">
-                                                <button class="btn btn-primary btn-lg yellow_submit" name="add" data-id="{{$gift->id}}">QUICK ADD</button>
-                                            </div>
-                                            <div class="col-md-6 col-xs-6 text-right gift_price" id="gift_price" data-id="{{$gift->id}}">
-                                                <p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->cost, 2)}}</p>
-                                                <p>Est. Price <i class="fas fa-info-circle tooltips" data-toggle="tooltip" data-placement="top" title="Estimated gift cost."></i></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-    </div>
-</section>    
+{{--<section class="gift_reco">--}}
+    {{--<div class="container-fluid cont">--}}
+        {{--<div class="row" id="favorites">--}}
+            {{--<h5 id="high">SAVED FAVORITES <i class="fas fa-info-circle cir tooltips" data-toggle="tooltip" data-placement="top" title="Click the heart on any gift to save here as a favorite."></i> </h5>--}}
+            {{--@if($page->favorite_gift_models && count($page->favorite_gift_models))--}}
+                {{--@foreach($page->favorite_gift_models as $gift)--}}
+                    {{--<div class="col-md-3 col-sm-6 reco_col pointer" id="{{$gift->id}}">--}}
+                        {{--<div id="img-height" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">--}}
+                            {{--<div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">--}}
+                                {{--<a href="javascript:void(0)" class="favorited-button"  data-pnum="{{$gift->id}}"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!in_array($gift->id, $page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                        {{--<div class="shad-effect">--}}
+                            {{--<label class="l-{{$gift->id}}">{{$gift->title}}</label>--}}
+                            {{--<p class="d-{{$gift->id}}">{{$gift->description}}</p>--}}
+                            {{--<div class="btns-{{$gift->id}}">--}}
+                                {{--@if(isset($page->added_gifts) && in_array($gift->id, $page->added_gifts))--}}
+                                    {{--<div class="row" id="marg">--}}
+                                        {{--<div class="col-md-6 col-xs-6">--}}
+                                            {{--<button class="btn btn-lg add_submit" name="remove" data-id="{{$gift->id}}">REMOVE</button>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="col-md-6 col-xs-6 text-right">--}}
+                                            {{--@php--}}
+                                            {{--$gifted = $gift->purchases($page->id)->sum('amount');--}}
+                                            {{--$needed = $gift->price - $gifted;--}}
+                                            {{--@endphp--}}
+                                            {{--<div class="col-md-6 col-xs-6"> <p class="text-center" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$gift->purchases($page->id)->sum('amount')}}</p><p class="text-center" style="font-weight:100;font-size:12px;font-family:'Avenir-Book';margin-top:5px">GIFTED</p></div>--}}
+                                            {{--<div class="col-md-6 col-xs-6"><p class="text-center new-{{$gift->id}}" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$needed}}</p><p class="text-center" style="font-weight:100;font-size:12px;font-family:'Avenir-Book';margin-top:5px">NEEDED</p></div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--@else--}}
+                                    {{--<div class="btns-{{$gift->id}}">--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-md-6 col-xs-6">--}}
+                                                {{--<button class="btn btn-primary btn-lg btn_purp gift-dets" data-id="{{$gift->id}}" data-toggle="modal" data-target="#myModal">GIFT DETAILS</button>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="row">--}}
+                                            {{--<div class="col-md-6 col-xs-6">--}}
+                                                {{--<button class="btn btn-primary btn-lg yellow_submit" name="add" data-id="{{$gift->id}}">QUICK ADD</button>--}}
+                                            {{--</div>--}}
+                                            {{--<div class="col-md-6 col-xs-6 text-right gift_price" id="gift_price" data-id="{{$gift->id}}">--}}
+                                                {{--<p style="font-size:16px;font-family:'Avenir-Black';color:#34344A;line-height:16px">${{number_format($gift->cost, 2)}}</p>--}}
+                                                {{--<p>Est. Price <i class="fas fa-info-circle tooltips" data-toggle="tooltip" data-placement="top" title="Estimated gift cost."></i></p>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--@endif--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--@endforeach--}}
+            {{--@endif--}}
+        {{--</div>--}}
+    {{--</div>--}}
+{{--</section>    --}}
 
 @include('site.gift.gift-background')
 @include('site.gift.gift_Add')

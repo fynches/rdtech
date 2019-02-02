@@ -702,6 +702,13 @@ section.gift_experience #pos_abs{
     max-height: 180px;
 }
 
+.shad-effect label{
+    max-height: 12px;
+    overflow-y: hidden;
+    padding: 0 10px;
+    margin: 10px 0;
+}
+
 .add_gifts .cont{
     margin:0 60px;
     padding:0px !important;

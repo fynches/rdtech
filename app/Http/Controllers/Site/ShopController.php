@@ -365,6 +365,21 @@ class ShopController extends Controller
 					$title = $node->item(0)->nodeValue;
 				}
 			}
+
+			//amazon
+			if(!$image)
+			{
+				$images = $doc->getElementsByTagName('img');
+				foreach ($images as $i)
+				{
+					if($i->getAttribute('id') == 'landingImage')
+					{
+						$image = $i->getAttribute('src');
+						break;
+					}
+				}
+			}
+
 		}
 		return response()->json(['title' => $title, 'description' => $description, 'image' => $image]);
 	}

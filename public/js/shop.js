@@ -69,47 +69,7 @@ jQuery(document).ready(function( $ ) {
     
     $('.checkbox').click(function(){
         
-        var checkedid = $(this).attr('id');
-        
-        var categories = [];
-        var ages = []; 
-        
-        
-        $('.checkbox[data-id="category"]:checked').each(function(){ categories.push(this.id); });
-        $('.checkbox[data-id="age"]:checked').each(function(){ ages.push(this.id); });
-        
-        
-        
-         if(checkedid == 'all') {
-            $(".checkbox.cat").prop('checked',this.checked);
-            $(".checkbox[data-id='age']").prop('checked',this.checked);
-            $('#shop-items').children().show();
-        }
-        
-        
-        
-        else if((categories === undefined || categories.length === 0) && (ages === undefined || ages.length === 0)) {
-            $('#shop-items').children().show();
-        }
-        
-        else {
-            $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-    			type: 'post',
-    			url: '/category',
-    			data: {
-    			    categories:categories,
-    			    ages:ages
-    			},
-    		   success: function(data) {
-                       $('#shop-items').children().hide();
-                       
-                       for(var i in data.gift_id) {
-                        $('#shop-items #' + data.gift_id[i]).show();
-                       }
-    	            }
-            });
-        }
+		handleClick();
     });
     
     $("#shop_drop li a").click(function() {
@@ -398,6 +358,52 @@ jQuery(document).ready(function( $ ) {
 				   }
 	    });
 	});
+
+	function handleClick()
+	{
+		var all = false;
+		var categories = [];
+		var ages = [];
+		$('.checkbox[data-id="category"]:checked').each(function()
+		{
+			if(this.id == 'all')
+			{
+				all = true;
+			}
+			categories.push(this.id);
+		});
+		$('.checkbox[data-id="age"]:checked').each(function()
+		{
+			ages.push(this.id);
+		});
+		if(all) {
+			$(".checkbox.cat").prop('checked',this.checked);
+			$(".checkbox[data-id='age']").prop('checked',this.checked);
+			$('#shop-items').children().show();
+		}
+		else if((categories === undefined || categories.length === 0) && (ages === undefined || ages.length === 0)) {
+			$('#shop-items').children().show();
+		}
+		else {
+			$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+			$.ajax({
+				type: 'post',
+				url: '/category',
+				data: {
+					categories:categories,
+					ages:ages
+				},
+				success: function(data) {
+					$('#shop-items').children().hide();
+
+					for(var i in data.gift_id) {
+						$('#shop-items #' + data.gift_id[i]).show();
+					}
+				}
+			});
+		}
+	}
+	handleClick();
 	
 	 // var category = window.location.pathname.split('/')[3];
 	 // var age = $('#child-ages').val();
