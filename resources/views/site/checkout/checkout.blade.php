@@ -5,7 +5,7 @@
         <div class="container-fluid cont">
             <div class="row">
                 <div class="col-md-8">
-                    <a class="navbar-brand" href="https://fynches.codeandsilver.com">
+                    <a class="navbar-brand" href="/">
                         <img src="/front/img/BirdLogo.png" alt="Fynches" title="" style="margin:20px 0">
                     </a>
                 </div>
@@ -233,7 +233,7 @@
 				</div>
 				<div class="col-sm-6 col-md-6 col-xs-12 text-center" id="f-menu">
 				    <div class="col-md-2 col-xs-2 pad"><a href="/about-us">ABOUT</a></div>
-				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="https://fynches.com/blog/">BLOG</a></div>
+				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="/blog/">BLOG</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a></div>
 				    <div class="col-md-2 col-xs-2 pad"><a href="/need-help">FAQS</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="/search">FIND A GIFT PAGE</a></div>

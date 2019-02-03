@@ -22,7 +22,7 @@
                 <div class="col-md-12 text-center">
                     <h5 class="text-center">Thank You, Your Payment Was Successful</h5>
                     <p>We have sent receipt to your email @isset($email->email) at {{$email->email}}@endisset</p>
-                    <img src="http://fynches.codeandsilver.com/public/front/img/reco_5.png">
+                    <img src="/front/img/reco_5.png">
                     <p class="text-center">Try using Fynches for your child's next<br> event. Create an account below</p><br>
                     <a href="/parent-child-info"><button class="btn btn-border btn-purp text-center" id="btn_purp">CREATE YOUR OWN GIFT PAGE</button></a><br><br>
                     <img src="/front/img/reco_6.png">

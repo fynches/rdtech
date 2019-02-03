@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="fheader col-md-8 col-sm-7">
-                   <a class="navbar-brand" href="https://fynches.codeandsilver.com">
+                   <a class="navbar-brand" href="/">
                      <img src="/front/img/BirdLogo.png" alt="Fynches" title="" id="fyn_logo_1">
                     </a>
                 </div>
@@ -198,7 +198,7 @@
             <h5 style="margin:20px;">GIFTS ADDED TO {{strToUpper($child->first_name)}}'S PAGE</h5>
             <div class="added_gifts">
                 <div class="col-md-3 col-sm-6 reco_col pointer" id="100">
-                    <div id="hoverimg-100" class="" data-id="100" style="position: relative; background: url('http://fynches.codeandsilver.com/public/front/img/give-any.jpg'); width:100%; height:250px; background-size:100% 100%; ">
+                    <div id="hoverimg-100" class="" data-id="100" style="position: relative; background: url('/front/img/give-any.jpg'); width:100%; height:250px; background-size:100% 100%; ">
                         <div id="cartimg-100" class="cart_1" data-id="100"></div>
                         <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;"></div>
                     </div>

@@ -121,7 +121,7 @@
                     <div class="row" id="shop-items">
                         <div class="col-md-4 text-center">
                             <div id="crecust">
-                                <img src="http://fynches.codeandsilver.com/public/front/img/custAdd.png" data-toggle="modal" data-target="#gift_Add"><br><br>
+                                <img src="/front/img/custAdd.png" data-toggle="modal" data-target="#gift_Add"><br><br>
                                 <p class="text-center" style="font-size:18px" >CREATE <br>CUSTOM GIFT</p>
                             </div>
                         </div>

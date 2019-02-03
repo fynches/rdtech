@@ -239,7 +239,7 @@
 	<div class="modal-dialog modal-md">
 		<div class="modal-content" style="padding:0px">
 			<div id="signup-header" class="modal-header text-center">
-				<a href="http://fynches.codeandsilver.com"><img src="http://fynches.codeandsilver.com/public/front/img/logo.png" alt="logo" title=""></a>
+				<a href="/"><img src="/front/img/logo.png" alt="logo" title=""></a>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true"><i class="fas fa-times"></i></span>
 				</button>

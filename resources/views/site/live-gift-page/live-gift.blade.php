@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-8 fheader">
-                    <a class="navbar-brand" href="http://fynches.codeandsilver.com">
+                    <a class="navbar-brand" href="/">
                         <img src="/front/img/BirdLogo.png" alt="Fynches" title="" id="fyn_logo_1">
                     </a>
                 </div>
@@ -107,7 +107,7 @@
         <div class="container-fluid cont">
             <div class="row">
                 <div class="col-md-3 reco_col" id="reco_col">
-                    <div id="gift-image-100" class="add-money" data-id="100" style="background:url('http://fynches.codeandsilver.com/public/front/img/give-any.jpg');background-size:cover">
+                    <div id="gift-image-100" class="add-money" data-id="100" style="background:url('/front/img/give-any.jpg');background-size:cover">
                         <img class="img-height" src="/front/img/give-any.jpg" width="100%" id="img-100" style="height:250px">
                         <img id="imgrp-100" class="cart" data-id="100" src="/front/img/whitecheck.png">
                         <img  id="fagift-100" class="gifted_icon" data-id="100" src="/front/img/giftbox.png">

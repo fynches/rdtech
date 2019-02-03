@@ -6,8 +6,8 @@
     <div class="container-fluid cont">
         <div class="row">
             <div class="col-md-8" id="report-cent">
-                <a class="navbar-brand" href="http://fynches.codeandsilver.com">
-        	         <img src="http://fynches.codeandsilver.com/public/front/img/logo.png" alt="Fynches" title="" id="fyn_logo">
+                <a class="navbar-brand" href="/">
+        	         <img src="/front/img/logo.png" alt="Fynches" title="" id="fyn_logo">
         	    </a>
             </div>
             <div class="col-md-4" id="shop_list">
@@ -138,11 +138,11 @@
 		<div class="footer-top">
 			<div class="row ">
 				<div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 text-left" id="foot_img">
-					<a href="javascript:void(0)"><img src="https://fynches.codeandsilver.com/public/front/img/f-logo.png" alt="logo" title=""></a>
+					<a href="javascript:void(0)"><img src="/front/img/f-logo.png" alt="logo" title=""></a>
 				</div>
 				<div class="col-sm-5 col-md-5 col-xs-12 text-center" id="f-menu">
 				    <div class="col-md-2 col-xs-2 pad"><a href="/about-us">ABOUT</a></div>
-				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="https://fynches.com/blog/">BLOG</a></div>
+				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="/blog/">BLOG</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a></div>
 				    <div class="col-md-2 col-xs-2 pad"><a href="/need-help">FAQS</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="/search">FIND A GIFT PAGE</a></div>

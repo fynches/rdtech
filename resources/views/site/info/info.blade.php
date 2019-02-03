@@ -88,7 +88,7 @@
                     <div class="col-md-12">
                         <div class="row" id="lk">
                             <div class="col-md-4 col-xs-6 text-right">
-                                <p id="gp">https://www.fynches.com/gift-page/</p>
+                                <p id="gp">/gift-page/</p>
                             </div>
                             <div class="col-md-7 col-xs-8 text-left no-padding" >
                                 <input required id="slug" name="slug" type="text" placeholder="" style="width: 100%;border-radius: 0 5px 5px 0;" value="{{ old('slug') }}" pattern="[A-Za-z0-9]*">
