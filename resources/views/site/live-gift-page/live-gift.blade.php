@@ -4,26 +4,41 @@
     <header id="gift_head" >
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 fheader">
+                <div class="col-md-6 fheader">
                     <a class="navbar-brand" href="/">
                         <img src="/front/img/BirdLogo.png" alt="Fynches" title="" id="fyn_logo_1">
                     </a>
                 </div>
-                <div class="col-md- fmenu">
-                    <div id="div_top_hypers">
-                        <ul class="ul_top_hypers" id="ul_top_hypers">
-                            <li><a href="" class="a_top_hypers"> HELP</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MY ACCOUNT <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="/account">ACCOUNT SETTINGS</a></li>
-                                    <li><a href="/gift-dashboard">DASHBOARD</a></li>
-                                    <li><a href="{{ url('/logout') }}">LOGOUT</a></li>
-                                </ul>
-                            </li>
-                        </ul>
+                @if(Auth::check())
+                    <div class="col-md-6 fmenu">
+                        <div id="div_top_hypers">
+                            <ul class="ul_top_hypers" id="ul_top_hypers">
+                                <li><a href="" class="a_top_hypers"> HELP</a></li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MY ACCOUNT <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="/account">ACCOUNT SETTINGS</a></li>
+                                        <li><a href="/gift-dashboard">DASHBOARD</a></li>
+                                        <li><a href="{{ url('/logout') }}">LOGOUT</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                @else
+                    <div class="col-md- fmenu">
+                        <div id="div_top_hypers">
+                            <ul class="ul_top_hypers" id="ul_top_hypers" style = 'margin: 0px'>
+                                <li><a href="/about-us" class="a_top_hypers"> ABOUT</a></li>
+                                <li><a href="/BLOG" class="a_top_hypers"> BLOG</a></li>
+                                <li><a href="#" class="a_top_hypers" data-toggle = 'modal' data-target = '#contactPage'> CONTACT US</a></li>
+                                <li><a href="/need-help" class="a_top_hypers"> HELP</a></li>
+                                <li><a class="a_top_hypers" href="#" data-toggle="modal" data-target="#largeModalSI" >LOGIN</a></li>
+                                <li><a class="btn common pink-btn" style="cursor: pointer;background-color: #DFF2F6;width: auto;border: 1px solid #f05;border-radius: 25px;color: #f05;font-size: 12px;font-weight: bold;letter-spacing: 2px;padding: 4px 7px;" data-toggle="modal" data-target="#largeModalS">SIGN UP FREE</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </header>
@@ -258,6 +273,9 @@
 
     @include('site.live-gift-page.gift_share')
     @include('modal.contact')
+    @include('modal.signin')
+    @include('modal.signup')
+    @include('modal.password')
 @stop
 
 @section('footer')

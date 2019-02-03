@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div id="signup-header" class="modal-header text-center">
-                <a href="/"><img src="//front/img/logo.png" alt="logo" title=""></a>
+                <a href="/"><img src="/front/img/logo.png" alt="logo" title=""></a>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"><i class="fas fa-times"></i></span>
                 </button>
@@ -25,7 +25,7 @@
                                 <input required type="password" id="confirm-password" name="confirm_password" class="form-control required" minlength=8>
                             </div>
                             <button type="submit" class="btn common pink-btn">SIGN UP WITH EMAIL</button>
-                            <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook">SIGN IN WITH FACEBOOK</a>
+                            <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook">SIGN UP WITH FACEBOOK</a>
                         </form>
                         <div class="terms-conditions">
                             <div>By creating your Fynches account you agree to our <a href="/terms-condition" style="color:#00B4c1">Terms of Use</a> and <a href="/privacy-policy" style="color:#00B4c1">Privacy Policy</a></div>
