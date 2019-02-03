@@ -63,32 +63,30 @@ class StripeAccount extends Model
 			    'currency' => 'usd',
 			    'account_holder_name' => $request->input('firstName') . ' ' . $request->input('lastName'),
 			    'account_holder_type' => 'individual',
-			    'bank_name' => $request->input('bankName'),
 			    'routing_number' => $request->input('routing'),
 			    'account_number' => $request->input('account'),
-			    'last4' => $request->input('ss'),
-			    'legal_entity' => [
-				    'address' => [
-					    'line1' => $request->input('address'),
-					    'city' => $request->input('city'),
-					    'state' => $request->input('state'),
-					    'postal_code' => $request->input('zip'),
-					    'country' => 'US'
-				    ],
-				    'dob' => [
-					    'day' => $request->input('day'),
-					    'month' => $request->input('month'),
-					    'year' => $request->input('year')
-				    ],
-				    'first_name' => $request->input('firstName'),
-				    'last_name' => $request->input('lastName'),
-				    'ssn_last_4' => $request->input('ss'),
-				    'type' => 'individual',
-				    'tos_acceptance' => [
-					    'date' => now(),
-					    'ip' => $request->ip()
-				    ]
-			    ]
+		    ],
+		    'legal_entity' => [
+			    'address' => [
+				    'line1' => $request->input('address'),
+				    'city' => $request->input('city'),
+				    'state' => $request->input('state'),
+				    'postal_code' => $request->input('zip'),
+				    'country' => 'US'
+			    ],
+			    'dob' => [
+				    'day' => $request->input('day'),
+				    'month' => $request->input('month'),
+				    'year' => $request->input('year')
+			    ],
+			    'first_name' => $request->input('firstName'),
+			    'last_name' => $request->input('lastName'),
+			    'ssn_last_4' => $request->input('ss'),
+			    'type' => 'individual',
+		    ],
+		    'tos_acceptance' => [
+			    'date' => time(),
+			    'ip' => $request->ip()
 		    ]
 	    ];
 	    try{
