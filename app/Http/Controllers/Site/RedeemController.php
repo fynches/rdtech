@@ -35,6 +35,27 @@ class RedeemController extends Controller
 		return view('site.redeem.redeem', $totals);
 	}
 
+	public function doRedeemAccount(Request $request)
+	{
+		$accountId = $request->input('stripeAccount');
+		$account = StripeAccount::find($accountId);
+		if(!$account || $account->user_id != Auth::user()->id)
+		{
+			return redirect('redeem-gifts')
+				->withErrors(['message' => 'Invalid account information'])
+				->withInput();
+		}
+		$totals = Auth::user()->getGiftTotals();
+		$processStatus = StripeAccount::processTransfer($account, $totals['available']);
+		if($processStatus['error'])
+		{
+			return redirect('redeem-gifts')
+				->withErrors(['message' => $processStatus['error']])
+				->withInput();
+		}
+		return view('site.redeem.redeem-success', ['transfer' => $processStatus['transfer']]);
+	}
+
 	public function doRedeem(Request $request)
 	{
 		$validator = StripeAccount::getValidator($request);

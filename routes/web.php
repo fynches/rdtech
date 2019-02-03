@@ -117,6 +117,7 @@ Route::get('/checkout-success','Site\CheckoutController@checkoutsuccess');
 
 Route::get('/redeem-gifts', 'Site\RedeemController@index')->name('redeem')->middleware('auth');
 Route::post('/redeem-gifts','Site\RedeemController@doRedeem')->middleware('auth');
+Route::post('/redeem-gifts-account','Site\RedeemController@doRedeemAccount')->middleware('auth');
 Route::get('/redeem-success','Site\RedeemController@success')->middleware('auth');
 
 //**************end Redeem_Page***************//

@@ -31,6 +31,7 @@ class StripeAccount extends Model
 
     public static function processTransfer(StripeAccount $account, $amount)
     {
+	    Stripe::setApiKey(env('STRIPE_SECRET'));
 		$stripeTransfer = StripeTransfer::create([
 			'amount' => $amount * 100,
 			'currency' => 'usd',

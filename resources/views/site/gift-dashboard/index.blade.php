@@ -90,9 +90,9 @@
                                     </div>
                                     <div class="col-md-3 col-sm-3" style="margin-left:auto;float:right">
                                         <a href="/redeem-gifts"><img src="/front/img/redeem.png" alt="Fynches" title="" style="margin: 0 5px;"></a>
-                                        <a href="/gift-report/{{$page->slug}}"><img src="/front/img/fund.png" alt="Fynches" title="" style="margin: 0 5px;"></i></a>
+                                        {{--<a href="/gift-report/{{$page->slug}}"><img src="/front/img/fund.png" alt="Fynches" title="" style="margin: 0 5px;" /></a>--}}
                                         <a href="/gift/{{$page->slug}}"><img src="/front/img/edit.png" alt="Fynches" title="" style="margin: 0 5px;"></a>
-                                        <a class="delete-gift" href=""data-id="{{$page->id}}"><img src="/front/img/del.png" alt="Fynches" title="" style="margin: 0 5px;"></a>
+                                        {{--<a class="delete-gift" href=""data-id="{{$page->id}}"><img src="/front/img/del.png" alt="Fynches" title="" style="margin: 0 5px;"></a>--}}
                                     </div>
                                 </div>
                             </div>

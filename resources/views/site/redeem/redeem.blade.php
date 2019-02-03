@@ -93,13 +93,14 @@
                     <h5>TOTAL AVAILABLE BALANCE</h5>
                 </div>
                 <div class="col-md-1 text-left">
-                    <h5 class="gift_second">${{ number_format($total - $hold - $previous, 2) }}</h5>
+                    <h5 class="gift_second">${{ number_format($available, 2) }}</h5>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="gift_bank">
+    @if($available)
+        <section class="gift_bank">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -111,110 +112,133 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>We've partnered with Stripe to make receiving your money safe and easy. All funds are transferred through ACH Electronic Check, and funds arrive in your bank account
-                        within 5 business days.<br><br>
-                        Please enter your banking info below. At the bottom of your personal checks,there are three sets of numbers. Your routing number is a set of nine digits
-                        and your account number is typically 3 - 17 digits.</p>
-                    <div class="col-md-4">
-                        <img src="/front/img/bank.png" style="width: 100%;">
+            @if($user->stripeAccounts && count($user->stripeAccounts))
+                <div class = 'row'>
+                    <div class = 'col-md-6'>
+                        <form id = 'formWithAccount' method="post" action = '/redeem-gifts-account'>
+                            {{ csrf_field() }}
+                            <label>Select an account</label>
+                            <select id = 'selectAccount' class = 'form-control' name = 'stripeAccount'>
+                                <option value = ''>Select a bank account</option>
+                                @foreach($user->stripeAccounts as $account)
+                                    <option value = '{{ $account->id }}'>{{ $account->bank_name . ' - ' . $account->last4 }}</option>
+                                @endforeach
+                                <option value = 'new'>Add a new bank account</option>
+                            </select>
+                        </form>
+                    </div>
+                    <div class = 'col-md-6'>
+                        <button id = 'buttonRedeemFromAccount' class = 'btn btn-primary' style = 'display: none; margin-top: 25px;'>REDEEM ${{ number_format($available, 2) }} <i class = 'fa fa-lock'></i></button>
                     </div>
                 </div>
-            </div>
-            <form method="post" action = '/redeem-gifts'>
-                {{ csrf_field() }}
-                <div class="row form-group">
-                    <div class="col-md-4">
-                        <label>Bank Name</label>
-                        <input type="text" class="form-control" name = 'bankName' value = '{{ old('bankName') }}' />
-                    </div>
-                    <div class="col-md-4">
-                        <label>Routing Number (9 digits number)</label>
-                        <input type="text" class="form-control" name = 'routing' value = '{{ old('routing') }}' />
-                    </div>
-                    <div class="col-md-4">
-                        <label>Account Number (3 - 17 digits)</label>
-                        <input type="text" class="form-control" name = 'account' value = '{{ old('account') }}' />
-                    </div>
-                </div>
-                <div class = 'row form-group'>
-                    <div class = 'col-md-4'>
-                        <label>
-                            Birthday Day
-                        </label>
-                        <select name = 'day' class = 'form-control'>
-                            <option value = ''>Select Day</option>
-                            @for($i = 1; $i <= 31; $i++)
-                                <option {{ old('day') == $i ? "selected = 'selected'" : '' }} value = '{{ $i }}'>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class = 'col-md-4'>
-                        <label>
-                            Birthday Month
-                        </label>
-                        <select name = 'month' class = 'form-control'>
-                            <option value = ''>Select Month</option>
-                            @for($i = 1; $i <= 12; $i++)
-                                <option {{ old('month') == $i ? "selected = 'selected'" : '' }} value = '{{ $i }}'>{{ $i }}</option>
-                            @endfor
-                        </select>
-                    </div>
-                    <div class = 'col-md-4'>
-                        <label>
-                            Birthday Year
-                        </label>
-                        <select name = 'year' class = 'form-control'>
-                            <option value = ''>Select Year</option>
-                            @for($i = 1; $i <= 100; $i++)
-                                <option value = '{{ date('Y') - (17 + $i) }}' {{ old('year') == date('Y') - (17 + $i) ? "selected = 'selected'" : '' }} >{{ date('Y') - (17 + $i) }}</option>
-                                @endfor
-                        </select>
-                    </div>
-                </div>
-                <div class = 'row form-group'>
-                    <div class="col-md-4">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" name = 'firstName' value = '{{ old('firstName') ? old('firstName') : $user->first_name }}' />
-                    </div>
-                    <div class="col-md-4">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" name = 'lastName' value = '{{ old('lastName') ? old('lastName') : $user->last_name }}' />
-                    </div>
-                    <div class = 'col-md-4'>
-                        <label>Last 4 of Social Security</label>
-                        <input type = 'text' class = 'form-control' name = 'ss' value = '{{ old('ss') }}' />
-                    </div>
-                </div>
-                <div class = 'row form-group'>
-                    <div class="col-md-4">
-                        <label>Address</label>
-                        <input type="text" class="form-control" name = 'address' value = '{{ old('address') }}' />
-                    </div>
-                    <div class="col-md-4">
-                        <label>City</label>
-                        <input type="text" class="form-control" name = 'city' value = '{{ old('city') }}' />
-                    </div>
-                    <div class = 'col-md-4'>
-                        <label>State</label>
-                        <input type = 'text' class = 'form-control' name = 'state' value = '{{ old('state') }}' />
-                    </div>
-                </div>
-                <div class = 'row form-group'>
-                    <div class="col-md-4">
-                        <label>Zip Code</label>
-                        <input type="text" class="form-control" name = 'zip' value = '{{ old('zip') }}' />
-                    </div>
-                </div>
+            @endif
+            <div id = 'formWrapper' {!! ($user->stripeAccounts && count($user->stripeAccounts)) ? "style = 'display: none'" : '' !!}>
                 <div class="row">
-                    <div class = 'col-md-12'>
-                        <button type = 'submit' class = 'btn btn-primary'>REDEEM  <i class = 'fa fa-lock'></i></button>
+                    <div class="col-md-12">
+                        <p>We've partnered with Stripe to make receiving your money safe and easy. All funds are transferred through ACH Electronic Check, and funds arrive in your bank account
+                            within 5 business days.<br><br>
+                            Please enter your banking info below. At the bottom of your personal checks,there are three sets of numbers. Your routing number is a set of nine digits
+                            and your account number is typically 3 - 17 digits.</p>
+                        <div class="col-md-4">
+                            <img src="/front/img/bank.png" style="width: 100%;">
+                        </div>
                     </div>
                 </div>
-            </form>
+                <form method="post" action = '/redeem-gifts'>
+                    {{ csrf_field() }}
+                    <div class="row form-group">
+                        <div class="col-md-4">
+                            <label>Bank Name</label>
+                            <input type="text" class="form-control" name = 'bankName' value = '{{ old('bankName') }}' />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Routing Number (9 digits number)</label>
+                            <input type="text" class="form-control" name = 'routing' value = '{{ old('routing') }}' />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Account Number (3 - 17 digits)</label>
+                            <input type="text" class="form-control" name = 'account' value = '{{ old('account') }}' />
+                        </div>
+                    </div>
+                    <div class = 'row form-group'>
+                        <div class = 'col-md-4'>
+                            <label>
+                                Birthday Day
+                            </label>
+                            <select name = 'day' class = 'form-control'>
+                                <option value = ''>Select Day</option>
+                                @for($i = 1; $i <= 31; $i++)
+                                    <option {{ old('day') == $i ? "selected = 'selected'" : '' }} value = '{{ $i }}'>{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class = 'col-md-4'>
+                            <label>
+                                Birthday Month
+                            </label>
+                            <select name = 'month' class = 'form-control'>
+                                <option value = ''>Select Month</option>
+                                @for($i = 1; $i <= 12; $i++)
+                                    <option {{ old('month') == $i ? "selected = 'selected'" : '' }} value = '{{ $i }}'>{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class = 'col-md-4'>
+                            <label>
+                                Birthday Year
+                            </label>
+                            <select name = 'year' class = 'form-control'>
+                                <option value = ''>Select Year</option>
+                                @for($i = 1; $i <= 100; $i++)
+                                    <option value = '{{ date('Y') - (17 + $i) }}' {{ old('year') == date('Y') - (17 + $i) ? "selected = 'selected'" : '' }} >{{ date('Y') - (17 + $i) }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <div class = 'row form-group'>
+                        <div class="col-md-4">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name = 'firstName' value = '{{ old('firstName') ? old('firstName') : $user->first_name }}' />
+                        </div>
+                        <div class="col-md-4">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name = 'lastName' value = '{{ old('lastName') ? old('lastName') : $user->last_name }}' />
+                        </div>
+                        <div class = 'col-md-4'>
+                            <label>Last 4 of Social Security</label>
+                            <input type = 'text' class = 'form-control' name = 'ss' value = '{{ old('ss') }}' />
+                        </div>
+                    </div>
+                    <div class = 'row form-group'>
+                        <div class="col-md-4">
+                            <label>Address</label>
+                            <input type="text" class="form-control" name = 'address' value = '{{ old('address') }}' />
+                        </div>
+                        <div class="col-md-4">
+                            <label>City</label>
+                            <input type="text" class="form-control" name = 'city' value = '{{ old('city') }}' />
+                        </div>
+                        <div class = 'col-md-4'>
+                            <label>State</label>
+                            <input type = 'text' class = 'form-control' name = 'state' value = '{{ old('state') }}' />
+                        </div>
+                    </div>
+                    <div class = 'row form-group'>
+                        <div class="col-md-4">
+                            <label>Zip Code</label>
+                            <input type="text" class="form-control" name = 'zip' value = '{{ old('zip') }}' />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class = 'col-md-12'>
+                            <button type = 'submit' class = 'btn btn-primary'>REDEEM ${{ number_format($available, 2) }} <i class = 'fa fa-lock'></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </section>
+    @endif
 
 @include('site.redeem.thank-you')
 
