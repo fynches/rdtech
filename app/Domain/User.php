@@ -48,7 +48,20 @@ class User extends Authenticatable
 		    {
 			    $hold += ($purchase->amount * .50);
 		    }
-		    $total +=  $purchase->amount; //TODO factor in previous withdrawals
+		    $total +=  $purchase->amount;
+	    }
+	    if($this->stripeAccounts && count($this->stripeAccounts))
+	    {
+	    	foreach($this->stripeAccounts as $account)
+		    {
+		    	if($account->transfers && count($account->transfers))
+			    {
+			    	foreach($account->transfers as $transfer)
+				    {
+				    	$previous += ($transfer->amount / 100);
+				    }
+			    }
+		    }
 	    }
 	    $available = $total - $hold - $previous;
 	    return compact('hold', 'previous', 'total', 'available');
