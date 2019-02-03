@@ -2,6 +2,7 @@
 
 namespace App\Domain;
 
+use DateTime;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,10 +23,35 @@ class User extends Authenticatable
     {
         return $this->hasMany( 'App\Domain\Child' );
     }
+
+    public function stripeAccounts()
+    {
+    	return $this->hasMany('App\Domain\StripeAccount');
+    }
     
     public function event()
     {
         return $this->hasOne('App\Event');
+    }
+
+    public function getGiftTotals()
+    {
+	    $hold = $total = $previous = 0;
+	    foreach($this->completedPurchases() as $purchase)
+	    {
+		    $created_at = $purchase->created_at;
+		    $datetime1 = new DateTime($created_at);//start time
+		    $datetime2 = new DateTime();//end time
+		    $interval = $datetime1->diff($datetime2);
+		    $hours =  (int)$interval->format('%H');
+		    if($hours < 72)
+		    {
+			    $hold += ($purchase->amount * .50);
+		    }
+		    $total +=  $purchase->amount; //TODO factor in previous withdrawals
+	    }
+	    $available = $total - $hold - $previous;
+	    return compact('hold', 'previous', 'total', 'available');
     }
 
 	public function completedPurchases()

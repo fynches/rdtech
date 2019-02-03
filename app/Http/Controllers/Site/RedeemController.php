@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Domain\StripeAccount;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Domain\Page;
+
+use Validator;
 use DateTime;
 
 class RedeemController extends Controller
@@ -27,21 +30,36 @@ class RedeemController extends Controller
 	public function index()
 	{
 		$user = Auth::user();
-		$hold = $total = $previous = 0;
-		foreach($user->completedPurchases() as $purchase)
+		$totals = $user->getGiftTotals();
+		$totals['user'] = $user;
+		return view('site.redeem.redeem', $totals);
+	}
+
+	public function doRedeem(Request $request)
+	{
+		$validator = StripeAccount::getValidator($request);
+		if ($validator->fails())
 		{
-			$created_at = $purchase->created_at;
-			$datetime1 = new DateTime($created_at);//start time
-			$datetime2 = new DateTime();//end time
-			$interval = $datetime1->diff($datetime2);
-			$hours =  (int)$interval->format('%H');
-			if($hours < 72)
-			{
-				$hold += ($purchase->amount * .50);
-			}
-			$total +=  $purchase->amount; //TODO factor in previous withdrawals
+			return redirect('redeem-gifts')
+				->withErrors($validator)
+				->withInput();
 		}
-		return view('site.redeem.redeem', compact('total', 'hold', 'previous'));
+		$accountStatus = StripeAccount::createNewAccountFromRequest($request);
+		if($accountStatus['error'])
+		{
+			return redirect('redeem-gifts')
+				->withErrors(['message' => $accountStatus['error']])
+				->withInput();
+		}
+		$totals = Auth::user()->getGiftTotals();
+		$processStatus = StripeAccount::processTransfer($accountStatus['account'], $totals['available']);
+		if($processStatus['error'])
+		{
+			return redirect('redeem-gifts')
+				->withErrors(['message' => $processStatus['error']])
+				->withInput();
+		}
+		return view('site.redeem.redeem-success', ['transfer' => $processStatus['transfer']]);
 	}
       
       /**
@@ -49,32 +67,10 @@ class RedeemController extends Controller
      * 
      * return redeem view
      */
-      public function success(){
-          if (Auth::check()) {
-            
-            $user = Auth::user();
-            
-            // Set your secret key: remember to change this to your live secret key in production
-            // See your keys here: https://dashboard.stripe.com/account/apikeys
-            \Stripe\Stripe::setApiKey("sk_test_CodDvEhYBltGPceiNe9S4Syo");
-            
-            // Create a payout to the specified recipient
-            $payout = \Stripe\Payout::create([
-              "amount" => 1000, // amount in cents
-              "currency" => "usd",
-              "recipient" => $recipient_id,
-              "bank_account" => $bank_account_id,
-              "statement_descriptor" => "JULY SALES"
-            ]);
-   
-            return view('site.redeem.redeem-success', compact('user'));
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-      }
+	public function success(Request $request)
+	{
+		return view('site.redeem.redeem-success', compact('user'));
+	}
         
     
 }
