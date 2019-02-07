@@ -164,7 +164,7 @@
                                         <p style="font-weight:100 ">NEEDED</p>
                                     </div>
                                     <div class="col-md-6 col-xs-6 gift-item">
-                                        <a id="gft-{{$gift->id}}" data-id="{{$gift->id}}" href="{{url('checkout')}}" class="btn btn-border yellow-submit give-gift"> GIVE THIS GIFT</a>
+                                        <a id="gft-{{$gift->id}}" data-id="{{$gift->id}}" href="{{url('checkout')}}" class="btn btn-primary give-gift"> GIVE THIS GIFT</a>
                                         <span id="dlr-{{$gift->id}}" class="currencyinput" style="display:none;">$</span>
                                         <input id="prch-{{$gift->id}}" class="purchase" data-id="{{$gift->id}}" type="number" value="" placeholder="ENTER AMOUNT" style="display:none;" min="0" max="{{$gift->price - 0}}"/>
                                     </div>

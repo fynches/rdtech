@@ -74,7 +74,7 @@ class LiveGiftController extends Controller
 		$page_id = $request->gift_page_id;
 		$gift_id = $request->gift_id;
 		$session_id = session()->getId();
-		$purchase = Purchase::where("session_id", $session_id)->where('gift_id', $gift_id)->where('page_id', $page_id)->first();
+		$purchase = Purchase::where("session_id", $session_id)->where('gift_id', $gift_id)->where('page_id', $page_id)->where('status', 1)->first();
 		if($purchase)
 		{
 			$purchase->amount = $amount;
