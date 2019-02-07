@@ -43,7 +43,7 @@ class User extends Authenticatable
 		    $datetime1 = new DateTime($created_at);//start time
 		    $datetime2 = new DateTime();//end time
 		    $interval = $datetime1->diff($datetime2);
-		    $hours =  (int)$interval->format('%H');
+		    $hours =  (int)($interval->d * 24) + $interval->h;
 		    if($hours < 72)
 		    {
 			    $hold += ($purchase->amount * .50);

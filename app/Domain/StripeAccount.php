@@ -32,19 +32,30 @@ class StripeAccount extends Model
     public static function processTransfer(StripeAccount $account, $amount)
     {
 	    Stripe::setApiKey(env('STRIPE_SECRET'));
-		$stripeTransfer = StripeTransfer::create([
-			'amount' => $amount * 100,
-			'currency' => 'usd',
-			'destination' => $account->token
-		]);
-		$transfer = Transfer::create([
-			'stripe_account_id' => $account->id,
-			'stripe_id' => $stripeTransfer->id,
-			'amount' => $stripeTransfer->amount,
-			'raw_data' => json_encode($stripeTransfer)
-		]);
+	    $error = $transfer = null;
+	    try
+	    {
+		    $stripeTransfer = StripeTransfer::create([
+			    'amount' => $amount * 100,
+			    'currency' => 'usd',
+			    'destination' => $account->token
+		    ]);
+	    }
+	    catch (InvalidRequest $e)
+	    {
+		    $error = $e->getMessage();
+	    }
+	    if(!$error)
+	    {
+		    $transfer = Transfer::create([
+			    'stripe_account_id' => $account->id,
+			    'stripe_id' => $stripeTransfer->id,
+			    'amount' => $stripeTransfer->amount,
+			    'raw_data' => json_encode($stripeTransfer)
+		    ]);
+	    }
 		return [
-			'error' => null,
+			'error' => $error,
 			'transfer' => $transfer
 		];
     }
