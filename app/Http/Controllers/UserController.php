@@ -54,8 +54,6 @@ class UserController extends Controller {
 		}
 	}
 
-	//Added by Devang Mavani
-	//send mail to beta signup user
 	public function betaSignupMail($email) {
 		
         if ($email && $email != "") {

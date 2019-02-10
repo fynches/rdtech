@@ -137,45 +137,32 @@ class HomeController extends Controller
         }
         
     }
-    
-    /**
-     * Signup User
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * return success or failure
-     */
-    public function signup(Request $request) {
-        
+
+    public function signup(Request $request)
+    {
         $email = $request->email;
         $password = $request->password;
-        
-        if(User::where('email',$email)->exists()) {
-            
+        if(User::where('email',$email)->exists())
+        {
             return response()->json(['result' => 'email-exists']);
-            
-        } else {
-            
-                $user = User::create([
-                'email' => $email,
-                'password' => Hash::make($password),
-                ]);
-            
-            
+        }
+        else
+        	{
+		        User::create([
+			        'email' => $email,
+			        'password' => Hash::make($password),
+		        ]);
                 $userdata = array(
                     'email'     => $email,
                     'password'  => $password
                 );
-        
-            // attempt to do the login
-            if (Auth::attempt($userdata)) {
-                
+            if (Auth::attempt($userdata))
+            {
                 return response()->json(['result' => 'user-created']);
-        
-            } else {        
-        
-            return response()->json(['result' => 'login-error']);
-        
+            }
+            else
+            	{
+            		return response()->json(['result' => 'login-error']);
             }
         }
     }

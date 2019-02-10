@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Site;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,11 +14,6 @@ use Mail;
 use Route;
 use App\ActivityLog;
 use Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Input;
-
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
 
 
 class UserController extends Controller
@@ -28,7 +25,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-    	//$this->middleware('guest:site');
+
     }
 
    	/*   
