@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
@@ -57,7 +58,8 @@ class Purchase extends Resource
 	        Text::make('email')
 	            ->sortable(),
 	        Text::make('amount'),
-	        HasOne::make('Gift')
+	        HasOne::make('Gift'),
+	        BelongsTo::make('Payment')
         ];
     }
 

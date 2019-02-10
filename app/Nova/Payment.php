@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Text;
 
 class Payment extends Resource
@@ -80,6 +81,7 @@ class Payment extends Resource
 	        })
 	            ->onlyOnDetail()
 	            ->asHtml(),
+	        HasMany::make('Purchases')
         ];
     }
 

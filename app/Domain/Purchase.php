@@ -22,6 +22,11 @@ class Purchase extends Model {
         return $this->belongsTo( 'App\Domain\Page');
     }
 
+    public function payments()
+    {
+    	return $this->belongsTo('App\Domain\Payment');
+    }
+
     public function giftBalance()
     {
     	return Gift::getBalance($this->gift_id, $this->page_id) - $this->amount;
