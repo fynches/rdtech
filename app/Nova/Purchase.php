@@ -59,7 +59,7 @@ class Purchase extends Resource
 	            ->sortable(),
 	        Text::make('amount'),
 	        HasOne::make('Gift'),
-	        BelongsTo::make('Payment')
+	        BelongsTo::make('Payments')
         ];
     }
 
