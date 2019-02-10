@@ -2,13 +2,9 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class StaticPage extends Resource
 {
@@ -18,6 +14,8 @@ class StaticPage extends Resource
      * @var string
      */
     public static $model = 'App\Domain\StaticPage';
+
+	public static $group = "Miscellaneous";
 
     /**
      * The single value that should be used to represent the resource when being displayed.

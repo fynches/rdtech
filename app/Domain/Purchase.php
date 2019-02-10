@@ -3,13 +3,14 @@
 namespace App\Domain;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Purchase extends Model {
+
+	use SoftDeletes;
     
     protected $table = 'purchases';
-    protected $fillable = ['user_id', 'gift_id', 'session_id', 'page_id', 'amount', 'status', 'email'];
-    
-    public $timestamps = false;
+    protected $guarded = [];
     
     public function gift()
     {

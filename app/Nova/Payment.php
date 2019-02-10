@@ -2,9 +2,9 @@
 
 namespace App\Nova;
 
-use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\Text;
 
 class Payment extends Resource
 {
@@ -14,6 +14,8 @@ class Payment extends Resource
      * @var string
      */
     public static $model = 'App\Domain\Payment';
+
+	public static $group = "Basic";
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -40,7 +42,44 @@ class Payment extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+	        DateTime::make('Created', 'created_at'),
+	        Text::make('First Name', 'firstName')
+	            ->sortable()
+	            ->rules('max:255'),
+	        Text::make('Last Name', 'lastName')
+	            ->sortable()
+	            ->rules('max:255'),
+	        Text::make('email')
+	            ->sortable()
+	            ->rules('max:255'),
+	        Text::make('amount', function() {
+	        	return number_format($this->amount / 100, 2);
+	        })
+	            ->sortable(),
+	        Text::make('city')
+	            ->rules('max:255')
+	            ->hideFromIndex(),
+	        Text::make('state')
+	            ->rules('max:255')
+	            ->hideFromIndex(),
+	        Text::make('zip')
+	            ->rules('max:255')
+	            ->hideFromIndex(),
+	        Text::make('error')
+	            ->rules('max:255')
+	            ->hideFromIndex(),
+	        Text::make('stripe_id')
+	            ->rules('max:255')
+	            ->hideFromIndex(),
+	        Text::make('Outcome', 'outcome_type')
+	            ->rules('max:255')
+	            ->hideFromIndex(),
+	        Text::make('Receipt', 'receipt_url', function()
+	        {
+	        	return "<a target = '_blank' href = '" . $this->receipt_url . "'>" . $this->receipt_url . "</a>";
+	        })
+	            ->onlyOnDetail()
+	            ->asHtml(),
         ];
     }
 

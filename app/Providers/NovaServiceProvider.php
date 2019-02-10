@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Nova\Child;
+use App\Nova\Gift;
+use App\Nova\Page;
+use App\Nova\Payment;
+use App\Nova\Purchase;
+use App\Nova\StaticPage;
+use App\Nova\User;
 use Laravel\Nova\Nova;
 use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +25,21 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
     }
+
+	protected function resources()
+	{
+		//Nova::resourcesIn(app_path('Nova'));
+
+		Nova::resources([
+			User::class,
+			Child::class,
+			Page::class,
+			Purchase::class,
+			Payment::class,
+			Gift::class,
+			StaticPage::class,
+		]);
+	}
 
     /**
      * Register the Nova routes.

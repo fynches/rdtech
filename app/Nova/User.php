@@ -16,6 +16,8 @@ class User extends Resource
      */
     public static $model = 'App\Domain\User';
 
+    public static $group = "Basic";
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

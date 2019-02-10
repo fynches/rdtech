@@ -148,6 +148,7 @@ class CheckoutController extends Controller
 		{
 			$purchase = Purchase::find($id);
 			$purchase->status = 2;
+			$purchase->name = $firstName . ' ' . $lastName;
 			$purchase->amount = $amount;
 			$purchase->email = $email;
 			$purchase->user_id = $userId;

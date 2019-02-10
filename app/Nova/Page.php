@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Text;
@@ -17,6 +18,8 @@ class Page extends Resource
      * @var string
      */
     public static $model = 'App\Domain\Page';
+
+	public static $group = "Basic";
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -33,6 +36,8 @@ class Page extends Resource
     public static $search = [
         'id', 'title', 'description', 'date', 'hostname',
     ];
+
+
 
     /**
      * Get the fields displayed by the resource.
@@ -51,7 +56,8 @@ class Page extends Resource
 	        Text::make('Host Name', 'hostname')
 	            ->sortable()
 	            ->rules('max:255'),
-	        BelongsTo::make('Child')
+	        BelongsTo::make('Child'),
+	        HasMany::make('Purchases')
         ];
     }
 

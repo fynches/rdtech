@@ -2,8 +2,11 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\DateTime;
+use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Purchase extends Resource
@@ -14,6 +17,8 @@ class Purchase extends Resource
      * @var string
      */
     public static $model = 'App\Domain\Purchase';
+
+	public static $group = "Basic";
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -31,6 +36,11 @@ class Purchase extends Resource
         'id',
     ];
 
+	public static function relatableQuery(NovaRequest $request, $query)
+	{
+		return $query->where('status', '>', 1);
+	}
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -40,7 +50,14 @@ class Purchase extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
+	        DateTime::make('Created', 'created_at'),
+	        Text::make('name')
+	            ->sortable()
+	            ->rules('max:255'),
+	        Text::make('email')
+	            ->sortable(),
+	        Text::make('amount'),
+	        HasOne::make('Gift')
         ];
     }
 

@@ -16,6 +16,8 @@ class Gift extends Resource
      */
     public static $model = 'App\Domain\Gift';
 
+	public static $group = "Miscellaneous";
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
