@@ -46,7 +46,7 @@
 
 @section('live_content')
 
-    <section class="live_experience" style="background: url('{{$page->background_image->image_url}}');background-size: cover;">
+    <section class="live_experience" style="@if ($page->background_image->image_url) background: url('{{$page->background_image->image_url}}'); @endif background-size: cover;">
         <div class="container-fluid">
             <div class="row" >
                 <div class="col-md-12 text-left" id="child_col">
