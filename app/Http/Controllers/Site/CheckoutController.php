@@ -16,21 +16,11 @@ use Stripe\Token;
 
 class CheckoutController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
     	
     }
 
-   /**
-     * Show checkout.
-     *
-     * @return checkout view
-     */
 	public function index()
 	{
 		$purchases = Purchase::where('session_id', session()->getId())->where('status', 1)->get();
@@ -42,43 +32,20 @@ class CheckoutController extends Controller
 		}
 		return view('site.checkout.checkout', compact('purchases', 'page', 'pageTotal'));
 	}
-      
-      /**
-     * Show checkout success.
-     *
-     * @return checkout view
-     */
+
 	public function checkoutsuccess()
 	{
-
 		$session_id = session()->getId();
-
 		$email = Purchase::where('session_id',  $session_id)->first();
-
 		return view('site.checkout.checkout-success', compact('email'));
-
 	}
-      
-      /**
-     * Remove Purchase.
-     *
-     * @return jason purchase id removed
-     */
-      public function remove(Request $request){
-          
-            $purchase_id = $request->gift_id;
-            
-            $destroy = Purchase::destroy($purchase_id);
-            
-            return response()->json(['result' => $purchase_id]);
-       
-      }
-      
-        /**
-     * Peocess Purchase via Stripe.
-     *
-     * @return jason successful purchase
-     */
+
+	public function remove(Request $request){
+		$purchase_id = $request->gift_id;
+		$destroy = Purchase::destroy($purchase_id);
+		return response()->json(['result' => $purchase_id]);
+	}
+
 	public function order(Request $request)
 	{
 		$validator = Validator::make($request->all(), [

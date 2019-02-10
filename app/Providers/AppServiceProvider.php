@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Domain\Payment;
 use App\Domain\Transfer;
 use App\Domain\User;
+use App\Observers\PaymentObserver;
 use App\Observers\TransferObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         User::observe(UserObserver::class);
         Transfer::observe(TransferObserver::class);
+        Payment::observe(PaymentObserver::class);
     }
 
     /**
