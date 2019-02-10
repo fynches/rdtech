@@ -13,7 +13,7 @@
             <div class="col-md-6" id="shop_list" style="font-family: 'Avenir-Book';">
                 <div id="div_top_hypers">
                     <ul id="ul_top_hypers">
-                        <li><a href="/about-us">ABOUT</a></li>
+                        <li><a href="/about">ABOUT</a></li>
                         <li><a href="/blog/" target="_blank">BLOG</a></li>
                         <li><a href="/">CONTACT US</a></li>
                         <li><a href="need-help">HELP</a></li>
@@ -60,10 +60,10 @@
 					<a href="javascript:void(0)"><img src="/front/img/f-logo.png" alt="logo" title=""></a>
 				</div>
 				<div class="col-sm-6 col-md-5 col-xs-12 text-center" id="f-menu">
-				    <div class="col-md-2 col-xs-2 pad"><a href="/about-us">ABOUT</a></div>
+				    <div class="col-md-2 col-xs-2 pad"><a href="/about">ABOUT</a></div>
 				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="/blog/">BLOG</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a></div>
-				    <div class="col-md-2 col-xs-2 pad"><a href="/need-help">FAQS</a></div>
+				    <div class="col-md-2 col-xs-2 pad"><a href="/help">FAQS</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="/search">FIND A GIFT PAGE</a></div>
 				</div>
 				<div class="col-sm-3 col-md-3 col-xs-12  home text-right">

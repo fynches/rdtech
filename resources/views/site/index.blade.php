@@ -231,46 +231,10 @@
 	</div>
 </section>
 
-@include('modal.signin');
-@include('modal.signup');
+@include('modal.signin')
+@include('modal.signup')
 @include('modal.password')
-
-<div class="modal fade user-mdl signin" id="signin" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-	<div class="modal-dialog modal-md">
-		<div class="modal-content">
-			<div class="modal-header text-center">
-				<img src="{{ asset('front/img/logo.png')}}" alt="Fynches" title="">
-				<h2 class="title">Sign In</h2>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true"><i class="fas fa-times"></i></span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12">
-						<form>
-							<div class="form-group">
-								<label for="usr">E-mail<sup>*</sup></label>
-								<input type="text" class="form-control">
-							</div>
-							<div class="form-group pass">
-								<label for="usr">Password</label>
-								<input type="text" class="form-control">
-							</div>
-							<a href="javascript:void(0)" class="forgot">Forgot Password</a>
-							<div class="btns">
-								<button class="btn common pink-btn">SIGN UP WITH EMAIL</button>
-								<button class="btn common drk-blue">SIGN UP WITH FACEBOOK</button>
-							</div>
-						</form>
-						<p>By creating your Fynches account you agree to your <a href="javascript:void(0)">Term of Use</a> and <a href="javascript:void(0)">Privacy Policy</a>.</p>
-						<p>Already have an account? <a href="javascript:void(0)">Log In</a></p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+@include('modal.contact')
 
 <div class="modal fade common-model" id="launch" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -299,8 +263,6 @@
 		</div>
 	</div>
 </div>
-
-@include('modal.contact');
 
 @endsection
 

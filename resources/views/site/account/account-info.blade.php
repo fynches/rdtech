@@ -124,10 +124,10 @@
 				</div>
 				<div class="col-sm-12 col-md-6 col-lg-6 text-center">
 					<ul class="f-menu">
-						<li><a href="/about-us">ABOUT</a></li>
+						<li><a href="/about">ABOUT</a></li>
 						<li><a target="_blank" href="/blog/">BLOG</a></li>
 						<li><a href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a></li>
-						<li><a href="/need-help">FAQS</a></li>
+						<li><a href="/help">FAQS</a></li>
 						<li><a href="/search">FIND A GIFT PAGE</a></li>
 					</ul>
 				</div>

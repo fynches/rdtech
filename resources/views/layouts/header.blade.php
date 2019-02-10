@@ -12,7 +12,7 @@
 			<div class="collapse navbar-collapse" id="collapsingNavbar">
 				<ul class="nav navbar-nav ml-auto navbar-right">
 					<li class="nav-item">
-						<a class="nav-link" href="/about-us">ABOUT</a>
+						<a class="nav-link" href="/about">ABOUT</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" target="_blank" href="/blog">BLOG</a>
@@ -21,7 +21,7 @@
 						<a class="nav-link" href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="/need-help">HELP</a>
+						<a class="nav-link" href="/help">HELP</a>
 					</li>
 					@if(Auth::check())
 						<li class="nav-item">

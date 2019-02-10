@@ -164,25 +164,12 @@ Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autolog
 //**************End Password Reset***************//
 
 //About Us
-	Route::get('/about-us', 'Site\UserController@getaboutUs');
+	Route::get('/about', 'Site\StaticController@about');
+	Route::get('/terms-condition', 'Site\StaticController@terms');
+	Route::get('/privacy-policy', 'Site\StaticController@privacy');
+	Route::get('/help', 'Site\StaticController@help');
 	
-	//Contact Us
-	Route::get('/contact-us', 'Site\UserController@getcontactUs');
-	
-	//Terms & Condition
-	Route::get('/terms-condition', 'Site\UserController@getTermsCondition');
-	
-	//Privacy Policy
-	Route::get('/privacy-policy', 'Site\UserController@getPrivacyPolicy');
-	
-	//Faq
-	Route::get('/faq', 'Site\UserController@getFAQ');
-	
-	//Need help
-	Route::get('/need-help', 'Site\UserController@NeedHelp');
-	
-	//How fynches workds
-	Route::get('/how-fynches-work', 'Site\UserController@getHowFynchesWorks');
+
 	
 	Route::group(array('prefix' => 'admin', 'middlewareGroups' => 'auth', 'after' => 'auth'), function() {
 	

@@ -29,10 +29,10 @@
                     <div class="col-md- fmenu">
                         <div id="div_top_hypers">
                             <ul class="ul_top_hypers" id="ul_top_hypers" style = 'margin: 0px'>
-                                <li><a href="/about-us" class="a_top_hypers"> ABOUT</a></li>
+                                <li><a href="/about" class="a_top_hypers"> ABOUT</a></li>
                                 <li><a href="/BLOG" class="a_top_hypers"> BLOG</a></li>
                                 <li><a href="#" class="a_top_hypers" data-toggle = 'modal' data-target = '#contactPage'> CONTACT US</a></li>
-                                <li><a href="/need-help" class="a_top_hypers"> HELP</a></li>
+                                <li><a href="/help" class="a_top_hypers"> HELP</a></li>
                                 <li><a class="a_top_hypers" href="#" data-toggle="modal" data-target="#largeModalSI" >LOGIN</a></li>
                                 <li><a class="btn common pink-btn" style="cursor: pointer;background-color: #DFF2F6;width: auto;border: 1px solid #f05;border-radius: 25px;color: #f05;font-size: 12px;font-weight: bold;letter-spacing: 2px;padding: 4px 7px;" data-toggle="modal" data-target="#largeModalS">SIGN UP FREE</a></li>
                             </ul>
@@ -287,10 +287,10 @@
 					<a href="javascript:void(0)"><img src="/front/img/f-logo.png" alt="logo" title=""></a>
 				</div>
 				<div class="col-sm-6 col-md-5 col-xs-12 text-center" id="f-menu">
-				    <div class="col-md-2 col-xs-2 pad"><a href="/about-us">ABOUT</a></div>
+				    <div class="col-md-2 col-xs-2 pad"><a href="/about">ABOUT</a></div>
 				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="/blog/">BLOG</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a></div>
-				    <div class="col-md-2 col-xs-2 pad"><a href="/need-help">FAQS</a></div>
+				    <div class="col-md-2 col-xs-2 pad"><a href="/help">FAQS</a></div>
 				    <div class="col-md-3 col-xs-3 pad"><a href="/search">FIND A GIFT PAGE</a></div>
 				</div>
 				<div class="col-sm-3 col-md-3 col-xs-12  home text-right">
