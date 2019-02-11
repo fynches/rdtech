@@ -129,7 +129,7 @@
                         @if(isset($gifts))
                             @foreach($gifts as $gift)
                                 <div class="col-md-4 reco_col" id="{{$gift->id}}" data-featured="{{$gift->featured ? '1' : '0'}}" data-price="{{$gift->price ? $gift->price : $gift->cost}}" style="margin-bottom:20px">
-                                    <div id="img-height" style="position: relative; background: url({{$gift->image}}); height:250px;background-size:100% 100%; ">
+                                    <div id="img-height" style="position: relative; background: url({{$gift->getImage()}}); height:250px;background-size:100% 100%; ">
                                         {{--<div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">--}}
                                             {{--<a href="javascript:void(0)" class="favorite-button"@if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif class="unfavorite-button"><i class="fas fa-heart fa-2x"></i></a>--}}
                                         {{--</div>--}}

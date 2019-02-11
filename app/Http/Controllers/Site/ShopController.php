@@ -9,9 +9,10 @@ use Illuminate\Http\Request;
 use App\Domain\Gift;
 use App\Domain\UserGift;
 use App\Domain\Page;
-use App\AgeRange;
 use DOMDocument;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 //https://stackoverflow.com/questions/14395239/class-domdocument-not-found
 
@@ -126,7 +127,7 @@ class ShopController extends Controller
 		}
 		return response()->json([
 			'giftPage' => $page,'gift' => $gift,'business' => $gift->name,
-			'age' => $gift->min_age,'image' => $gift->image,'favorites' => $favorites, 'is' => $is_favorite, 'added' => $added]);
+			'age' => $gift->min_age,'image' => $gift->getImage(),'favorites' => $favorites, 'is' => $is_favorite, 'added' => $added]);
 
 	} 
 	
@@ -205,7 +206,7 @@ class ShopController extends Controller
 
 		return response()->json([
 			'giftPage' => $page,'gift' => $gift,'business' => $gift->name,'age' => $gift->min_age,
-			'image' => $gift->image,'added' => $added, 'is' => $is_added, 'favorite' => $is_fav]);
+			'image' => $gift->getImage(),'added' => $added, 'is' => $is_added, 'favorite' => $is_fav]);
 	}
 	
 	/**
@@ -408,9 +409,15 @@ class ShopController extends Controller
 		}
 		if($image)
 		{
-			$output = '/images/user_gift_images/'. $gift->id . '.png';
-			file_put_contents(public_path() . $output, file_get_contents($image));
-			$gift->image = $output;
+			$fileType = pathinfo($image, PATHINFO_EXTENSION);
+			$urlParts = parse_url($image);
+			if(isset($urlParts['query']) && strlen($urlParts['query']))
+			{
+				$fileType = str_replace('?' . $urlParts['query'], '', $fileType);
+			}
+			$fileName = 'user_gift/' . uniqid() . '.' . $fileType;
+			Storage::put('public/' . $fileName, file_get_contents($image), 'public');
+			$gift->image = $fileName;
 			$gift->save();
 		}
 		$page = Page::where('slug', $slug)->first();

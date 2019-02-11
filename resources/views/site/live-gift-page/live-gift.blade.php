@@ -146,7 +146,7 @@
                     @foreach($page->added_gift_models as $gift)
                         <div class="col-md-3 reco_col" id="reco_col">
                             <div id="gift-image-{{$gift->id}}" class="add-money" data-id="{{$gift->id}}" style="background:url('{{$gift->gift_image}}');background-size:cover">
-                                <img class="img-height" src="{{$gift->image}}" width="100%" id="img-{{$gift->id}}" style="height:250px">
+                                <img class="img-height" src="{{$gift->getImage()}}" width="100%" id="img-{{$gift->id}}" style="height:250px">
                                 <img id="imgrp-{{$gift->id}}" class="cart" data-id="{{$gift->id}}" src="/front/img/whitecheck.png">
                                 <img  id="fagift-{{$gift->id}}" class="gifted_icon" data-id="{{$gift->id}}" src="/front/img/giftbox.png">
                                 <p class="cancel" id="cancel-{{$gift->id}}" data-id="{{$gift->id}}"><i class="fas fa-times-circle"></i>  Cancel</p>

@@ -2,8 +2,13 @@
 
 namespace App\Nova;
 
+use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\ID;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -42,17 +47,33 @@ class Gift extends Resource
      */
     public function fields(Request $request)
     {
-        return [
-            Text::make('name')
-	            ->hideFromIndex()
-	            ->rules('max:255'),
-	        Text::make('title')
-	            ->sortable()
-	            ->rules('max:255'),
-	        Text::make('description')
-	            ->hideFromIndex()
-	            ->rules('max:255')
-        ];
+	    return [
+		    Text::make('name')
+		        ->hideFromIndex()
+		        ->rules('max:255'),
+		    Text::make('title')
+		        ->sortable()
+		        ->rules('max:255'),
+		    Text::make('description')
+		        ->hideFromIndex()
+		        ->rules('max:255'),
+		    Currency::make('price')
+		            ->hideFromIndex(),
+		    Image::make('image')
+		         ->disk('public'),
+		    Number::make('Minimum Age', 'min_age')
+		          ->step(1)
+		          ->hideFromIndex(),
+		    Number::make('Maximum Age', 'max_age')
+		          ->step(1)
+		          ->hideFromIndex(),
+		    Text::make('url')
+		        ->hideFromIndex(),
+		    Boolean::make('featured')
+		           ->hideFromIndex(),
+		    BelongsTo::make('User')
+		             ->exceptOnForms()
+	    ];
     }
 
     /**

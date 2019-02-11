@@ -4,6 +4,7 @@ namespace App\Domain;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Gift extends Model {
 
@@ -15,6 +16,11 @@ class Gift extends Model {
     public function categories()
     {
     	return $this->belongsToMany('App\Domain\Category');
+    }
+
+    public function user()
+    {
+    	return $this->belongsTo('App\Domain\User');
     }
     
     public function business() 
@@ -45,6 +51,11 @@ class Gift extends Model {
     public function purchases($page_id)
     {
         return $this->hasMany( 'App\Domain\Purchase')->where('status', 2)->where('page_id', $page_id);
+    }
+
+    public function getImage()
+    {
+    	return Storage::url($this->image);
     }
 
     public static function getBalance($giftId, $pageId)

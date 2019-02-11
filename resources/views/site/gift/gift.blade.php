@@ -217,7 +217,7 @@
                             $needed = $gift->price - $gifted;
                         @endphp
                         <div class="col-md-3 col-sm-6 reco_col pointer" id="{{$gift->id}}">
-                            <div id="hoverimg-{{$gift->id}}" class="hoverimg" data-id="{{$gift->id}}" style="position: relative; background: url({{$gift->image}}); width:100%; height:250px; background-size:100% 100%; ">
+                            <div id="hoverimg-{{$gift->id}}" class="hoverimg" data-id="{{$gift->id}}" style="position: relative; background: url({{$gift->getImage()}}); width:100%; height:250px; background-size:100% 100%; ">
                                 <div id="cartimg-{{$gift->id}}" class="cart_1" data-id="{{$gift->id}}"></div>
                                 <div class="row cancel_1"  data-id="{{$gift->id}}" id="cancel_1-{{$gift->id}}">
                                     <div class="col-md-6 col-sm-6 col-xs-6 text-left"></div>
