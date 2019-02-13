@@ -2,8 +2,10 @@
 
 namespace App\Domain;
 
+use App\Mail\PageMadeLive;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Mail;
 
 class Page extends Model {
 
@@ -32,6 +34,13 @@ class Page extends Model {
     public function purchases()
     {
         return $this->hasMany( 'App\Domain\Purchase')->where('status', 2);
+    }
+
+    public function makeLive()
+    {
+	    $this->live = 1;
+	    $this->save();
+	    Mail::to($this->child->user->email)->send(new PageMadeLive($this));
     }
 
     public function hydrateGifts()

@@ -24,7 +24,7 @@ class UserCreated extends Mailable
     public function build()
     {
         return $this
-	        ->subject("Welcome to Fynches")
+	        ->subject("Welcome To Fynches, The Gift Registry for Modern Parents!")
 	        ->view('emails.user-created');
     }
 }

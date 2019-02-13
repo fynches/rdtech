@@ -3,28 +3,24 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordReset;
 use Illuminate\Http\Request;
 use App\Domain\User;
 use App\Offer;
 use DB;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use Hash;
 use Route;
 use App\ActivityLog;
 use Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
-
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
-use Laravel\Socialite\Facades\Socialite;
 use Yajra\Datatables\Datatables;
 use App\Testimonial;
-use App\StaticBlock;
 use App\Beta_Signup;
 use Autologin;
 use Response;
-use Mail;
 use App\EmailTemplates;
 
 class HomeController extends Controller
@@ -89,53 +85,18 @@ class HomeController extends Controller
     
         }
     }
-    
-    /***********************************************************************************************/
-    
-    /**
-     * Reset Password
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * return success or failure
-     */
-    public function passwordReset(Request $request){
-        
-       // User class implements UserInterface
-       
+
+    public function passwordReset(Request $request)
+    {
         $email = $request->email;
-        
         $user = User::where('email', '=', $email)->first();
-        
-        if(!isset($user)) {
+        if(!isset($user))
+        {
             return response()->json(['success' => 0]);
-            return;
         }
-        
-        // http://example.com/autologin/Mx7B1fsUin
         $link = Autologin::to($user, '/password-reset');
-        
-        $data = array('email' => $email, 'link' => $link, 'user' => $user);
-        
-        Mail::send( 'emails.reset', $data, function($message) use ($data)
-        	{     
-        	    
-        	    
-        	    $subject = 'Fynches Password Reset Link';
-        	    
-        	    $message->sender('help@ehubsolutions.com', 'eHub Solutions');
-        	    $message->from('info@fynches.com');
-        	    $message->subject($subject);
-        		$message->to($data['email']);
-        		
-        	});
-        	
-        if(count(Mail::failures()) > 0){
-            return response()->json(['success' => 0]);
-        } else {
-            return response()->json(['success' => 1]);
-        }
-        
+	    Mail::to($email)->send(new PasswordReset($link));
+	    return response()->json(['success' => 1]);
     }
 
     public function signup(Request $request)

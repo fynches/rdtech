@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Domain\Child;
 use App\Domain\Page;
 use App\Domain\Gift;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -113,37 +114,27 @@ class AccountController extends Controller
      * 
      * @return json Success responce
      */
-    public function storePassword(Request $request) {
-        
-        $id = Auth::id();
+    public function storePassword(Request $request)
+    {
         $user = Auth::user();
-        
-        $current_password = $request->cpass;
+        $current_password = $request->cnpass;
         $new_password = $request->npass;
-        $nocn = $request->nocn;
-        
-        if($nocn == 1) {
-            
-        $user->password = Hash::make($new_password);
-        $user->save();
-        
-        return response()->json(['update' => 'Success']);
+        if($request->nocn)
+        {
+	        $user->password = Hash::make($new_password);
+	        $user->save();
+	        return response()->json(['update' => 'Success']);
         }
-        
-        if (Hash::check($current_password, $user->password)) {
-
-        
-        $user->password = Hash::make($new_password);
-        $user->save();
-        
-        return response()->json(['update' => 'Success']);
-        
-        } else {
-            
+        if (Hash::check($current_password, $user->password))
+        {
+	        $user->password = Hash::make($new_password);
+	        $user->save();
+	        return response()->json(['update' => 'Success']);
+        }
+        else
+        	{
             return response()->json(['update' => 'not-password']);
-            
         }
-        
     }
 
     public function createPage(Request $request)

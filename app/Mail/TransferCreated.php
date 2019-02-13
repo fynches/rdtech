@@ -24,7 +24,7 @@ class TransferCreated extends Mailable
     public function build()
     {
         return $this
-	        ->subject("Fynches Transfer")
+	        ->subject("Your Funds Have Been Redeemed")
 	        ->view('emails.transfer-created');
     }
 }

@@ -12,26 +12,10 @@ use App\Domain\Gift;
 
 class GiftController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-    	
     }
 
-    
-
-        
-       /**
-     * Show Gift Page
-     * 
-     * @param  @field child_name
-     * 
-     * @return gift page
-     */ 
     public function index($slug)
     {
     	$page = Page::where('slug', $slug)->first();
@@ -55,21 +39,12 @@ class GiftController extends Controller
         return view('site.gift.gift', compact(
         	'user', 'child', 'page','gifts','background_images', 'recommendedGifts'));
       }
-      
-    /**
-     * Make Gift Page Live
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return jason route slug - child_name
-     */
 
 	public function makeLive(Request $request)
 	{
 		$id = $request->id;
-		$page = Page::find($id);
-		$page->live = 1;
-		$page->save();
+		$page = Page::findOrFail($id);
+		$page->makeLive();
 		return response()->json(['slug' => $page->slug]);
 	}
       

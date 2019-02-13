@@ -155,7 +155,9 @@ class CheckoutController extends Controller
 			$purchase->payment_id = $payment->id;
 			$purchase->message = $message;
 			$purchase->save();
+			$purchase->notifyRecipient();
 		}
+		$payment->notify();
 		return response()->json($returnData);
 	}
       

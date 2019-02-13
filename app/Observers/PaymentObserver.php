@@ -10,7 +10,7 @@ class PaymentObserver
 {
 	public function created(Payment $payment)
 	{
-		Mail::to($payment->email)->send(new PaymentCreated($payment));
+		//Mail::to($payment->email)->send(new PaymentCreated($payment));
 	}
 
 

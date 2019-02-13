@@ -8,10 +8,15 @@
 
 <body>
 <p>
-    Thank you for making a purchase at Fynches
+    Hi {{ $payment->firstName }}, We wanted to let you know that your gift has been successfully processed.
 </p>
 <p>
-    You can view your receipt here: <a href = '{{ $payment->receipt_url }}'>{{ $payment->receipt_url }}</a>
+    Order Summary:<br/>
+    Date: {{ date('m/d/Y') }} <br/>
+    Order Number: {{ $payment->id }} <br/>
+    @foreach($payment->purchases as $purchase)
+        Gift Details: {{ $purchase->gift->title }} ${{ number_format($purchase->amount, 2) }}<br/>
+    @endforeach
 </p>
 
 </body>

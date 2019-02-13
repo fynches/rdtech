@@ -24,7 +24,7 @@ class PaymentCreated extends Mailable
     public function build()
     {
         return $this
-	        ->subject("Thank you for sending a gift through Fynches")
+	        ->subject("Fynches - Your Purchases has been confirmed")
 	        ->view('emails.payment-created');
     }
 }
