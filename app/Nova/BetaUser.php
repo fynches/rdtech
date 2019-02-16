@@ -50,7 +50,7 @@ class BetaUser extends Resource
 	            ->rules('required', 'email', 'max:255')
 	            ->creationRules('unique:beta_users,email')
 	            ->updateRules('unique:_beta_users,email,{{resourceId}}'),
-	        Text::make('invitation')
+	        Text::make('invite')
 	            ->onlyOnIndex()
         ];
     }
