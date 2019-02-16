@@ -2,15 +2,18 @@
 
 namespace App\Providers;
 
+use App\Nova\BetaUser;
 use App\Nova\Child;
 use App\Nova\Gift;
+use App\Nova\Metrics\NewPages;
+use App\Nova\Metrics\NewPayments;
+use App\Nova\Metrics\NewUsers;
 use App\Nova\Page;
 use App\Nova\Payment;
 use App\Nova\Purchase;
 use App\Nova\StaticPage;
 use App\Nova\User;
 use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -38,6 +41,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 			Payment::class,
 			Gift::class,
 			StaticPage::class,
+			BetaUser::class
 		]);
 	}
 
@@ -79,7 +83,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help,
+            new NewUsers,
+	        new NewPages,
+	        new NewPayments
         ];
     }
 
@@ -90,7 +96,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+
+        ];
     }
 
     /**

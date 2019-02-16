@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Domain\User;
 use App\Offer;
 use DB;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Session;
 use Hash;
@@ -29,8 +30,8 @@ class HomeController extends Controller
 
     public function index()
     {   
-        
-        return view('site.index');
+        $inviteCode = session('inviteCode');
+        return view('site.index', compact('inviteCode'));
     }
 
      /**
@@ -103,6 +104,15 @@ class HomeController extends Controller
     {
         $email = $request->email;
         $password = $request->password;
+        $inviteCode = $request->inviteCode;
+        if(!$inviteCode)
+        {
+	        return response()->json(['result' => 'no-invite']);
+        }
+        if(Crypt::decrypt($inviteCode) !== $email)
+        {
+	        return response()->json(['result' => 'bad-invite']);
+        }
         if(User::where('email',$email)->exists())
         {
             return response()->json(['result' => 'email-exists']);
@@ -119,6 +129,7 @@ class HomeController extends Controller
                 );
             if (Auth::attempt($userdata))
             {
+            	session(['inviteCode' => null]);
                 return response()->json(['result' => 'user-created']);
             }
             else

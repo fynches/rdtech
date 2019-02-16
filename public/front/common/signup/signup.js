@@ -27,6 +27,11 @@
 		
 		$( '#signupForm' ).on( 'submit', function(e) {
 			e.preventDefault();
+			if(!inviteCode)
+			{
+				alert("Fynches is still in Beta. Please sign up for a Beta invite");
+				return;
+			}
 			if($(this).valid()) {
 				$.ajax({
 					type: 'post',
@@ -34,17 +39,27 @@
 					data: {
 						'_token': $('input[name=_token]').val(),
 						'email': $('input[name=email]').val(),
-						'password': $('input[name=password]').val()
+						'password': $('input[name=password]').val(),
+						'inviteCode': inviteCode
 					},
 				   success: function(data) {
 					   	if(data.result == "email-exists"){
 							
 							$("div[for='signup-email']").html('User with this email is already registered!');
-						}else {
-							let url = "/parent-child-info";
-                            $( location ).attr("href", url);
+							return;
 						}
-						
+					   	if(data.result == 'no-invite')
+						{
+							$("div[for='signup-email']").html("Fynches is still in Beta. Please sign up for a Beta invite");
+							return;
+						}
+					   if(data.result == 'bad-invite')
+					   {
+						   $("div[for='signup-email']").html("Your invite is not for this email address");
+						   return;
+					   }
+						let url = "/parent-child-info";
+						$( location ).attr("href", url);
 					} 
 				}).done(function(data) {
 				});

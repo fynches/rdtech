@@ -168,7 +168,9 @@ Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autolog
 	Route::get('/terms-condition', 'Site\StaticController@terms');
 	Route::get('/privacy-policy', 'Site\StaticController@privacy');
 	Route::get('/help', 'Site\StaticController@help');
-	
+
+Route::post('/betasignup', 'Site\UserController@betaSignup');
+Route::get('/invite/{code}', 'Site\UserController@useInvite');
 
 	
 	Route::group(array('prefix' => 'admin', 'middlewareGroups' => 'auth', 'after' => 'auth'), function() {
@@ -182,10 +184,11 @@ Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autolog
 
 	//Betasignup
 	Route::post('/user/getBetaData', 'Admin\UserController@getBetaData');
-	Route::get('betaSignup', 'Admin\UserController@getbetaSignupData');
+	//Route::get('betaSignup', 'Admin\UserController@getbetaSignupData');
 	Route::get('delete_betaUser/{id}', 'Admin\UserController@delete_betaUser'); 
 	Route::get('delete_multiple_betaUser/{id}', 'Admin\UserController@multiple_row_delete');
 	Route::get('export_csv', 'Admin\UserController@export');
+
 
 	//User
 	Route::post('/user/getData', 'Admin\UserController@getData');

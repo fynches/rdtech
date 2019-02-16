@@ -253,10 +253,10 @@
 					<div class="col-md-7" id="launch_in">
 						<p>Sign up for early access to Fynches and keep a lookout for updates and amazing giveaways.</p>
 						<label>First Name</label>
-						<input type="text" class="form-control">
+						<input type="text" required placeholder = "Name" class="form-control" id = 'betaName'>
 						<label>Email</label>
-						<input type="text" class="form-control">
-						<button class="col-md-12 btn btn-lg purp-btn">JOIN OUR BETA LAUNCH</button>
+						<input type="email" required placeholder = "Email" class="form-control" id = 'betaEmail'>
+						<button class="col-md-12 btn btn-lg purp-btn" id = 'saveBetaUser'>JOIN OUR BETA LAUNCH</button>
 					</div>
 				</div>
 			</div>
@@ -267,12 +267,35 @@
 @endsection
 
 @section('jsscript')
+	<script type = "text/javascript">
+		let inviteCode = @if($inviteCode) "{{ $inviteCode }}"; @else null; @endif
+	</script>
 <script type="text/javascript" src="{{ asset('front/common/signup/signup.js')}}"></script>
 <script type="text/javascript">	
 	$( document ).ready(function() {
 		AOS.init({
 			duration: 1200,
 		});
+		$("#saveBetaUser").click(function()
+		{
+			let name = $("#betaName").val();
+			let email = $("#betaEmail").val();
+			if(!name.length || !email.length)
+			{
+				alert("Name and email are required");
+				return;
+			}
+			$.post("/betasignup", {name: name, email: email, '_token': $('input[name=_token]').val()}, function(json)
+			{
+				if(json.error)
+				{
+					alert(json.error);
+					return;
+				}
+				$("#launch").modal('toggle');
+				alert("Thanks for signing up for early access");
+			}, 'json');
+		})
 	});
 </script>
 @endsection
