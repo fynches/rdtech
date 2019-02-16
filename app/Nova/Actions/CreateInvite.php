@@ -25,7 +25,7 @@ class CreateInvite extends Action
     {
         foreach($models as $model)
         {
-			$model->invite();
+			$model->sendInvite();
         }
     }
 
