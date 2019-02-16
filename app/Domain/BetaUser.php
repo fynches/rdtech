@@ -15,7 +15,7 @@ class BetaUser extends Model
     protected $table = 'beta_users';
     protected $guarded = [];
 
-    public function invite()
+    public function sendInvite()
     {
 		if(!$this->invite)
 		{
