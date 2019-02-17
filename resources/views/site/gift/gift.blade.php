@@ -4,6 +4,8 @@
 @stop
 @section('js')
     <script src="{{asset('js/gift.js')}}"></script>
+    <script src="{{asset('js/crop.js')}}"></script>
+    <script src="{{asset('js/croppie.js')}}"></script>
 @stop
 @section('css')
     <link href="{{ asset('asset/css/gift.css') }}" rel="stylesheet">
@@ -16,7 +18,7 @@
 <section class="gift_experience" @if(isset($page->background_image->image_url)) style="background: url('{{$page->background_image->image_url}}');background-size: cover;" @endif>
 	<div class="container-fluid">
 	    <div class="row" > 
-		    <div class="col-md-3 text-left" id="pos_abs_img">
+		    <div class="col-sm-3 text-left" id="pos_abs_img">
 		        <div class="dropdown">
     		        <a id="Mychild_photo" data-toggle="dropdown" aria-haspopup="true" >
     		            <img @if($child->image) src="{{$child->image}}" width="75px" id="prof_pic" style="cursor:pointer" @else src="/front/img/dpImage.png" width="75px" id="prof_pic" style="cursor:pointer" @endif />
@@ -30,72 +32,69 @@
 		    </div>
 		 </div>
 		<div class="row" >
-			<div class="col-md-6 text-right" id="pos_abs">
+			<div class="col-sm-12 text-right" id="pos_abs">
+                <button class="btn common btn-border bg float-right" id="btn_wht" data-toggle="modal" data-target="#gift_background">EDIT BACKGROUND IMAGE</button>
 				@if(!$page->live)
-				    <button class="btn common btn-border btn_wht_pnk" id="live-submit" data-id="{{$page->id}}">MAKE PAGE LIVE</button>
-				    <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border" id="btn_wht">PREVIEW GIFT PAGE</button></a>
-				@else 
-				    <button class="btn common btn-border btn_wht_pnk" id="private_dash" data-id="{{$page->id}}">MAKE PAGE PRIVATE</button>
-				    <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border" id="btn_wht">LIVE GIFT PAGE</button></a>
+                    <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border float-right" id="btn_wht">PREVIEW GIFT PAGE</button></a>
+				    <button class="btn common btn-border btn_wht_pnk float-right" id="live-submit" data-id="{{$page->id}}">MAKE PAGE LIVE</button>
+				@else
+                    <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border float-right" id="btn_wht">LIVE GIFT PAGE</button></a>
+				    <button class="btn common btn-border btn_wht_pnk float-right" id="private_dash" data-id="{{$page->id}}">MAKE PAGE PRIVATE</button>
 				@endif
-				<button class="btn common btn-border bg" id="btn_wht" data-toggle="modal" data-target="#gift_background">EDIT BACKGROUND IMAGE</button>
 			</div>
 		</div>
 	</div>
 </section>
 
 <form id="gift_form" method="post" onsubmit="event.preventDefault();">
-      {{ csrf_field() }}
+    {{ csrf_field() }}
     <section class="gift_box">
         <div class="container-fluid cont_title">
             <div class="text-right" id="gft_title-req">Required</div>
-                <div class="row">
-                    <div class="col-md-2 col-sm-2" id="gift_column">
-                    </div>
-                    <div class="col-md-10 col-sm-10" id="gift_column">
-                        <input type="text" id="page_title" aria-describedby="page_title" name="page_title" placeholder="Create a title for your gift page" maxlength="60" style="color:#000;" value="{{$page->title}}">
-                        <div class="text-right" id="title-limit">{{60 - strlen($page->title)}} of 60 characters remaining</div>
-                    </div>
+            <div class="row">
+                <div class="col-sm-9 offset-3" id="gift_column">
+                    <input type="text" id="page_title" aria-describedby="page_title" name="page_title" placeholder="Create a title for your gift page" maxlength="60" style="color:#000;" value="{{$page->title}}">
+                    <div class="text-right" id="title-limit">{{60 - strlen($page->title)}} of 60 characters remaining</div>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="gift_details">
-        <div class="container-fluid cont">
-            <div class="row">
+        <div class="container-fluid">
+            <div class="row mt-3">
                 <input id="slug" type="hidden" value="{{$page->slug}}">
-                <div class="col-md-4" id="gift_text">
-                    <label for="details">Details</label><div class="text-right" id="gft_det-req">Required</div>
-                        <textarea type="text" id="page_description" style="resize:none; color:#000;" placeholder="Share some information about the event" maxlength="360">{{$page->description}}</textarea>
+                <div class="col-sm-4" id="gift_text">
+                    <label for="details">Details</label>
+                    <div class="text-right" id="gft_det-req">Required</div>
+                    <textarea type="text" id="page_description" style="resize:none; color:#000;" placeholder="Share some information about the event" maxlength="360">{{$page->description}}</textarea>
                     <div class="text-right" id="details-limit">{{360 - strlen($page->description)}} of 360 characters remaining</div>
                 </div>
-                <div class="col-md-8" id="gft_col_3">
+                <div class="col-sm-8">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                             <label>Date</label>
                             <div class="text-right" id="inp_date-req">Required</div>
                             <input required id="event_date" name="event_date" type="date" data-date-inline-picker="false" data-date-open-on-focus="true" value="{{ date('Y-m-d', strtotime($page->date)) }}" style="color:#000;" />
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                            <label>DOB</label><div class="text-right" id="inp_age-req">Required</div>
                            <input required id="dob" name="dob" type="date" value="{{ date('Y-m-d', strtotime($child->dob))}}" style="color:#000; height:45px;">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-sm-4">
                            <label>Host</label><div class="text-right" id="inp_host-req">Required</div>
                            <input id="hostname" name="hostname" type="text" placeholder="Enter Host's Name" value="{{$page->hostname}}" style="color:#000;">
                         </div>
                     </div>
-                    <div class="row" id="gift_share">
-                        <div class="col-md-9" style="margin-top: 20px;">
+                    <div class="row">
+                        <div class="col-sm-12 mt-4 chal">
                             <label>Share Your Custom Page Link</label>
-                            <div class="col-md-12 chal">
-                                <div class="input-group">
-                                    <input readonly type="text" class="form-control" id="inp_link" @if($page->live) value="{{config('app.url')}}/gift-page/{{$page->slug}}" @else placeholder="{{ config('app.url') }}/gift-page/{{$page->slug}} @endif">
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-default tooltips" type="button" onclick="copyURL()" data-toggle="tooltip" data-placement="top" title="Your page must be live before you copy and share your live gift share URL">COPY</a>
-                                    </span>
-                                </div>
-                             </div>
+                            <div class="input-group">
+                                <input readonly type="text" class="form-control" id="inp_link" @if($page->live) value="{{config('app.url')}}/gift-page/{{$page->slug}}" @else placeholder="{{ config('app.url') }}/gift-page/{{$page->slug}} @endif">
+                                <span class="input-group-btn">
+                                    <a class="btn btn-default tooltips" type="button" onclick="copyURL()" data-toggle="tooltip" data-placement="top" title="Your page must be live before you copy and share your live gift share URL">COPY</a>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,11 +162,13 @@
 {{--</section>--}}
 
 <section class="add_gifts">
-    <div class="container-fluid cont">
+    <div class="container-fluid">
         <div class="row">
-            <h5>ADD GIFTS</h5>
-            <div class="col-md-12 dash text-center">
-                <img src="/front/img/custAdd.png" data-toggle="modal" data-target="#cashfund"><br><h6>ADD GIFTS</h6>
+            <div class = 'col-sm-12'>
+                <h5>ADD GIFTS</h5>
+                <div class="dash text-center">
+                    <img src="/front/img/custAdd.png" data-toggle="modal" data-target="#cashfund"><br><h6>ADD GIFTS</h6>
+                </div>
             </div>
         </div>
     </div>
@@ -197,7 +198,7 @@
                             $gifted = $gift->purchases($page->id)->sum('amount');
                             $needed = $gift->price - $gifted;
                         @endphp
-                        <div class="col-md-3 col-sm-6 reco_col pointer" id="{{$gift->id}}">
+                        <div class="col-sm-3 reco_col pointer" id="{{$gift->id}}">
                             <div id="hoverimg-{{$gift->id}}" class="hoverimg" data-id="{{$gift->id}}" style="position: relative; background: url({{$gift->getImage()}}); width:100%; height:250px; background-size:100% 100%; ">
                                 <div id="cartimg-{{$gift->id}}" class="cart_1" data-id="{{$gift->id}}"></div>
                                 <div class="row cancel_1"  data-id="{{$gift->id}}" id="cancel_1-{{$gift->id}}">
