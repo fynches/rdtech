@@ -182,9 +182,8 @@
             </div>
         </div>
     </section>
-<!--@include('site.gift.gift-modal')-->
-@include('site.gift.gift_Add')
-@include('site.gift.gift_crop')
+@include('site.gift.gift-add')
+@include('modal.gift-crop')
 @stop
 
 @section('footer')

@@ -25,12 +25,6 @@
 .dashboard-items{
     padding:0 50px;
 }
-.footer .pad{
-    display:inline;
-}
-.footer .pad a{
-    margin:0 10px;
-}
 
 #ul_top_hypers .show {
     display: inline-block !important;

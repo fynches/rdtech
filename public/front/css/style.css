@@ -9,6 +9,49 @@ a:hover { text-decoration: none; }
 a:active { text-decoration: none; }
 a:visited { text-decoration: none; }
 a:focus { text-decoration: none; }
+@font-face {
+    font-family: 'Futura-Bold';
+    src:  url('/front/fonts/Futura-Bold/Futura-Bold.ttf') format('ttf'),
+    url('/front/fonts/Futura-Bold/Futura-Bold.otf') format('otf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Futura';
+    src:  url('/front/fonts/Futura') format('');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Futura-Extra-Black';
+    src:  url('/front/fonts/futura_extra_black_font-webfont.woff') format('woff'),
+    url('/front/fonts/futura_extra_black_font-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Futura-Medium-BT';
+    src:  url('/front/fonts/futura_medium_bt-webfont.woff') format('woff'),
+    url('/front/fonts/futura_medium_bt-webfont.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Futura-Medium';
+    /*src: url('../fonts/Futura-Medium.eot') format('embedded-opentype');*/
+    src:  url('/front/fonts/Futura-Medium.ttf')  format('truetype'),
+    url('/front/fonts/Futura-Medium.svg#Futura-Medium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Avenir';
+    src:  url('/front/fonts/AvenirLTStd-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 @font-face {
     font-family: 'futura_bdcn_btbold';
@@ -44,8 +87,8 @@ a:focus { text-decoration: none; }
 @font-face {
   font-family: 'Avenir-Book';
   /*src: url('../fonts/Avenir-Book.eot') format('embedded-opentype');*/
-  src:  url('../fonts/AvenirLTStd-Book.woff') format('woff'), 
-        url('../fonts/Avenir-Book.ttf')  format('truetype'), 
+  src:  url('../fonts/AvenirLTStd-Book.woff') format('woff'),
+        url('../fonts/Avenir-Book.ttf')  format('truetype'),
         url('../fonts/Avenir-Book.svg#Avenir-Book') format('svg');
   font-weight: normal;
   font-style: normal;
@@ -190,7 +233,7 @@ button.drk-blue:hover{border: 1px solid #3A5998; background-color: transparent; 
 
 /* Header */
 header{position: relative; top: 0; left: 0; right: 0; margin: 0 auto; z-index: 11;background: #DFF2F6}
-header .navbar{padding: 30px 0 0 0;margin: 0px;background: #DFF2F6;border-color: #DFF2F6;}
+header .navbar{padding: 30px 0 10px 0;margin: 0px;background: #DFF2F6;border-color: #DFF2F6;}
 header .navbar-brand{color: #34344A; font-family: 'futura_bdcn_btbold'; font-size: 30px; text-transform: uppercase; padding: 0;}
 header .navbar-nav li.nav-item{padding: 6px 7px;}
 header .navbar-nav li.nav-item:last-child{padding-right: 0;}
@@ -834,4 +877,21 @@ section.steps-sec  #step-4 img{display: table; margin: 0 auto;}
     background: #fff;
     color: #4444CE;
     font-size: 11px!important;
+}
+#parent-child-info h5{
+    font-family: 'Poppins',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    line-height:25px;
+    letter-spacing:1px;
+    color:#34344A;
+}
+#parent-child-info label{
+    font-family: 'Avenir-Book';
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 10px;
+    line-height: 16px;
+    letter-spacing: 1.09px;
+    color: #34344A;
 }

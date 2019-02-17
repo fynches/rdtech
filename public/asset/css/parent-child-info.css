@@ -1,0 +1,26 @@
+h2{
+    font-family: Poppins;
+    font-weight: 700;
+    font-size: 24px;
+    color: #333333;
+    margin-top: 63px;
+    letter-spacing: 1.26px;
+    line-height: 24px;
+}
+input[type=checkbox]{
+    -webkit-appearance: checkbox;
+
+}
+.form-check-inline .form-check-input{
+    margin-top: 10px;
+}
+.url-column{
+    background: #34344A;
+    color: white;
+    height: 42px;
+    padding-top: 10px;
+}
+.url-input{
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}

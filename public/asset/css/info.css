@@ -1,53 +1,13 @@
 /*    text-decoration:none !important;*/
 /*}*/
 /*---- text decoration needed/  missing closing tag etc.  ------*/
-@font-face {
-  font-family: 'Futura-Bold';
-  src:  url('/public/front/fonts/Futura-Bold/Futura-Bold.ttf') format('ttf'),
-        url('/public/front/fonts/Futura-Bold/Futura-Bold.otf') format('otf'); 
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Futura';
-  src:  url('/public/front/fonts/Futura') format('');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Futura-Extra-Black';
-  src:  url('/public/front/fonts/futura_extra_black_font-webfont.woff') format('woff'),
-        url('/public/front/fonts/futura_extra_black_font-webfont.woff2') format('woff2'); 
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Futura-Medium-BT';
-  src:  url('/public/front/fonts/futura_medium_bt-webfont.woff') format('woff'),
-        url('/public/front/fonts/futura_medium_bt-webfont.woff2') format('woff2'); 
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Futura-Medium';
-  /*src: url('../fonts/Futura-Medium.eot') format('embedded-opentype');*/
-  src:  url('../fonts/Futura-Medium.ttf')  format('truetype'), 
-        url('../fonts/Futura-Medium.svg#Futura-Medium') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'Avenir';
-  src:  url('/public/front/fonts/AvenirLTStd-Book.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     color: rgba(0, 0, 0, 0);
     opacity: 1;
     display: block;
-    background: url(http://fynches.codeandsilver.com/public/front/img/calendar.png) no-repeat;
+    background: url(/front/img/calendar.png) no-repeat;
     width: 20px;
     height: 20px;
     border-width: thin;
@@ -58,8 +18,8 @@ body{
 }
 header{
     background-color: #dff2f6!important;
-    box-shadow: 0 4px 2px -2px #8080805e;
-}x
+    /*box-shadow: 0 4px 2px -2px #8080805e;*/
+}
 h1 {
     margin: 15px 0;
     font-weight: bold;
@@ -67,10 +27,18 @@ h1 {
 .go-back {
     margin-top: 70px;
     margin-bottom: 35px;
+
+    background: #fff;
+    font-family: 'Avenir';
+    border: 2px solid #3BC1B0;
+    font-size: 12px;
+    color: #7fd5ca;
+    padding: 10px 20px;
+    line-height: 16px;
+    letter-spacing: 1px;
 }
 .border-bottom {
     border-bottom: 2px solid #4444ce !important;
-    margin: 0 40px;
 }
 .stages {
     margin-top: 42px;
@@ -182,8 +150,9 @@ h1 {
     font-size: 12px;
     color: #7fd5ca;
     padding: 10px 20px;
-    margin-top: 60px;
+    margin-top: 55px;
     margin-bottom: 35px;
+
     line-height:16px;
     letter-spacing:1px;
 }
@@ -351,7 +320,7 @@ section.gift_experience
     width: 100%;
     min-height: 350px;
     padding: 50px 0 65px; 
-    background: url('http://fynches.codeandsilver.com/public/front/img/Pepper-the-robot.jpg');
+    background: url('http://fynches.codeandsilver.com/front/img/Pepper-the-robot.jpg');
     transition: all 0.3s ease-in-out; 
     -moz-transition: all 0.3s ease-in-out; 
     -ms-transition: all 0.3s ease-in-out; 
@@ -956,4 +925,20 @@ section.gift_experience #pos_abs{
 
 #gift_crop .container{
     width:800px;
+}
+.footer-btm a{
+    font-size:12px;
+    font-family:'Avenir';
+    line-height:16px;
+    letter-spacing:1.2px;
+}
+.footer-btm .copyright{
+    font-size:14px;
+    line-height:28px;
+}
+.footer .pad{
+    display:inline;
+}
+.footer .pad a{
+    margin:0 10px;
 }

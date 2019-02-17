@@ -1,50 +1,33 @@
-@extends('site.live-gift-page.live-page-layout')
+@extends('layouts.standard.layout')
 
 @section('header')
-    <header id="gift_head" >
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 fheader">
-                    <a class="navbar-brand" href="/">
-                        <img src="/front/img/BirdLogo.png" alt="Fynches" title="" id="fyn_logo_1">
-                    </a>
-                </div>
-                @if(Auth::check())
-                    <div class="col-md-6 fmenu">
-                        <div id="div_top_hypers">
-                            <ul class="ul_top_hypers" id="ul_top_hypers">
-                                <li><a href="" class="a_top_hypers"> HELP</a></li>
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">MY ACCOUNT <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="/account">ACCOUNT SETTINGS</a></li>
-                                        <li><a href="/gift-dashboard">DASHBOARD</a></li>
-                                        <li><a href="{{ url('/logout') }}">LOGOUT</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                @else
-                    <div class="col-md- fmenu">
-                        <div id="div_top_hypers">
-                            <ul class="ul_top_hypers" id="ul_top_hypers" style = 'margin: 0px'>
-                                <li><a href="/about" class="a_top_hypers"> ABOUT</a></li>
-                                <li><a href="/BLOG" class="a_top_hypers"> BLOG</a></li>
-                                <li><a href="#" class="a_top_hypers" data-toggle = 'modal' data-target = '#contactPage'> CONTACT US</a></li>
-                                <li><a href="/help" class="a_top_hypers"> HELP</a></li>
-                                <li><a class="a_top_hypers" href="#" data-toggle="modal" data-target="#largeModalSI" >LOGIN</a></li>
-                                <li><a class="btn common pink-btn" style="cursor: pointer;background-color: #DFF2F6;width: auto;border: 1px solid #f05;border-radius: 25px;color: #f05;font-size: 12px;font-weight: bold;letter-spacing: 2px;padding: 4px 7px;" data-toggle="modal" data-target="#largeModalS">SIGN UP FREE</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </header>
+    @include('layouts.standard.partials.header_clean')
 @stop
 
-@section('live_content')
+@section('meta')
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@fynches">
+    <meta name="twitter:title" content="{{$page->page_title}}">
+    <meta name="twitter:description" content="{{$page->page_desc}}">
+    <meta name="twitter:image" content="@isset($page->child->image){{ config('app.url') . $page->child->image }}@endisset">
+    <meta name="twitter:domain" content="{{ config('app.url') }}">
+    <meta property="og:url"                content="{{ config('app.url') }}/gift-page/{{$page->slug}}" />
+    <meta property="og:type"               content="page" />
+    <meta property="og:title"              content="{{$page->title}}" />
+    <meta property="og:description"        content="{{$page->description}}" />
+    <meta property="og:image"              content="@isset($page->child->image){{ config('app.url') . $page->child->image }}@endisset" />
+@stop
+
+@section('js')
+    <script src="{{asset('js/live-gift.js')}}"></script>
+@stop
+
+@section('css')
+    <link href="{{ asset('asset/css/live_page.css') }}" rel="stylesheet">
+    <link href="{{ asset('asset/css/gift.css') }}" rel="stylesheet">
+@stop
+
+@section('content')
 
     <section class="live_experience" style="@if (isset($page->background_image->image_url)) background: url('{{$page->background_image->image_url}}'); @endif background-size: cover;">
         <div class="container-fluid">
@@ -271,53 +254,41 @@
         </div>
     </section>
 
-    @include('site.live-gift-page.gift_share')
-    @include('modal.contact')
-    @include('modal.signin')
-    @include('modal.signup')
-    @include('modal.password')
-@stop
-
-@section('footer')
-<footer class="footer">
-	<div class="container-fluid cont">
-		<div class="footer-top">
-			<div class="row ">
-				<div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 text-left" id="foot_img">
-					<a href="javascript:void(0)"><img src="/front/img/f-logo.png" alt="logo" title=""></a>
-				</div>
-				<div class="col-sm-6 col-md-5 col-xs-12 text-center" id="f-menu">
-				    <div class="col-md-2 col-xs-2 pad"><a href="/about">ABOUT</a></div>
-				    <div class="col-md-2 col-xs-2 pad"><a target="_blank" href="/blog/">BLOG</a></div>
-				    <div class="col-md-3 col-xs-3 pad"><a href="#" data-toggle="modal" data-target="#contactPage">CONTACT US</a></div>
-				    <div class="col-md-2 col-xs-2 pad"><a href="/help">FAQS</a></div>
-				    <div class="col-md-3 col-xs-3 pad"><a href="/search">FIND A GIFT PAGE</a></div>
-				</div>
-				<div class="col-sm-3 col-md-3 col-xs-12  home text-right">
-					<ul class="social">
-						<li><a href="https://twitter.com/fynches" target="blank"><i class="fab fa-twitter"></i></a></li>
-						<li><a target="_blank" href="https://www.facebook.com/usefynches/"><i class="fab fa-facebook-f"></i></a></li>
-						<li><a target="_blank" href="https://www.instagram.com/fynches/"><i class="fab fa-instagram"></i></a></li>
-						<li><a target="_blank" href="https://www.pinterest.com/usefynches/"><i class="fab fa-pinterest-p"></i></a></li>
-					</ul> 
-				</div>
-			</div>
-		</div>
-        <div class="footer-btm home-btm">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-md-4 col-sm-6 text-left" id="foot_img">
-                        <p style="font-size:14px;font-family:'Avenir-Book',line-height:28px">&copy; {{ date('Y') }} Fynches. All rights reserved</p>
+    <div class="modal" id="gift_share" tabindex="-1" role="dialog">
+        <div class="modal-dialog  modal-md" role="document">
+            <div class="modal-content" style="padding:0px">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#gift_share').hide();" style="margin:10px !important">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div class="text-center">
+                        <img src="/front/img/logo_3.png" />
                     </div>
-                    <div class="col-md-8 col-sm-6 text-right" id="foot_img" >
-                        <ul>
-                            <li><a href="/privacy-policy" style="font-size:12px;font-family:'Avenir-Book',line-height:16px;letter-spacing:1.2px">Privacy Policy</a></li>
-                            <li><a href="/terms-condition" style="font-size:12px;font-family:'Avenir-Book',line-height:16px;letter-spacing:1.2px">Terms and Conditions</a></li>
-                        </ul>
+                    <p class="text-center">SHARE YOUR PAGE WITH A FRIEND</p>
+                    <div class="cont_1">
+                        <div class="row">
+                            <div class="col-md-12" style="padding:0px">
+                                <label>Email Address</label>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-12" style="padding:0px">
+                                <label>Subject</label>
+                                <input type="text" class="form-control" placeholder="Subject Populates the gift title">
+                            </div>
+                            <div class="col-md-12" style="padding:0px">
+                                <label>Message</label><br>
+                                <textarea type="text" name="message">Message populates the link to the page</textarea>
+                            </div>
+                            <button class="btn btn-lg yellow_submit">SEND MESSAGE</button>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border-top: 0px solid #e5e5e5;">
                     </div>
                 </div>
             </div>
         </div>
-	</div>
-</footer>
+    </div>
+
+    @include('modal.contact')
 @stop
+
