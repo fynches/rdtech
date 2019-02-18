@@ -497,7 +497,6 @@ font-family: 'Avenir-Multiple';
 }
 #ul_top_hypers{
     margin-top: 15px;
-    float: right;
 }
 #ul_top_hypers li {
     display: inline-flex;
@@ -767,10 +766,6 @@ font-family:'Avenir-Book';
     width:100% !important;
     min-height:250px !important;
 }
-
-.cont{
-    padding:0 50px !important;
-}
 #launch_head{
     font-family:'Poppins',sans-serif;
     font-size:40px;
@@ -894,4 +889,10 @@ section.steps-sec  #step-4 img{display: table; margin: 0 auto;}
     line-height: 16px;
     letter-spacing: 1.09px;
     color: #34344A;
+}
+.container-fluid {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 }

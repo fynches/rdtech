@@ -341,7 +341,8 @@ section.gift_experience #pos_abs{
 }
 #pos_abs_img img{
     position:absolute;
-    width: 15%;
+    width: 80%;
+    min-width: 100px;
     margin: -142px 40px;
     z-index: 1000;
 }
@@ -391,15 +392,12 @@ section.gift_experience #pos_abs{
 #gift_head .ul_top_hypers{
     margin:30px 0 !important;
 }
-#gift_head .container-fluid{
-    margin:0 40px;
-}
 #page_title{
     border: 2px dashed #d9d9d9;
     }
 
 .gift_box #page_title{
-    padding: 40px 10px;
+    padding: 25px 10px;
     border-radius: 5px;
     width: 100%;
     font-size:24px;
@@ -423,11 +421,6 @@ section.gift_experience #pos_abs{
     line-height:11px;
     font-family: 'Avenir-Book';
     letter-spacing:0.62px;
-}
-
-.gift_details .cont{
-    margin:60px 40px;
-    padding:0px !important;
 }
 .gift_details .text-right{
     float:right;
@@ -551,16 +544,6 @@ section.gift_experience #pos_abs{
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
-}
-
-.gift_box .cont_title{
-    margin:0 40px !important;
-    padding:0px;
-}
-
-.gift_reco .cont{
-    margin:0 40px;
-    padding:0px !important;
 }
 
 .gift_reco h5{
@@ -714,11 +697,6 @@ section.gift_experience #pos_abs{
     font-family: Futura-Medium;
     margin:20px;
 }
-
-.added_gifts{
-    margin:40px 0;
-}
-
 .added_gifts .cont{
     margin:0 60px;
 }

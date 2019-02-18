@@ -530,3 +530,9 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .gift-dets {
     display:none!important;
 }
+
+#my-child-photo img{
+    cursor:pointer;
+    max-width: 300px;
+    height: auto;
+}
