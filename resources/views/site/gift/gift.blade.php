@@ -15,7 +15,7 @@
 @stop
 @section('content')
 
-<section class="gift_experience container-fluid" @if(isset($page->background_image->image_url)) style="position: relative; background: url('{{$page->background_image->image_url}}');background-size: cover;" @endif>
+<section class="gift_experience container-fluid" @if(isset($page->background_image->image_url)) style="position: relative; background: url('{{$page->background_image->image_url}}');background-size: cover;" @else style="position: relative; background: url('/images/background_images/bg1.jpg');background-size: cover;" @endif>
     <div style = 'position: absolute; left: 2%; bottom: -100px' >
         <div class="dropdown">
             <a data-toggle="dropdown" aria-haspopup="true" >
