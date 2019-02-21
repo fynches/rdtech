@@ -6,7 +6,7 @@
                     <img src="/front/img/BirdLogo.png" alt="Fynches" title="" id="fyn_logo_1">
                 </a>
             </div>
-            <div class="fheader col-md-4" id="list">
+            <div class="fheader col-md-4 text-right" id="list">
                 <div id="div_top_hypers">
                     <ul id="ul_top_hypers">
                         <li><a href="" class="a_top_hypers"> HELP</a></li>

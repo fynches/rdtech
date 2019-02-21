@@ -9,41 +9,37 @@
 @stop
 @section('css')
     <link href="{{ asset('asset/css/gift.css') }}" rel="stylesheet">
-    <link href="{{ asset('asset/css/demo.css') }}" rel="stylesheet">
+    {{--<link href="{{ asset('asset/css/demo.css') }}" rel="stylesheet">--}}
     <link href="{{ asset('asset/css/croppie.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('asset/css/lightslider.css') }}" />
 @stop
 @section('content')
-<!--Layer 1-->
-<section class="gift_experience" @if(isset($page->background_image->image_url)) style="background: url('{{$page->background_image->image_url}}');background-size: cover;" @endif>
-	<div class="container-fluid">
-	    <div class="row" > 
-		    <div class="col-sm-3 text-left" id="pos_abs_img">
-		        <div class="dropdown">
-    		        <a id="Mychild_photo" data-toggle="dropdown" aria-haspopup="true" >
-    		            <img @if($child->image) src="{{$child->image}}" width="75px" id="prof_pic" style="cursor:pointer" @else src="/front/img/dpImage.png" width="75px" id="prof_pic" style="cursor:pointer" @endif />
-    		        </a>
-    		        <div class="dropdown-menu">
-                      <a class="dropdown-item" id="profile-image" href="#" data-toggle="modal" data-target="#gift_crop" >UPLOAD PHOTO</a>
-                      <a class="dropdown-item" href="#" data-slug="{{$page->slug}}" id="remove_photo">REMOVE PHOTO</a>
-                      <a class="dropdown-item" href="">CANCEL</a>
-                    </div>
-                </div>
-		    </div>
-		 </div>
-		<div class="row" >
-			<div class="col-sm-12 text-right" id="pos_abs">
-                <button class="btn common btn-border bg float-right" id="btn_wht" data-toggle="modal" data-target="#gift_background">EDIT BACKGROUND IMAGE</button>
-				@if(!$page->live)
-                    <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border float-right" id="btn_wht">PREVIEW GIFT PAGE</button></a>
-				    <button class="btn common btn-border btn_wht_pnk float-right" id="live-submit" data-id="{{$page->id}}">MAKE PAGE LIVE</button>
-				@else
-                    <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border float-right" id="btn_wht">LIVE GIFT PAGE</button></a>
-				    <button class="btn common btn-border btn_wht_pnk float-right" id="private_dash" data-id="{{$page->id}}">MAKE PAGE PRIVATE</button>
-				@endif
-			</div>
-		</div>
-	</div>
+
+<section class="gift_experience container-fluid" @if(isset($page->background_image->image_url)) style="position: relative; background: url('{{$page->background_image->image_url}}');background-size: cover;" @endif>
+    <div style = 'position: absolute; left: 2%; bottom: -100px' >
+        <div class="dropdown">
+            <a data-toggle="dropdown" aria-haspopup="true" >
+                <img  @if($child->image) src="{{$child->image}}" style="cursor:pointer; width: 200px;" @else src="/front/img/dpImage.png" @endif />
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" id="profile-image" href="#" data-toggle="modal" data-target="#gift_crop" >UPLOAD PHOTO</a>
+                <a class="dropdown-item" href="#" data-slug="{{$page->slug}}" id="remove_photo">REMOVE PHOTO</a>
+                <a class="dropdown-item" href="#">CANCEL</a>
+            </div>
+        </div>
+    </div>
+    <div class="row" >
+        <div class="col-sm-12 text-right" id="pos_abs">
+            <button class="btn common btn-border bg float-right" id="btn_wht" data-toggle="modal" data-target="#gift_background">EDIT BACKGROUND IMAGE</button>
+            @if(!$page->live)
+                <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border float-right" id="btn_wht">PREVIEW GIFT PAGE</button></a>
+                <button class="btn common btn-border btn_wht_pnk float-right" id="live-submit" data-id="{{$page->id}}">MAKE PAGE LIVE</button>
+            @else
+                <a href="/gift-page/{{$page->slug}}" style="color:#000"><button class="btn common btn-border float-right" id="btn_wht">LIVE GIFT PAGE</button></a>
+                <button class="btn common btn-border btn_wht_pnk float-right" id="private_dash" data-id="{{$page->id}}">MAKE PAGE PRIVATE</button>
+            @endif
+        </div>
+    </div>
 </section>
 
 <form id="gift_form" method="post" onsubmit="event.preventDefault();">
@@ -161,7 +157,7 @@
     {{--</div>--}}
 {{--</section>--}}
 
-<section class="add_gifts">
+<section id = 'add-gifts-section' class="add_gifts">
     <div class="container-fluid">
         <div class="row">
             <div class = 'col-sm-12'>
@@ -174,63 +170,70 @@
     </div>
 </section>
 
-<section class="gift_reco">
-    <div class="container-fluid cont">
-        <div class="row" id="added">
-            <h5 style="margin:20px;">GIFTS ADDED TO {{strToUpper($child->first_name)}}'S PAGE</h5>
-            <div class="added_gifts">
-                <div class="col-md-3 col-sm-6 reco_col pointer" id="100">
-                    <div id="hoverimg-100" class="" data-id="100" style="position: relative; background: url('/front/img/give-any.jpg'); width:100%; height:250px; background-size:100% 100%; ">
-                        <div id="cartimg-100" class="cart_1" data-id="100"></div>
-                        <div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;"></div>
-                    </div>
-                    <div class="shad-effect">
-                        <label>GIVE A GIFT OF ANY AMOUNT</label>
-                        <div class="row" id="marg">
-                            <div class="col-md-6 col-xs-6"></div>
-                            <div class="col-md-6 col-xs-6 text-right"></div>
-                        </div>
-                    </div>
+<section>
+    <div id = 'gift-section' class="container-fluid mb-5">
+        <div class="row mt-3 mb-3">
+            <div class = 'col-sm-12'>
+                <h5>GIFTS ADDED TO {{strToUpper($child->first_name)}}'S PAGE</h5>
+            </div>
+        </div>
+        <div class = 'row'>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class = 'gift-image' id = 'default-gift'>
                 </div>
-                @if($page->added_gift_models && count($page->added_gift_models))
-                    @foreach($page->added_gift_models as $gift)
-                        @php
-                            $gifted = $gift->purchases($page->id)->sum('amount');
-                            $needed = $gift->price - $gifted;
-                        @endphp
-                        <div class="col-sm-3 reco_col pointer" id="{{$gift->id}}">
-                            <div id="hoverimg-{{$gift->id}}" class="hoverimg" data-id="{{$gift->id}}" style="position: relative; background: url({{$gift->getImage()}}); width:100%; height:250px; background-size:100% 100%; ">
-                                <div id="cartimg-{{$gift->id}}" class="cart_1" data-id="{{$gift->id}}"></div>
-                                <div class="row cancel_1"  data-id="{{$gift->id}}" id="cancel_1-{{$gift->id}}">
-                                    <div class="col-md-6 col-sm-6 col-xs-6 text-left"></div>
-                                    <div class="col-md-6 col-sm-6 col-xs-6 text-right">
-                                        @if($needed <= 0)<div class="col-md-4 col-sm-4 col-xs-4"></div>@endif
-                                        <div class="col-md-4 col-sm-4 col-xs-4"><img id="move-{{$gift->id}}" class="draggable" data-id="{{$gift->id}}" src="/front/img/Move_white.png" style="width:100%"></div>
-                                        <div class="col-md-4 col-sm-4 col-xs-4"><img id="edit-{{$gift->id}}" class="edit-dets" data-id="{{$gift->id}}" data-toggle="modal" data-target="#gift_Add" src="/front/img/edit_white.png" style="width:100%"></div>
-                                        @if($needed)<div class="col-md-4 col-sm-4 col-xs-4"><img id="move-{{$gift->id}}" class="trash" data-id="{{$gift->id}}" src="/front/img/Delete_white.png" style="width:100%"></div>@endif
+                <div class="lower-gift">
+                    <label>GIVE A GIFT OF ANY AMOUNT</label>
+                </div>
+            </div>
+
+            @if($page->added_gift_models && count($page->added_gift_models))
+                @foreach($page->added_gift_models as $gift)
+                    @php
+                        $gifted = $gift->purchases($page->id)->sum('amount');
+                        $needed = $gift->price - $gifted;
+                    @endphp
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-2" id="gift_{{$gift->id}}">
+                        <div id="hoverimg-{{$gift->id}}" class="hoverimg gift-image" data-id="{{$gift->id}}" style="background: url({{$gift->getImage()}});">
+                            <div id="cartimg-{{$gift->id}}" class="cart_1" data-id="{{$gift->id}}"></div>
+                        </div>
+                        <div class="lower-gift">
+                            <div class = 'row'>
+                                <div class = 'col-12'>
+                                    <label>{{$gift->title}}</label>
+                                </div>
+                            </div>
+                            <div class = 'row'>
+                                <div class = 'col-12'>
+                                    <p>{{$gift->description}}</p>
+                                </div>
+                            </div>
+                            <div class="row my-2">
+                                <div class="col-6 pr-1 pl-3">
+                                    <button class="btn btn-lg remove-gift" data-id="{{$gift->id}}">REMOVE</button>
+                                </div>
+                                <div class="col-6 pl-1">
+                                    <div class = 'row'>
+                                        <div class = 'col-6 gift-amount px-1'>
+                                            ${{$gift->purchases($page->id)->sum('amount')}}
+                                        </div>
+                                        <div class = 'col-6 gift-amount pl-1'>
+                                            ${{$needed}}
+                                        </div>
+                                    </div>
+                                    <div class = 'row'>
+                                        <div class = 'col-6 gift-text px-1'>
+                                            GIFTED
+                                        </div>
+                                        <div class = 'col-6 gift-text pl-1'>
+                                            NEEDED
+                                        </div>
                                     </div>
                                 </div>
-                                {{--<div style="position: absolute; top: 1em; left: 1em; font-weight: bold; color: #fff;">--}}
-                                    {{--<a href="javascript:void(0)" class="favorite-button"><i class="fas fa-heart fa-2x heart-{{$gift->id}}" @if(!$page->favorite_gifts || !in_array($gift->id,$page->favorite_gifts))  style="color:#fff;" @else style="color:red;" @endif></i></a>--}}
-                                {{--</div>--}}
                             </div>
-                            <div class="shad-effect">
-                                <label class="l-{{$gift->id}}">{{$gift->title}}</label>
-                                <p class="d-{{$gift->id}}">{{$gift->description}}</p>
-                                <div class="row" id="marg">
-                                    <div class="col-md-6 col-xs-6">
-                                        <button class="btn btn-lg add_submit" name="remove" data-id="{{$gift->id}}">REMOVE</button>
-                                    </div>
-                                    <div class="col-md-6 col-xs-6 text-right">
-                                        <div class="col-md-6 col-xs-6"> <p class="text-center" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$gift->purchases($page->id)->sum('amount')}}</p><p class="text-center" style="font-weight:100;font-size:12px;font-family:'Avenir-Book';margin-top:5px">GIFTED</p></div>
-                                        <div class="col-md-6 col-xs-6"><p class="text-center new-{{$gift->id}}" style="font-family:Avenir-Black;font-size:16px;color:#34344A;margin-top: 10px;line-height: 16px;">${{$needed}}</p><p class="text-center" style="font-weight:100;font-size:12px;font-family:'Avenir-Book';margin-top:5px">NEEDED</p></div>
-                                    </div>
-                                </div>  
-                            </div>    
                         </div>
-                    @endforeach
-                @endif
-            </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </section>
@@ -341,82 +344,102 @@
 </div>
 <div class="modal" id="cashfund" tabindex="-1" role="dialog">
     <div class="modal-dialog  modal-lg" role="document">
-        <div class="modal-content" style="padding:0px !important">
+        <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#cashfund').hide();" style="margin:10px !important" >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#cashfund').hide();" >
                     <span aria-hidden="true">&times;</span>
                 </button>
-
                 <div class="row" id="cash-head">
-                    <div class="col-md-5">
-                        <h5>CASH FUND THEMES  <i class="fa fa-info-circle" aria-hidden="true"></i> </h5>
+                    <div class="col-5">
+                        <h5>CASH FUND THEMES</h5>
                     </div>
-                    <div class="col-md-2">
-                        <p><a href="#">View All</a></p>
+                    <div class="col-2">
+                        <p><a href="/shop/{{$page->slug}}/all-gifts">View All</a></p>
                     </div>
                 </div>
-
-                <div class="row" id="cash-img">
-                    <div class="col-md-7 text-center">
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/all-gifts"><img src="/front/img/view.png"><p class="cash-para text-center">VIEW ALL</p></a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/arts-and-crafts"><img src="/front/img/arts.png"><p class="cash-para text-center">ARTS + CRAFT</p></a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/dance"><img src="/front/img/dance.png"><p class="cash-para text-center">DANCE</p></a>
+                <div class="row mt-5">
+                    <div class="col-7">
+                        <div class = 'row'>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/all-gifts"><img src="/front/img/view.png"><p class="cash-para text-center">VIEW ALL</p></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/arts-and-crafts"><img src="/front/img/arts.png"><p class="cash-para text-center">ARTS + CRAFT</p></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/dance"><img src="/front/img/dance.png"><p class="cash-para text-center">DANCE</p></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-5">
                         <a href="#" onclick="event.preventDefault(); $('#cashfund').modal('hide');" data-toggle="modal" data-target="#gift_Add"><img src="/front/img/addcustimage.png" style="width:100%;margin: 30px 0;"></a>
                     </div>
                 </div>
 
-                <div class="row" id="cash-img">
-                    <div class="col-md-7 text-center">
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/outdoors"><img src="/front/img/outdoor.png"><p class="cash-para text-center">OUTDOORS</p></a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/learning"><img src="/front/img/learning.png"><p class="cash-para text-center">LEARNING</p></a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/sports"><img src="/front/img/sports.png"><p class="cash-para text-center">SPORTS</p></a>
+                <div class="row mt-5">
+                    <div class="col-7">
+                        <div class = 'row'>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/outdoors"><img src="/front/img/outdoor.png"><p class="cash-para text-center">OUTDOORS</p></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/learning"><img src="/front/img/learning.png"><p class="cash-para text-center">LEARNING</p></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/sports"><img src="/front/img/sports.png"><p class="cash-para text-center">SPORTS</p></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <h6><strong>SHOP TOYS</strong>&nbsp;&nbsp; COMING SOON !</h6>
-                        <div class="col-md-4" style="margin:10px 0;padding: 0px;">
-                            <img src="/front/img/toys.jpg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">
+                    <div class="col-5">
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <h6><strong>SHOP TOYS</strong>&nbsp;&nbsp; COMING SOON !</h6>
+                            </div>
                         </div>
-                        <div class="col-md-7" style="margin:10px 0">
-                            <p style="font-family:'Avenir-Medium';font-size:16px;letter-spacing:1.16px;line-height:24px;color:#34344A">SHOP 100s OF THE BEST TOYS</p>
-                            <a style="font-family:'Avenir-Medium';font-size:16px;line-height:19px;color:black;cursor:pointer">View All</a>
+                        <div class = 'row mt-3'>
+                            <div class="col-5">
+                                <img src="/front/img/toys.jpg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">
+                            </div>
+                            <div class="col-7">
+                                <p style="font-family:'Avenir-Medium';font-size:16px;letter-spacing:1.16px;line-height:24px;color:#34344A">
+                                    SHOP 100s OF THE BEST TOYS
+                                </p>
+                                <a style="font-family:'Avenir-Medium';font-size:16px;line-height:19px;color:black;cursor:pointer">
+                                    View All
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row" id="cash-img">
-                    <div class="col-md-7 text-center">
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/amusement"><img src="/front/img/amuse.png"><p class="cash-para text-center">AMUSEMENT</p></a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/cooking"><img src="/front/img/cook.png"><p class="cash-para text-center">COOKING</p></a>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="/shop/{{$page->slug}}/subscription"><img src="/front/img/subs.png"><p class="cash-para text-center">SUBSCRIPTION</p></a>
+                <div class="row mt-5">
+                    <div class="col-7">
+                        <div class = 'row'>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/amusement"><img src="/front/img/amuse.png"><p class="cash-para text-center">AMUSEMENT</p></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/cooking"><img src="/front/img/cook.png"><p class="cash-para text-center">COOKING</p></a>
+                            </div>
+                            <div class="col-4">
+                                <a href="/shop/{{$page->slug}}/subscription"><img src="/front/img/subs.png"><p class="cash-para text-center">SUBSCRIPTION</p></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
-                        <h6><strong>SHOP EXPERIENCES</strong>&nbsp;&nbsp; COMING SOON !</h6>
-                        <div class="col-md-4" style="margin:10px 0;padding: 0px;">
-                            <img src="/front/img/paint.jpeg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">
+                    <div class="col-5">
+                        <div class = 'row'>
+                            <div class = 'col-12'>
+                                <h6><strong>SHOP EXPERIENCES</strong>&nbsp;&nbsp; COMING SOON !</h6>
+                            </div>
                         </div>
-                        <div class="col-md-8" style="margin:10px 0">
-                            <p style="font-family:'Avenir-Medium';font-size:16px;letter-spacing:1.16px;line-height:24px;color:#34344A">DISCOVER AMAZING ACTIVITIES FOR KIDS</p>
-                            <a style="font-family:'Avenir-Medium';font-size:16px;line-height:19px;color:black;cursor:pointer">View All</a>
+                        <div class = 'row mt-3'>
+                            <div class="col-5">
+                                <img src="/front/img/paint.jpeg" style="width:100%;box-shadow: 0px 2px 8px #f2f2f2;">
+                            </div>
+                            <div class="col-7">
+                                <p style="font-family:'Avenir-Medium';font-size:16px;letter-spacing:1.16px;line-height:24px;color:#34344A">DISCOVER AMAZING ACTIVITIES FOR KIDS</p>
+                                <a style="font-family:'Avenir-Medium';font-size:16px;line-height:19px;color:black;cursor:pointer">View All</a>
+                            </div>
                         </div>
                     </div>
                 </div>

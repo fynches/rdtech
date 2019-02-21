@@ -1,8 +1,3 @@
-/*    text-decoration:none !important;*/
-/*}*/
-/*---- text decoration needed/  missing closing tag etc.  ------*/
-
-
 input[type="date"]::-webkit-calendar-picker-indicator {
     color: rgba(0, 0, 0, 0);
     opacity: 1;
@@ -12,13 +7,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     height: 20px;
     border-width: thin;
 }
-
 body{
     margin: 0;
 }
 header{
     background-color: #dff2f6!important;
-    /*box-shadow: 0 4px 2px -2px #8080805e;*/
 }
 h1 {
     margin: 15px 0;
@@ -27,7 +20,6 @@ h1 {
 .go-back {
     margin-top: 70px;
     margin-bottom: 35px;
-
     background: #fff;
     font-family: 'Avenir';
     border: 2px solid #3BC1B0;
@@ -50,10 +42,8 @@ h1 {
     padding: 5px;
     background:white;
     font-family: 'Avenir-Book';
-    font-weight:bold; 
+    font-weight:bold;
     font-size: 12px
-    
-    
 }
 .rule{
     margin-top: 12rem;
@@ -64,9 +54,8 @@ h1 {
 .num p {
     color:#4444ce;
     font-weight:bold;
-    font-family: 'Futura-Medium'; 
+    font-family: 'Futura-Medium';
     font-size: 12px
-    
 }
 .stage-text p{
     color:black;
@@ -80,23 +69,22 @@ h1 {
     padding: 10px 100px;
     border: 2px solid #FFDE33;
     color: #4444ce;
-    font-weight:400; 
-    font-family: 'Poppins', sans-serif;
+    font-weight:400;
+    font-family: Futura-Medium;
     border-radius:5px;
     font-size:16px;
     line-height:16px;
 }
 .yellow-submit:hover{
-     background-color: #fff;
-     border: 2px solid #FFDE33; 
+    background-color: #fff;
+    border: 2px solid #FFDE33;
 }
 .tt-header{
     font-family:'Futura-Medium';
-    font-weight:bold; 
+    font-weight:bold;
     font-size:18px;
     margin-bottom:10px;
     float: left
-    
 }
 .date-input {
     padding: 20px!important;
@@ -108,7 +96,7 @@ h1 {
 .no-padding {
     padding:0px!important;
 }
-#drag{ 
+#drag{
     padding:10px;
 }
 #drag form{
@@ -129,13 +117,13 @@ h1 {
     padding:20px;
 }
 #rw .form-group label{
-     font-family: 'Avenir-Book';
-     font-weight:bold;
-     font-size:12px;
-     margin-top: 10px;
-     line-height:16px;
-     letter-spacing:1.09px;
-     color:#34344A;
+    font-family: 'Avenir-Book';
+    font-weight:bold;
+    font-size:12px;
+    margin-top: 10px;
+    line-height:16px;
+    letter-spacing:1.09px;
+    color:#34344A;
 }
 #rw .form-row .col-md-4 input{
     padding:20px;
@@ -152,7 +140,6 @@ h1 {
     padding: 10px 20px;
     margin-top: 55px;
     margin-bottom: 35px;
-
     line-height:16px;
     letter-spacing:1px;
 }
@@ -161,7 +148,6 @@ h1 {
     background:#fff !important;
     border: 2px solid #7fd5ca !important;
 }
-
 #rw1{
     margin: 20px 50px;
 }
@@ -178,7 +164,7 @@ h1 {
     margin:10px 0;
 }
 .guest{
-    font-family: 'Avenir-Book'; 
+    font-family: 'Avenir-Book';
     font-weight: bold;
     font-size: 12px;
     line-height:16px;
@@ -200,55 +186,53 @@ h1 {
     padding:20px;
 }
 #party-time{
-    padding:20px;    
+    padding:20px;
     margin-bottom:10px;
     width: 50%;
     border: 1px solid black;
 }
-
 #your-link{
     padding: 22px 5px;
     font-size:12px;
 }
-
 #drag form p{
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  line-height: 70px;
-  color:black;
-  font-family: Arial;
-  padding:10px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 70px;
+    color:black;
+    font-family: Arial;
+    padding:10px;
 }
 #drag form input{
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  opacity: 0;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
 }
 #drag form button{
-  margin: 0;
-  color: black;
-  background: #16a085;
-  border: none;
-  width: 508px;
-  height: 35px;
-  margin-top: -20px;
-  margin-left: -4px;
-  border-radius: 4px;
-  border-bottom: 4px solid #117A60;
-  transition: all .2s ease;
-  outline: none;
+    margin: 0;
+    color: black;
+    background: #16a085;
+    border: none;
+    width: 508px;
+    height: 35px;
+    margin-top: -20px;
+    margin-left: -4px;
+    border-radius: 4px;
+    border-bottom: 4px solid #117A60;
+    transition: all .2s ease;
+    outline: none;
 }
 #drag form button:hover{
-  background: #149174;
-	color: #0C5645;
+    background: #149174;
+    color: #0C5645;
 }
 #drag form button:active{
-  border:0;
+    border:0;
 }
 .show-inputbtns .input-buttons {
     display: inline-block;
@@ -272,30 +256,27 @@ h1 {
     margin:5px 0
 }
 .yellow-check{
-   width: 20px;
+    width: 20px;
     margin: 5px;
 }
-
 #hostChild h2{
-   font-family: 'Futura-Bold';
-   font-size: 24px;
-   font-weight:bold;
-   margin-top:63px;
-   letter-spacing:1.26px;
-   line-height:24px;
+    font-family: 'Futura-Bold';
+    font-size: 24px;
+    font-weight:bold;
+    margin-top:63px;
+    letter-spacing:1.26px;
+    line-height:24px;
 }
 .stage-text a{
     font-family: 'Avenir-Book';
-    
 }
 .stage-text a:hover{
     text-decoration:none;
-    
 }
 #header{
     margin:20px;
-    font-family: 'Futura-Bold'; 
-    font-weight: bold; 
+    font-family: 'Futura-Bold';
+    font-weight: bold;
     font-size: 30px;
 }
 #dateLocation h2{
@@ -316,18 +297,13 @@ h1 {
 }
 section.gift_experience
 {
-    position: relative;
-    width: 100%;
     min-height: 350px;
-    padding: 50px 0 65px; 
-    background: url('http://fynches.codeandsilver.com/front/img/Pepper-the-robot.jpg');
-    transition: all 0.3s ease-in-out; 
-    -moz-transition: all 0.3s ease-in-out; 
-    -ms-transition: all 0.3s ease-in-out; 
-    -o-transition: all 0.3s ease-in-out; 
-    -webkit-transition: all 0.3s ease-in-out; 
+    transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
     background-size: cover;
-    
 }
 section.gift_experience #pos_abs{
     position:absolute;
@@ -335,13 +311,14 @@ section.gift_experience #pos_abs{
     width:100%;
 }
 #pos_abs_img{
-    position:absolute; 
+    position:absolute;
     bottom:-10%;
     width:100%;
 }
 #pos_abs_img img{
     position:absolute;
     width: 80%;
+    max-width: 200px;
     min-width: 100px;
     margin: -142px 40px;
     z-index: 1000;
@@ -362,7 +339,6 @@ section.gift_experience #pos_abs{
     color:#000 !important;
     border:1px solid #000;
 }
-
 #pos_abs .btn_wht_pnk{
     background:#FF0055 !important;
     color:#fff !important;
@@ -377,9 +353,8 @@ section.gift_experience #pos_abs{
 #pos_abs #btn_wht_pnk:hover{
     background:#FF0055 !important;
     color:#fff !important;
-    border:1px solid #FF0055; 
+    border:1px solid #FF0055;
 }
-
 #pos_abs .text-right{
     float:right !important;
 }
@@ -388,30 +363,25 @@ section.gift_experience #pos_abs{
     height: 25px;
     width:144px;
 }
-
 #gift_head .ul_top_hypers{
     margin:30px 0 !important;
 }
 #page_title{
     border: 2px dashed #d9d9d9;
-    }
-
+}
 .gift_box #page_title{
     padding: 25px 10px;
     border-radius: 5px;
     width: 100%;
     font-size:24px;
     color:#d9d9d9;
-    font-family: 'Poppins',sans-serif;
+    font-family: Futura-Bold;
     font-weight:700;
     line-height:31px;
-    letter-spacing:auto;
 }
-
 .gift_box #page_title:hover{
     border: 2px dashed #FF0055 !important;
 }
-
 #req{
     margin-top:20px;
 }
@@ -445,9 +415,8 @@ section.gift_experience #pos_abs{
 .gift_details label{
     font-size:16px;
     font-weight: 700;
-    font-family: 'Poppins',sans-serif;
-    margin-bottom:0px;
-    margin: 0px 10px;
+    font-family: Futura-Bold;
+    margin: 0 10px;
     letter-spacing:1.6px;
     line-height:16px;
     color:#34344A;
@@ -464,17 +433,15 @@ section.gift_experience #pos_abs{
     background: #35324c;
     border-radius: 0 5px 5px 0;
 }
-
 .chal .btn{
     border: 1px solid #35324c;
     background: #34344A;
-    color: #fff;
+    color: #fff !important;
     width:150px;
     padding:8px;
     font-size:16px;
     font-family:'Avenir-Book';
     letter-spacing:0.42px;
-
 }
 .chal .btn-default:hover,.btn:focus,.btn:active{
     border: 1px solid #35324c !important;
@@ -514,9 +481,8 @@ section.gift_experience #pos_abs{
     font-family: Avenir;
     width: 100%;
 }
-
 #event_date:hover,#dob:hover,#hostname:hover{
- border: 2px dashed #FF0055 !important;
+    border: 2px dashed #FF0055 !important;
 }
 #gft_col_3 .col3{
     width:20%;
@@ -524,7 +490,6 @@ section.gift_experience #pos_abs{
 #gift_share{
     margin-top:17px;
 }
-
 #gift_share .chal{
     padding:0px;
 }
@@ -545,7 +510,6 @@ section.gift_experience #pos_abs{
     background-color: #337ab7;
     border-color: #2e6da4;
 }
-
 .gift_reco h5{
     font-size:24px;
     font-weight:700;
@@ -555,12 +519,10 @@ section.gift_experience #pos_abs{
     color:#34344A;
     letter-spacing:1px;
 }
-
 .gift_reco #zip_c{
     font-size: 15px;
     margin:10px 20px;
 }
-
 .reco_col label{
     font-size: 14px;
     padding:10px;
@@ -571,7 +533,6 @@ section.gift_experience #pos_abs{
     margin:0px;
     color:#34344A;
 }
-
 .reco_col p{
     font-size: 12px;
     padding: 0px 10px;
@@ -581,7 +542,6 @@ section.gift_experience #pos_abs{
     margin: 0px;
     min-height:90px;
 }
-
 .reco_col .row{
     margin: 0px 10px;
 }
@@ -591,9 +551,8 @@ section.gift_experience #pos_abs{
 .gift_reco{
     margin-bottom:50px;
 }
-
 .reco_col .btn_purp{
-    border: 1px solid #4444ce; 
+    border: 1px solid #4444ce;
     background:#fff;
     color:#4444ce;
     font-family: Futura-Medium;
@@ -604,15 +563,13 @@ section.gift_experience #pos_abs{
     justify-content: center;
 }
 .reco_col .btn_purp:hover{
-    border: 1px solid #4444ce; 
+    border: 1px solid #4444ce;
     background:#4444ce;
     color:#fff;
     font-family: Futura-Medium;
-    
 }
-
 .reco_col .yellow_submit{
-    border: 1px solid #ffdb4c; 
+    border: 1px solid #ffdb4c;
     background:#ffdb4c;
     color:#4444ce;
     font-family: 'Avenir-Medium';
@@ -625,7 +582,7 @@ section.gift_experience #pos_abs{
     margin:5px 0;
 }
 .reco_col .yellow_submit:hover{
-    border: 1px solid yellow; 
+    border: 1px solid yellow;
     background:yellow;
     color:#4444ce;
 }
@@ -635,7 +592,6 @@ section.gift_experience #pos_abs{
     font-weight: 100;
     float:right;
 }
-
 #gift_price p{
     font-size:10px;
     font-family: 'Avenir-Book';
@@ -646,30 +602,26 @@ section.gift_experience #pos_abs{
 #gift_price{
     margin:15px 0;
 }
-
 .shad-effect{
     border: 1px solid #fafafa;
     box-shadow: 0px 2px 8px #f2f2f2;
     min-height: 180px;
     max-height: 180px;
 }
-
 .shad-effect label{
     max-height: 12px;
     overflow-y: hidden;
     padding: 0 10px;
     margin: 10px 0;
 }
-
 .add_gifts .cont{
     margin:0 60px;
     padding:0px !important;
 }
-
 .add_gifts h5{
     font-size:24px;
     font-weight:700;
-    font-family: 'Poppins',sans-serif;
+    font-family: Futura-Bold;
     letter-spacing:1px;
     line-height:31px;
     color:#34344A;
@@ -680,7 +632,8 @@ section.gift_experience #pos_abs{
     line-height:16px;
     font-weight:700;
     color:#34344A;
-    font-family: 'Poppins',sans-serif;
+    font-family: Futura-Bold;
+    margin-top: 10px;
 }
 .add_gifts .dash{
     border: 2px dashed #d9d9d9;
@@ -690,7 +643,6 @@ section.gift_experience #pos_abs{
     border-radius: 5px;
     cursor: pointer;
 }
-
 .dash p{
     font-size:18px;
     font-weight:bold;
@@ -700,13 +652,11 @@ section.gift_experience #pos_abs{
 .added_gifts .cont{
     margin:0 60px;
 }
-
 .added_gifts h5{
     font-size:30px;
     font-weight:bolder;
     font-family: Futura-Medium;
 }
-
 .added_gifts p{
     font-family: Avenir-Book;
 }
@@ -715,7 +665,6 @@ section.gift_experience #pos_abs{
     min-height: 500px;
     margin: 100px 0 0 0;
 }
-
 #high{
     margin:20px;
 }
@@ -739,9 +688,8 @@ section.gift_experience #pos_abs{
 .cir{
     font-size:17px;
 }
-
 #gift_share .tooltip{
-   background:#fff !important;
+    background:#fff !important;
 }
 .open>.dropdown-menu {
     display: grid !important;
@@ -754,13 +702,12 @@ section.gift_experience #pos_abs{
 }
 #pos_abs_img .dropdown-menu .dropdown-item{
     color:#34334A;
-     font-family: 'Avenir';
-     border-bottom:1px solid #f2f2f2;
-     line-height:19px;
-     font-size:14px;
-     text-decoration:none;
+    font-family: 'Avenir';
+    border-bottom:1px solid #f2f2f2;
+    line-height:19px;
+    font-size:14px;
+    text-decoration:none;
 }
-
 #pos_abs_img .dropdown-menu .dropdown-item:hover{
     background:#fff;
 }
@@ -769,7 +716,7 @@ section.gift_experience #pos_abs{
 }
 .footer .pad a{
     font-size:14px;
-    font-family:'Poppins',sans-serif;
+    font-family:Futura-Bold;
     color:white;
     line-height:14px;
     font-weight:700;
@@ -777,136 +724,128 @@ section.gift_experience #pos_abs{
 #f-menu{
     padding:0px;
 }
-
-
 @media only screen and (max-width: 391px) {
- .fheader, .fmenu{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .fheader, .fmenu{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 @media only screen and (max-width: 768){
-#pos_abs_img img{
-    width: 20%;
-    margin: -43px 44px;
+    #pos_abs_img img{
+        width: 20%;
+        margin: -43px 44px;
     }
 }
-
- 
 @media only screen and (max-width: 767px) {
-
- #f-menu{
-    margin:20px 0;
+    #f-menu{
+        margin:20px 0;
     }
-.open>.dropdown-menu{
-    margin:0px;
+    .open>.dropdown-menu{
+        margin:0px;
     }
-.chal .btn{
-    width:100px;
+    .chal .btn{
+        width:100px;
     }
-.add_gifts .cont,.added_gifts .cont{
-    margin:20px;
-    }    
-.added img{
-    width:20% !important;
+    .add_gifts .cont,.added_gifts .cont{
+        margin:20px;
     }
-.dash img{
-    width:50% !important;
+    .added img{
+        width:20% !important;
     }
-.reco_col{
-    margin:20px 0;
+    .dash img{
+        width:50% !important;
     }
-.gift_reco .cont{
-    margin:0px !important;
-    padding:0px !important;
+    .reco_col{
+        margin:20px 0;
     }
-.gift_box .cont_title{
-    margin:0px !important;
+    .gift_reco .cont{
+        margin:0px !important;
+        padding:0px !important;
     }
-#rw {
-    margin:0px;
+    .gift_box .cont_title{
+        margin:0px !important;
     }
-#rw1{
-    margin:0px;
+    #rw {
+        margin:0px;
     }
-#lk{
-    margin:20px;
+    #rw1{
+        margin:0px;
     }
-#gp{
-    margin:0 0 16px;
-    font-size:11px;
-    padding:0px;
+    #lk{
+        margin:20px;
     }
-.gift_box{
-    margin-top:40px;
+    #gp{
+        margin:0 0 16px;
+        font-size:11px;
+        padding:0px;
     }
-.gift_box #page_title{
-    width:100%;
-    font-size: 20px;
+    .gift_box{
+        margin-top:40px;
     }
-#gift_column{
-    left:0;
-    margin-top:0px;
+    .gift_box #page_title{
+        width:100%;
+        font-size: 20px;
+    }
+    #gift_column{
+        left:0;
+        margin-top:0px;
     }
     #pos_abs_img img{
-    margin: -80px 0px;
-    width: 20%;
+        margin: -80px 0px;
+        width: 20%;
     }
-.gift_details .cont{
-    margin:0px;
+    .gift_details .cont{
+        margin:0px;
     }
-#gift_text{
-    padding:0 15px;    
+    #gift_text{
+        padding:0 15px;
     }
-#gft_col_3 .col3{
-    width:100%;
+    #gft_col_3 .col3{
+        width:100%;
     }
-#gft_col_3{
-    margin: 30px 0px
+    #gft_col_3{
+        margin: 30px 0px
     }
-section.gift_experience #pos_abs{
-    text-align:center;
+    section.gift_experience #pos_abs{
+        text-align:center;
     }
-#pos_abs #btn_wht{
-    margin:10px;
-    width: -webkit-fill-available;
+    #pos_abs #btn_wht{
+        margin:10px;
+        width: -webkit-fill-available;
     }
-.checkout_content .cont{
-    margin:0 20px !important;
+    .checkout_content .cont{
+        margin:0 20px !important;
     }
-#checkout_cont #btn_blk{
-    padding: 0 20px;
-    margin: 0px;
+    #checkout_cont #btn_blk{
+        padding: 0 20px;
+        margin: 0px;
     }
-.step_1 .cont{
-    margin:0 30px !important;
+    .step_1 .cont{
+        margin:0 30px !important;
     }
-.step_1 #step_gift img{
-    width:100%;
+    .step_1 #step_gift img{
+        width:100%;
     }
-.step_1 #gftamt{
-         margin:0px !important;
+    .step_1 #gftamt{
+        margin:0px !important;
     }
-.step_1 .cont .step_price{
-         margin:10px 0;
+    .step_1 .cont .step_price{
+        margin:10px 0;
     }
     .footer .pad a{
         font-size:12px;
     }
-
 }
-
 #photo-form {
     cursor:pointer;
 }
-
 #gift_crop .container{
     width:800px;
 }
 .footer-btm a{
     font-size:12px;
-    font-family:'Avenir';
+    font-family:'Avenir-Book';
     line-height:16px;
     letter-spacing:1.2px;
 }
@@ -919,4 +858,95 @@ section.gift_experience #pos_abs{
 }
 .footer .pad a{
     margin:0 10px;
+}
+#gift-section h5, #add-gifts-section h5{
+    font-size: 24px;
+    font-weight: 700;
+    font-family: Futura-Bold;
+    margin: 0px 10px;
+    line-height: 31px;
+    color: #34344A;
+    letter-spacing: 1px;
+}
+#gift-section .lower-gift{
+    border: 1px solid #fafafa;
+    box-shadow: 0px 2px 8px #f2f2f2;
+    min-height: 180px;
+    max-height: 180px;
+}
+#gift-section .lower-gift label{
+    max-height: 12px;
+    overflow-y: hidden;
+    padding: 0 10px;
+    margin: 10px 0;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+    text-transform: uppercase;
+    font-family: Futura-Bold;
+    color: #34344A;
+}
+#gift-section .lower-gift p{
+    font-family: Avenir-Book;
+    font-size: 10px;
+    padding: 0 10px;
+    line-height: 12px;
+    color: #34344A;
+    margin: 0;
+    height: 80px;
+    overflow: hidden;
+}
+#gift-section .gift-image{
+    position: relative;
+    width:100%;
+    height:250px;
+    background-size:100% 100%;
+}
+#gift-section #default-gift{
+    background: url('/front/img/give-any.jpg');
+}
+#gift-section .lower-gift .remove-gift{
+    padding: 10px;
+    color: #000;
+    background: #eaf2ef;
+    font-family: Avenir;
+    font-weight: 600;
+    font-size: 12px !important;
+    width: 85%;
+    line-height: 16px;
+    margin: 0 0 7px 7px;
+    letter-spacing: 2.18px;
+}
+#gift-section .lower-gift .gift-amount{
+    text-align : center;
+    font-family: Avenir;
+    font-weight: 600;
+    font-size: 16px;
+    color: #34344A;
+}
+#gift-section .lower-gift .gift-text{
+    text-align : center;
+    font-weight: 100;
+    font-size: 10px;
+    font-family: Avenir;
+}
+
+/* xs */
+@media (max-width: 575.98px) {
+
+}
+
+/* sm */
+@media (max-width: 767.98px) {
+
+}
+
+/* md */
+@media (max-width: 991.98px) {
+
+}
+
+/* lg */
+@media (max-width: 1199.98px) {
+
 }

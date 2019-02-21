@@ -1,6 +1,6 @@
 h2{
-    font-family: Poppins;
-    font-weight: 700;
+    font-family: Futura-Bold;
+    font-weight: bold;
     font-size: 24px;
     color: #333333;
     margin-top: 63px;
@@ -15,6 +15,7 @@ input[type=checkbox]{
     margin-top: 10px;
 }
 .url-column{
+    font-family: 'Avenir-Book';
     background: #34344A;
     color: white;
     height: 42px;
@@ -23,4 +24,21 @@ input[type=checkbox]{
 .url-input{
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+}
+#parent-child-info h5{
+    font-family: Futura-Bold;
+    font-weight:bold;
+    font-size:16px;
+    line-height:25px;
+    letter-spacing:1px;
+    color:#34344A;
+}
+#parent-child-info label{
+    font-family: 'Avenir-Book';
+    font-weight: bold;
+    font-size: 12px;
+    margin-top: 10px;
+    line-height: 16px;
+    letter-spacing: 1.09px;
+    color: #34344A;
 }

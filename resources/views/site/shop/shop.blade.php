@@ -182,7 +182,7 @@
             </div>
         </div>
     </section>
-@include('site.gift.gift-add')
+@include('modal.gift-add')
 @include('modal.gift-crop')
 @stop
 

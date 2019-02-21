@@ -47,15 +47,7 @@ class GiftController extends Controller
 		$page->makeLive();
 		return response()->json(['slug' => $page->slug]);
 	}
-      
-      
-      /**
-     * Make Gift Page Private
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return jason route slug - child_name
-     */
+
 	public function makePrivate(Request $request)
 	{
 		$id = $request->id;
@@ -65,13 +57,6 @@ class GiftController extends Controller
 		return response()->json(['slug' => $page->slug]);
 	}
 
-	/**
-	 * Gift Page Update Fields Ajax
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 *
-	 * @return jason route slug - child_name
-	 */
 	public function updateGiftPage(Request $request)
 	{
 		$slug = $request->input('slug');
@@ -86,14 +71,7 @@ class GiftController extends Controller
 		$child->save();
 		return response()->json(['result' => $page->slug]);
 	}
-      
-    /**
-     * Change background Image Gift Page Ajax
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return jason image url
-     */
+
 	public function saveBackgroundImages(Request $request)
 	{
 		$imageId = $request->image_id;
@@ -103,14 +81,7 @@ class GiftController extends Controller
 		$page->save();
 		return response()->json(['url' => $page->background_image->image_url]);
 	}
-      
-      
-    /**
-     * Save Profile Image Gift Page Ajax
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     */
+
 	public function saveProfileImage(Request $request)
 	{
 		$image = $request->input('image');
@@ -122,13 +93,7 @@ class GiftController extends Controller
 		$child->image = $output;
 		$child->save();
 	}
-      
-    /**
-     * Remove Profile Image Gift Page Ajax
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     */
+
 	public function removeProfileImage(Request $request)
 	{
 		$slug = $request->input('slug');
