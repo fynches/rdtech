@@ -10,7 +10,7 @@
             <h4 class="text-center" style="font-family:'Avenir'; font-size: 24px; font-weight: bold;">Sign up</h4>
             <div class="modal-body-signup">
                 <div class="row">
-                    <div class="col-sm-12 col-md-12">
+                    <div class="col-12">
                         <form id="signupForm" class="form-horizontal" method="POST" onsubmit="event.preventDefault();">
                             <div class="form-group">
                                 <label for="email" class="required">EMAIL</label>
