@@ -7,7 +7,7 @@
                     <span aria-hidden="true"><i class="fas fa-times"></i></span>
                 </button>
             </div>
-            <h4 class="text-center" style="font-family:'Avenir-Heavy'">Sign up</h4>
+            <h4 class="text-center" style="font-family:'Avenir'; font-size: 24px; font-weight: bold;">Sign up</h4>
             <div class="modal-body-signup">
                 <div class="row">
                     <div class="col-sm-12 col-md-12">

@@ -43,6 +43,8 @@ a:focus { text-decoration: none; }
 
 
 
+
+
 @font-face {
     font-family: 'Futura';
     src:  url('/front/fonts/Futura') format('');
@@ -63,11 +65,6 @@ a:focus { text-decoration: none; }
     font-weight: normal;
     font-style: normal;
 }
-
-
-
-
-
 @font-face {
     font-family: 'futura_bdcn_btbold';
     src: url('../fonts/futura_bold_font-webfont.woff2') format('woff2'),
@@ -378,7 +375,7 @@ section.banner-sec.beta-banner-sec .gift-page{padding: 30px 0;}
 .common-model .modal-body{padding: 0 153px 134px 64px;}
 .common-model p{font-size: 17px; line-height: 23px; color: #34344A;}
 .common-model form {padding: 24px 0 0;}
-.common-model form label{font-size: 12px;line-height: 18px;color: #34344A;margin-bottom: 0;font-family: 'Poppins',sans-serif;font-weight: 700;letter-spacing: 1.09px;}
+.common-model form label{font-size: 12px;line-height: 18px;color: #34344A;margin-bottom: 0;font-family: Futura-Bold;font-weight: 700;letter-spacing: 1.09px;}
 .common-model form .form-group{margin-bottom: 24px;}
 form input[type="text"], form input[type="email"], form input[type="password"], form input[type="tel"],  form textarea{font-size:14px;border: 1px solid #34344A; height: calc(2.25rem + 4px);line-height:18px; color: #34344A; font-family: 'Avenir-Book'; font-weight: 400;padding:20px;}
 form .form-control:focus{box-shadow: 0 0 0 0.1rem rgba(52, 52, 74,0.2); border-color: #34344A;}
@@ -684,7 +681,8 @@ font-family:'Avenir-Book';
     font-size:30px;
 }
 #sign_in{
-    font-family: 'Avenir-Heavy';
+    font-family: 'Avenir';
+    font-weight: bold;
     font-size:24px;
     line-height:33px;
     color:#34344A;

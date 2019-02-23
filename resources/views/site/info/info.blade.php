@@ -72,10 +72,10 @@
         <div class="row mt-4">
             <div class="col-sm-4 offset-1">
                 <label>DATE OF PARTY</label>
-                <input name="eventDate" value="{{ old('eventDate') }}" type="date" data-date-inline-picker="false" class="form-control" data-date-open-on-focus="true"/>
+                <input name="eventDate" value="{{ old('eventDate') }}" type="date" data-date-inline-picker="false" class="form-control" style = 'font-family: Avenir-Book' data-date-open-on-focus="true"/>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox" id="not-decided" name = 'not-decided' value="1">
-                    <label class="form-check-label" for="not-decided">We Are Still Deciding On The Date</label>
+                    <label class="form-check-label" for="not-decided" style = 'font-size: 13px; font-weight: normal'>We Are Still Deciding On The Date</label>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
             </div>
             <div class="col-sm-6 text-left no-padding" >
                 <input required id="slug" name="slug" class = 'form-control url-input' type="text" value="{{ old('slug') }}" pattern="[A-Za-z0-9]*">
-                <p>Please use only letters or numbers</p>
+                <p style = 'font-size: 10px;'>Please use only letters or numbers</p>
             </div>
         </div>
         <div class="row mt-4">
