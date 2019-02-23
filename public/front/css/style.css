@@ -38,6 +38,13 @@ a:focus { text-decoration: none; }
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'AvenirLTStd-Roman';
+    src: url('../fonts/AvenirLTStd-Roman.ttf') format('truetype'),
+    url('../fonts/AvenirLTStd-Roman.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 
@@ -93,13 +100,6 @@ a:focus { text-decoration: none; }
   font-family: 'AvenirLTStd-Book';
   src: url('../fonts/AvenirLTStd-Book.woff2') format('woff2'),
          url('../fonts/AvenirLTStd-Book.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'AvenirLTStd-Roman';
-  src: url('../fonts/AvenirLTStd-Roman.woff2') format('woff2'),
-         url('../fonts/AvenirLTStd-Roman.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -427,7 +427,8 @@ form .form-control:focus{box-shadow: 0 0 0 0.1rem rgba(52, 52, 74,0.2); border-c
     font-family: 'Avenir-Book';
 }
 #password_title{
-   font-family: 'Avenir-Heavy';
+   font-family: 'Avenir';
+    font-weight: bold;
    font-size:20px;
    line-height:22px;
    color:#34344A;
@@ -713,12 +714,13 @@ font-family:'Avenir-Book';
     border: 1px solid #ffdb4c;
     background: #ffdb4c;
     color: #4444ce;
-    font-family: Avenir-Medium;
+    font-family: Avenir;
+    font-weight: 600px;
     letter-spacing:2.18px;
     line-height:16px;
     font-size:12px;
     padding: 10px 10px;
-    margin: 10px 0px!important;
+    margin: 10px 0!important;
 }
 .purchase-amounts {
     width:100%;

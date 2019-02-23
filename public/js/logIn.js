@@ -64,34 +64,29 @@ function signup() {
 }
 
 function reset() {
-    
-    
+    $("#reset-message").html('');
     $.ajaxSetup({
+        headers: {
 
-    headers: {
-
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
-            $.ajax({
-                type:'POST',
-                url:'/reset',
-                data:{
-                    email:$( '#email' ).val(),
-                },
-                success:function(data){
-                    console.log(data);
-                    if(data.success == 1) {
-                    $('#reset-msg').append('<p class="text-center para">Please Check Your Email for Password Reset Link</p>');
-                        
-                    }else{
-                        $('#reset-msg').append('<p>No registered user for this email.</p>');
-                    }
-                },
-                error:  function (error) {
-                  
-                }
-            });
+    $.ajax({
+        type:'POST',
+        url:'/reset',
+        data:{
+            email:$( '#email' ).val(),
+        },
+        success:function(data){
+            if(data.error)
+            {
+                $("#reset-message").html(data.error);
+                return;
+            }
+            $("#reset-message").removeClass('text-danger').addClass('text-success').html("An email has been sent with a password reset link");
+        },
+        error:  function (error) {}
+    });
 }
 
 function signin() {

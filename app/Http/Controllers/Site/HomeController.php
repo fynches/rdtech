@@ -89,15 +89,29 @@ class HomeController extends Controller
 
     public function passwordReset(Request $request)
     {
+	    $validator = Validator::make($request->all(), [
+		    'email' => 'required|email'
+	    ]);
+	    if($validator->fails())
+	    {
+		    return response()->json([
+			    'error' => "Please enter a valid email address"
+		    ]);
+	    }
+
+
+
         $email = $request->email;
         $user = User::where('email', '=', $email)->first();
         if(!isset($user))
         {
-            return response()->json(['success' => 0]);
+	        return response()->json([
+		        'error' => "A user with this email address can not been found in our system"
+	        ]);
         }
         $link = Autologin::to($user, '/password-reset');
 	    Mail::to($email)->send(new PasswordReset($link));
-	    return response()->json(['success' => 1]);
+	    return response()->json(['error' => null]);
     }
 
     public function signup(Request $request)
