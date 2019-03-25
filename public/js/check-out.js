@@ -30,27 +30,24 @@ $(document).ready(function( $ ) {
     $( "#sig_up" ).click(function() {
             $("#largeModalS").modal('hide');
     });
-    
-    $( ".purchase-amounts" ).bind("keyup change", function() {
-      var id = $(this).data( "id" );
-      var amount = $(this).val();
-      var left = $('#left-'+id).data( "left" );
-      var price = $('#left-'+id).data( "price" );
-      
-      var lft = price - left - amount;
-     
-      if(lft < 0){
-          var lft = 0;
-      }
-      
-      var sum = 0;
-        $('.purchase-amounts').each(function(){
-            sum += +$(this).val();
-        });
-        $("#total").text(sum);
-      
-      $('#payment-total').val(sum);
-      $('#left-'+id).text(lft);
+
+    $( ".purchase-amounts" ).bind("keyup change", function()
+    {
+        $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+        var id = $(this).data( "id" );
+        var amount = $(this).val();
+
+        $.post('/gift-live/cart-edit', {purchaseId: id, amount: amount}, function(json)
+        {
+            var balance = json.balance;
+            $('#left-'+id).text(balance);
+            var sum = 0;
+            $('.purchase-amounts').each(function(){
+                sum += +$(this).val();
+            });
+            $("#total").text(sum);
+            $('#payment-total').val(sum);
+        }, 'json');
     });
     
     
@@ -73,13 +70,14 @@ function placeOrder() {
     var email = $('#cc_email').val();
     var confirm = $('#cc_confirm').val();
     var total = $('#payment-total').val();
+    var message = $("#message").val();
     
     var prchs = {};
     $(".purchase-amounts").each(function() {
         prchs[$(this).data( "id" )] = $(this).val();
     });
     
-    $('#last-row').empty();
+    $('#error').html('');
    
     $.ajax({
     	type:'POST',
@@ -98,21 +96,31 @@ function placeOrder() {
     	    zip:zip,
     	    country:country,
     	    email:email,
-    	    confirm:confirm,
+    	    email_confirmation:confirm,
     	    total:total,
-    	    prchs:prchs
+    	    prchs:prchs,
+            message: message
     	},
-    	success:function(data){	
-    	    console.log(data);
-    	    if(data.success == 1) {
-            	        var url = "/checkout-success";
-                        $(location).attr('href',url);
-    	    } else {
-    	        $('#last-row').append('<div class="alert alert-danger">'+data.result+'</div>');
+    	success:function(json)
+        {
+    	    if(json.status == 'success')
+    	    {
+    	        window.location = '/checkout-success';
+    	    }
+    	    else
+    	        {
+    	            let html = '<div class="alert alert-danger">';
+    	            html += "We have encountered the following errors processing this transaction <br/>";
+    	            $.each(json.errors, function(i, error)
+                    {
+                        html += error + "<br/>";
+                    });
+    	            html += "</div>";
+    	        $('#error').html(html);
     	    }
     	},
     	error:  function (error) {
-    	    
+    	    alert("We have encountered an error completing this purchase");
     	}
     });
 }    

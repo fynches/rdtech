@@ -2,97 +2,78 @@
     padding:0 50px !important;
     min-height: 90px;
 }
-
 .gift-dashboard{
     padding:0 50px !important;
 }
-
 #ul_top_hypers{
     margin-top:30px !important;
 }
-
 .marg-dash{
     margin-bottom:50px;
 }
 .dashboard-items h3{
-  font-family: 'Poppins',sans-serif;  
-  font-size: 24px;
-  font-weight: 700;
-  margin-top:10px;
-  line-height:24px;
-  color:#34344a;
+    font-family: Futura-Bold;
+    font-size: 24px;
+    font-weight: bold;
+    margin-top:10px;
+    line-height:24px;
+    color:#34344a;
 }
-.dashboard-items{
-    padding:0 50px;
-}
-.footer .pad{
-    display:inline;
-}
-.footer .pad a{
-    margin:0 10px;
-}
-
 #ul_top_hypers .show {
     display: inline-block !important;
 }
-
-
 #ul_top_hypers li{
     padding:0 10px!important;
 }
 #ul_top_hypers .dropdown-menu li{
     padding:10px !important;
 }
-
 .dashboard-items h5 strong{
-  font-family:'Poppins', sans-serif;  
-  font-size: 16px;
-  line-height:24px;
-  font-weight:700;
-  color:#34344a;
-  letter-spacing: 0px;
+    font-family:Futura-Bold;
+    font-size: 16px;
+    line-height:16px;
+    font-weight:bold;
+    color:#34344a;
 }
 .dashboard-items h5{
-    font-family:'Poppins', sans-serif;  
-  font-size: 16px;
-  line-height:16px;
-  font-weight:400;
-  color:#34344a;
-  letter-spacing: 1px;
+    font-family:Futura-Bold;
+    font-size: 16px;
+    line-height:16px;
+    font-weight:400;
+    color:#34344a;
+    letter-spacing: 1px;
 }
-
 .dashboard-list {
     list-style-type: none;
     padding-left:0;
 }
 .dashboard-list h4{
     margin: 10px 0;
-    font-family: 'Poppins',sans-serif;
-    font-size: 14px;
+    font-family: Futura-Bold;
+    font-size: 12px;
     font-weight: 700;
     line-height:22px;
     letter-spacing:0.6px;
     color:#34344A;
 }
 .dashboard-list li a{
-    font-family: 'Poppins',sans-serif;
-    font-size: 14px;
+    font-family: Avenir;
+    font-size: 12px;
     font-weight: 400;
     line-height:28px;
-    letter-spacing:0px;
+    letter-spacing:0;
     color:#34344A;
 }
 .dashboard-list li a:hover{
     font-weight: 700;
 }
-
 .create-gift {
     color:white;
     background-color:#F70957;
     border:none;
     border-radius:5px;
     cursor: pointer;
-    font-family:'Poppins',sans-serif;
+    font-family:Futura-Medium;
     letter-spacing:2px;
     font-weight:400;
     font-size:12px;
@@ -101,15 +82,12 @@
 .gift-dash .cont{
     margin:0 40px;
 }
-
 .gift-dash #ul_top_hypers{
     margin:20px 0;
 }
-
-.gifted_right{ 
+.gifted_right{
     margin-right:auto;
 }
-
 .gifted_too_left{
     margin-left:auto;
 }
@@ -119,38 +97,33 @@
     font-size:18px;
     font-weight: bold;
 }
-
 .dashboard-items h4 a{
     color:#34344A;
-    font-family: 'Poppins',sans-serif;
+    font-family: Futura-Bold;
     font-size:16px;
     font-weight: 700;
     line-height:16px;
 }
-
 .dashboard-items p{
-   font-family:Avenir-Book;
-   font-size:14px;
-   margin-top:20px;
-   line-height:19px;
+    font-family:Avenir-Book;
+    font-size:14px;
+    margin-top:20px;
+    line-height:19px;
 }
 #live_dash{
     margin-left:20px;
     color:#4444ce;
 }
-
 @media only screen and (max-width: 320px) {
- .fheader, .fmenu{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .fheader, .fmenu{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-.gifted_too_left{
-    margin: 0;
-}    
-    
+    .gifted_too_left{
+        margin: 0;
+    }
 }
-
 @media (max-width: 767px){
     .gift-dashboard #dashboard-list{
         padding:0px ;
@@ -159,13 +132,12 @@
         text-align:center;
     }
     #div_top_hypers{
-     text-align:center;   
+        text-align:center;
     }
     #ul_top_hypers{
         float:none !important;
     }
 }
-
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
     .gift-dashboard #dashboard-list{
         padding:0px ;
@@ -173,5 +145,4 @@
     #foot-cent{
         padding:0px;
     }
-    
 }

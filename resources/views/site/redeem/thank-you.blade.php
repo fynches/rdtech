@@ -7,7 +7,7 @@
         </button>
          
          <div class="text-center">
-                <img src="http://fynches.codeandsilver.com/public/front/img/logo_3.png">
+                <img src="/front/img/logo_3.png">
           </div>
           
           <p class="text-center">SEND A THANK YOU</p>

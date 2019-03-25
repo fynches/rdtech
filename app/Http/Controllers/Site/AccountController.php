@@ -5,14 +5,10 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Hash;
-use App\User;
-use App\Event;
-use App\UserMeta;
-use App\ChildInfo;
-use App\GiftPage;
-use App\BackgroundImages;
-use App\Gift;
+use App\Domain\Child;
+use App\Domain\Page;
+use App\Domain\Gift;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -118,121 +114,53 @@ class AccountController extends Controller
      * 
      * @return json Success responce
      */
-    public function storePassword(Request $request) {
-        
-        $id = Auth::id();
+    public function storePassword(Request $request)
+    {
         $user = Auth::user();
-        
-        $current_password = $request->cpass;
+        $current_password = $request->cnpass;
         $new_password = $request->npass;
-        $nocn = $request->nocn;
-        
-        if($nocn == 1) {
-            
-        $user->password = Hash::make($new_password);
-        $user->save();
-        
-        return response()->json(['update' => 'Success']);
+        if($request->nocn)
+        {
+	        $user->password = Hash::make($new_password);
+	        $user->save();
+	        return response()->json(['update' => 'Success']);
         }
-        
-        if (Hash::check($current_password, $user->password)) {
-
-        
-        $user->password = Hash::make($new_password);
-        $user->save();
-        
-        return response()->json(['update' => 'Success']);
-        
-        } else {
-            
+        if (Hash::check($current_password, $user->password))
+        {
+	        $user->password = Hash::make($new_password);
+	        $user->save();
+	        return response()->json(['update' => 'Success']);
+        }
+        else
+        	{
             return response()->json(['update' => 'not-password']);
-            
         }
-        
     }
-    
-    /**
-     * Create Gift Page, Ajax.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * @return gift Page
-     */
-    public function createPage(Request $request) {
-        
-        if (Auth::check()) {
-            
-            $user = Auth::user();
-            $id = $user->id;
-            
-                $host_name = $request->host_name;
-                $child_fname = $request->child_fname;
-                $dob = $request->dob;
-                $event_date = $request->event_date;
-                $your_link = $request->your_link;
-                
-            $child = ChildInfo::updateOrCreate(
-                ['user_id' => $id,'first_name' =>  $child_fname],
-                ['user_id' => $id,'first_name' =>  $child_fname, 
-                'dob' => $dob, 'recipient_image' => '/public/front/img/dpImage.png'
-                ]
-            );    
-                
-            $page = GiftPage::updateOrCreate(
-                ['user_id' => $id, 'child_info_id' => $child->id],
-                ['user_id' => $id,'page_hostname' =>  $host_name,
-                'child_info_id' => $child->id, 'slug' => $your_link, 
-                'page_date' => $event_date
-                ]
-            );    
-            
-            ChildInfo::updateOrCreate(
-                ['user_id' => $id,'first_name' =>  $child_fname],
-                ['user_id' => $id,'first_name' =>  $child_fname, 
-                'gift_page_id' => $page->id 
-                ]
-            );
-            
-            
-            
-            
-            $gift_page =  GiftPage::where('user_id', $user->id)->where('slug', $your_link)->first();
-          
-            $child_info =  ChildInfo::where('id', $gift_page->child_info_id)->first();
-            $child_image = $child_info->recipient_image;
-            
-            if(!empty(unserialize($gift_page->rec_zip))) {
-            $rec_ids = unserialize($gift_page->rec_zip);
-            $rec_gifts = Gift::whereIn('id',$rec_ids)->get();
-            }
-            
-            if(!empty(unserialize($gift_page->favorites))) {
-            $favorite_ids = unserialize($gift_page->favorites);
-            $favorite_gifts = Gift::whereIn('id',$favorite_ids)->get();
-            }
-            
-            if(!empty(unserialize($gift_page->added_gifts))) {
-            $added_gifts_ids = unserialize($gift_page->added_gifts);
-            $added_gifts = Gift::whereIn('id',$added_gifts_ids)->orderByRaw('FIELD(id, '.implode(',', $added_gifts_ids).')')->get();
-            }
-            
-            if(!isset($gift_page->id)){
-                return redirect()->route('shop');
-            }
-         
-            
-            $background_images =  BackgroundImages::all();
-            
-            $page = '/gift/'.$gift_page->slug;
-            
-            return redirect($page, 302,compact('user', 'gift_page','gifts','background_images', 'rec_gifts', 'favorite_gifts', 'added_gifts', 'added_gifts_ids','child_image'));
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-        
+
+    public function createPage(Request $request)
+    {
+    	$pageExists = Page::where("slug", $request->input('slug'))->exists();
+    	if($pageExists)
+	    {
+	    	return back()->withInput()->with('error', "This link already exists, please choose another.");
+	    }
+    	$user = Auth::user();
+    	$user->first_name = $request->input('hostFirstName');
+    	$user->last_name = $request->input('hostLastName');
+    	$user->save();
+    	$child = Child::create(
+            [
+                'user_id' => $user->id,'first_name' =>  $request->input('childName'),
+                'dob' => $request->input('dob'), 'image' => '/front/img/dpImage.png'
+            ]
+        );
+        $page = Page::create(
+            [
+                'child_id' => $child->id, 'hostname' =>  $request->input('hostFirstName') . ' ' . $request->input('hostLastName'),
+                'slug' => $request->input('slug'), 'date' => $request->input('eventDate')
+            ]
+        );
+        return redirect('/gift/'.$page->slug);
     }
     
     /**
@@ -251,21 +179,21 @@ class AccountController extends Controller
             $child_fname = $request->child_fname;
             $child_age = $request->child_age;
             
-        $child = ChildInfo::updateOrCreate(
+        $child = Child::updateOrCreate(
             ['user_id' => $id,'first_name' =>  $child_fname],
             ['user_id' => $id,'first_name' =>  $child_fname, 
             'age_range' => $child_age
             ]
         );    
             
-        $page = GiftPage::updateOrCreate(
+        $page = Page::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
             ['user_id' => $id,'page_hostname' =>  $host_fname.' '.$host_lname,
             'child_info_id' => $child->id
             ]
         );    
         
-        ChildInfo::updateOrCreate(
+        Child::updateOrCreate(
             ['user_id' => $id,'first_name' =>  $child_fname],
             ['user_id' => $id,'first_name' =>  $child_fname, 
             'age_range' => $child_age, 'gift_page_id' => $page->id 
@@ -293,12 +221,12 @@ class AccountController extends Controller
             $child = $request->child;
         
   
-        $child = ChildInfo::updateOrCreate(
+        $child = Child::updateOrCreate(
             ['user_id' => $id, 'first_name' =>  $child],
             ['child_zipcode' => $zipcode]
         );
         
-        GiftPage::updateOrCreate(
+        Page::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
             ['page_date' => $event_publish_date
             ]
@@ -322,9 +250,9 @@ class AccountController extends Controller
             $gift_link = $request->gift_link;
             $child = $request->child;
         
-        $child = ChildInfo::where('user_id',$id)->where('first_name', $child)->first();
+        $child = Child::where('user_id',$id)->where('first_name', $child)->first();
         
-        GiftPage::updateOrCreate(
+        Page::updateOrCreate(
             ['user_id' => $id, 'child_info_id' => $child->id],
             ['slug' =>  $gift_link]
         );
@@ -333,7 +261,7 @@ class AccountController extends Controller
         $output = 'public/images/profile_images/' . $gift_link . '.png';
         file_put_contents($output, file_get_contents($input));
         
-        ChildInfo::updateOrCreate(
+        Child::updateOrCreate(
             ['id' => $child->id, 'user_id' => $id],
             ['recipient_image' => 'http://fynches.codeandsilver.com/public/images/profile_images/' . $gift_link . '.png']
         );

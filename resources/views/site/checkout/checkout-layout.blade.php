@@ -12,10 +12,10 @@
 	<link href="{{ asset('public/asset/fonts/Futura/Futura.ttc') }}" rel="stylesheet">
 	<link href="{{ asset('public/asset/fonts/Avenir/Avenir.ttc') }}" rel="stylesheet">
 	
-	<link href="{{ asset('public/asset/css/shop.css') }}" rel="stylesheet">
-	<link href="{{ asset('public/asset/css/redeem.css') }}" rel="stylesheet">
-	<link href="{{ asset('public/asset/css/info.css') }}" rel="stylesheet">
-	<link href="{{ asset('public/asset/css/gift.css') }}" rel="stylesheet">
+	<link href="{{ asset('asset/css/shop.css') }}" rel="stylesheet">
+	<link href="{{ asset('asset/css/redeem.css') }}" rel="stylesheet">
+	<link href="{{ asset('asset/css/info.css') }}" rel="stylesheet">
+	<link href="{{ asset('asset/css/gift.css') }}" rel="stylesheet">
 	<link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
 	<link rel="stylesheet" href="{{asset('front/css/bootstrap.css')}}">
 
@@ -25,7 +25,7 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="{{asset('public/js/check-out.js')}}"></script> 
+  <script src="{{asset('js/check-out.js')}}"></script>
 
    
    <style type="text/css">

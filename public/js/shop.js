@@ -69,47 +69,7 @@ jQuery(document).ready(function( $ ) {
     
     $('.checkbox').click(function(){
         
-        var checkedid = $(this).attr('id');
-        
-        var categories = [];
-        var ages = []; 
-        
-        
-        $('.checkbox[data-id="category"]:checked').each(function(){ categories.push(this.id); });
-        $('.checkbox[data-id="age"]:checked').each(function(){ ages.push(this.id); });
-        
-        
-        
-         if(checkedid == 'all') {
-            $(".checkbox.cat").prop('checked',this.checked);
-            $(".checkbox[data-id='age']").prop('checked',this.checked);
-            $('#shop-items').children().show();
-        }
-        
-        
-        
-        else if((categories === undefined || categories.length === 0) && (ages === undefined || ages.length === 0)) {
-            $('#shop-items').children().show();
-        }
-        
-        else {
-            $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-            $.ajax({
-    			type: 'post',
-    			url: '/category',
-    			data: {
-    			    categories:categories,
-    			    ages:ages
-    			},
-    		   success: function(data) {
-                       $('#shop-items').children().hide();
-                       
-                       for(var i in data.gift_id) {
-                        $('#shop-items #' + data.gift_id[i]).show();
-                       }
-    	            }
-            });
-        }
+		handleClick();
     });
     
     $("#shop_drop li a").click(function() {
@@ -398,32 +358,78 @@ jQuery(document).ready(function( $ ) {
 				   }
 	    });
 	});
+
+	function handleClick()
+	{
+		var all = false;
+		var categories = [];
+		var ages = [];
+		$('.checkbox[data-id="category"]:checked').each(function()
+		{
+			if(this.id == 'all')
+			{
+				all = true;
+			}
+			categories.push(this.id);
+		});
+		$('.checkbox[data-id="age"]:checked').each(function()
+		{
+			ages.push(this.id);
+		});
+		if(all) {
+			$(".checkbox.cat").prop('checked',this.checked);
+			$(".checkbox[data-id='age']").prop('checked',this.checked);
+			$('#shop-items').children().show();
+		}
+		else if((categories === undefined || categories.length === 0) && (ages === undefined || ages.length === 0)) {
+			$('#shop-items').children().show();
+		}
+		else {
+			$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+			$.ajax({
+				type: 'post',
+				url: '/category',
+				data: {
+					categories:categories,
+					ages:ages
+				},
+				success: function(data) {
+					$('#shop-items').children().hide();
+
+					for(var i in data.gift_id) {
+						$('#shop-items #' + data.gift_id[i]).show();
+					}
+				}
+			});
+		}
+	}
+	handleClick();
 	
-	 var category = window.location.pathname.split('/')[3];
-	 var age = $('#child-ages').val();
-    console.log(category);
-    console.log(age);
+	 // var category = window.location.pathname.split('/')[3];
+	 // var age = $('#child-ages').val();
+    // console.log(category);
+    // console.log(age);
     
-    if(category) {
-        $('#'+category).click();
-    }
+    // if(category) {
+    //     $('#'+category).click();
+    // }
     
-    if(category == 'all-gifts') {
-        $('#all').click();
-        return;
-    }
+    // if(category == 'all-gifts') {
+    //     $('#all').click();
+    //     return;
+    // }
     
     
-    if(age) {
-        if(age >= 13) {age = 5};
-        if(age <= 13 && age >= 8) {ager = 4};
-        if(age <= 8 && age >= 5) {ager = 3};
-        if(age <= 5 && age >= 2) {ager = 2};
-        if(age <= 2 && age >= 0) {ager = 1};
-        $('input[data-id="age"]').each(function(){
-            if($(this).attr('id') == ager) {
-                $(this).click();
-            }
-        });
-    }
+    // if(age) {
+    //     if(age >= 13) {age = 5};
+    //     if(age <= 13 && age >= 8) {ager = 4};
+    //     if(age <= 8 && age >= 5) {ager = 3};
+    //     if(age <= 5 && age >= 2) {ager = 2};
+    //     if(age <= 2 && age >= 0) {ager = 1};
+    //     $('input[data-id="age"]').each(function(){
+    //         if($(this).attr('id') == ager) {
+    //             $(this).click();
+    //         }
+    //     });
+    // }
 });

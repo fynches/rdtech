@@ -6,8 +6,8 @@
     <div class="container-fluid cont">
         <div class="row">
             <div class="col-md-8 fheader">
-                <a class="navbar-brand" href="http://fynches.codeandsilver.com">
-        	         <img src="http://fynches.codeandsilver.com/public/front/img/logo_2.png" alt="Fynches" title="" id="fyn_logo_1">
+                <a class="navbar-brand" href="/">
+        	         <img src="/front/img/logo_2.png" alt="Fynches" title="" id="fyn_logo_1">
         	    </a>
             </div>
             <div class="col-md-4" id="shop_list">
@@ -46,21 +46,15 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <img src="http://fynches.codeandsilver.com/public/front/img/reco_5.png">
-           
-            <h5 class="text-center">Your Gift Redemption of $100.00 was Successful!</h5>
-            <p class="text-center">Please allow 5 for the funds to be deposited in your account.<br>We have sent an email confirmation to the following address.</p><br>
-            <p class="text-center">someone@something.com</p>
-            
-           
-                <img src="http://fynches.codeandsilver.com/public/front/img/reco_6.png">
+                <img src="/front/img/reco_5.png">
+                <h5 class="text-center">Your gift redemption in the amount of ${{ number_format($transfer->amount / 100, 2) }} was successful!</h5>
+                <p class="text-center">Please allow 5 business days for the funds to be deposited in your account.</p><br>
+                <img src="/front/img/reco_6.png" />
             </div>
-            
         </div>
     </div>
 </section>
 @stop
-
 
 @section('footer')
 <footer class="footer">
@@ -68,7 +62,7 @@
 		<div class="footer-top">
 			<div class="row align-items-center">
 				<div class="fheader topheader col-sm-12 col-md-3 col-lg-3">
-					<a href="javascript:void(0)"><img src="http://fynches.codeandsilver.com/public/front/img/f-logo.png" alt="logo" title=""></a>
+					<a href="javascript:void(0)"><img src="/front/img/f-logo.png" alt="logo" title=""></a>
 				</div>
 				<div class="fheader col-sm-12 col-md-6 col-lg-6 text-center">
 					<ul class="f-menu">

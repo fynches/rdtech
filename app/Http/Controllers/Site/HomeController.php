@@ -3,28 +3,25 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Mail\PasswordReset;
 use Illuminate\Http\Request;
-use App\User;
+use App\Domain\User;
 use App\Offer;
 use DB;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Mail;
 use Session;
 use Hash;
 use Route;
 use App\ActivityLog;
 use Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Input;
-
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
-use Laravel\Socialite\Facades\Socialite;
 use Yajra\Datatables\Datatables;
 use App\Testimonial;
-use App\StaticBlock;
 use App\Beta_Signup;
 use Autologin;
 use Response;
-use Mail;
 use App\EmailTemplates;
 
 class HomeController extends Controller
@@ -33,8 +30,8 @@ class HomeController extends Controller
 
     public function index()
     {   
-        
-        return view('site.index');
+        $inviteCode = session('inviteCode');
+        return view('site.index', compact('inviteCode'));
     }
 
      /**
@@ -89,93 +86,69 @@ class HomeController extends Controller
     
         }
     }
-    
-    /***********************************************************************************************/
-    
-    /**
-     * Reset Password
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * return success or failure
-     */
-    public function passwordReset(Request $request){
-        
-       // User class implements UserInterface
-       
+
+    public function passwordReset(Request $request)
+    {
+	    $validator = Validator::make($request->all(), [
+		    'email' => 'required|email'
+	    ]);
+	    if($validator->fails())
+	    {
+		    return response()->json([
+			    'error' => "Please enter a valid email address"
+		    ]);
+	    }
+
+
+
         $email = $request->email;
-        
         $user = User::where('email', '=', $email)->first();
-        
-        if(!isset($user)) {
-            return response()->json(['success' => 0]);
-            return;
+        if(!isset($user))
+        {
+	        return response()->json([
+		        'error' => "A user with this email address can not been found in our system"
+	        ]);
         }
-        
-        // http://example.com/autologin/Mx7B1fsUin
         $link = Autologin::to($user, '/password-reset');
-        
-        $data = array('email' => $email, 'link' => $link, 'user' => $user);
-        
-        Mail::send( 'emails.reset', $data, function($message) use ($data)
-        	{     
-        	    
-        	    
-        	    $subject = 'Fynches Password Reset Link';
-        	    
-        	    $message->sender('help@ehubsolutions.com', 'eHub Solutions');
-        	    $message->from('info@fynches.com');
-        	    $message->subject($subject);
-        		$message->to($data['email']);
-        		
-        	});
-        	
-        if(count(Mail::failures()) > 0){
-            return response()->json(['success' => 0]);
-        } else {
-            return response()->json(['success' => 1]);
-        }
-        
+	    Mail::to($email)->send(new PasswordReset($link));
+	    return response()->json(['error' => null]);
     }
-    
-    /**
-     * Signup User
-     * 
-     * @param  \Illuminate\Http\Request  $request
-     * 
-     * return success or failure
-     */
-    public function signup(Request $request) {
-        
+
+    public function signup(Request $request)
+    {
         $email = $request->email;
         $password = $request->password;
-        
-        if(User::where('email',$email)->exists()) {
-            
+        $inviteCode = $request->inviteCode;
+        if(!$inviteCode)
+        {
+	        return response()->json(['result' => 'no-invite']);
+        }
+        if(Crypt::decrypt($inviteCode) !== $email)
+        {
+	        return response()->json(['result' => 'bad-invite']);
+        }
+        if(User::where('email',$email)->exists())
+        {
             return response()->json(['result' => 'email-exists']);
-            
-        } else {
-            
-                $user = User::create([
-                'email' => $email,
-                'password' => Hash::make($password),
-                ]);
-            
-            
+        }
+        else
+        	{
+		        User::create([
+			        'email' => $email,
+			        'password' => Hash::make($password),
+		        ]);
                 $userdata = array(
                     'email'     => $email,
                     'password'  => $password
                 );
-        
-            // attempt to do the login
-            if (Auth::attempt($userdata)) {
-                
+            if (Auth::attempt($userdata))
+            {
+            	session(['inviteCode' => null]);
                 return response()->json(['result' => 'user-created']);
-        
-            } else {        
-        
-            return response()->json(['result' => 'login-error']);
-        
+            }
+            else
+            	{
+            		return response()->json(['result' => 'login-error']);
             }
         }
     }

@@ -1,22 +1,21 @@
 <?php
+
 namespace App\Http\Controllers\Site;
+
+use App\Domain\BetaUser;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
+use App\Domain\User;
 use App\EmailTemplates;
 use App\Cms;
 use DB;
+use Illuminate\Support\Facades\Validator;
 use Session;
 use Mail;
 use Route;
 use App\ActivityLog;
 use Auth;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Facades\Input;
-
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
 
 
 class UserController extends Controller
@@ -28,7 +27,37 @@ class UserController extends Controller
      */
     public function __construct()
     {
-    	//$this->middleware('guest:site');
+
+    }
+
+    public function useInvite($code)
+    {
+    	session(['inviteCode' => $code]);
+    	return redirect('/');
+    }
+
+    public function betaSignup(Request $request)
+    {
+	    $validator = Validator::make($request->all(), [
+		    'name' => 'required',
+		    'email' => 'required|email|unique:beta_users,email'
+	    ], [
+		    'name.required' => "Your name is required",
+		    "email.required" => "Your email is required",
+		    "email.email" => "The email address is not properly formatted",
+		    "email.unique" => "That email address is already signed up"
+	    ]);
+	    if($validator->fails())
+	    {
+		    return response()->json([
+			    'error' => $validator->errors()->all()
+		    ]);
+	    }
+	    BetaUser::create([
+	    	'name' => $request->input('name'),
+		    'email' => $request->input('email')
+	    ]);
+	    return response()->json([]);
     }
 
    	/*   

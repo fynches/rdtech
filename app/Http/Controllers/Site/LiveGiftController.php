@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Domain\Gift;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\UserMeta;
-use App\GiftPage;
-use App\Gift;
-use App\ChildInfo;
-use App\GiftPurchase;
+use App\Domain\Page;
+use App\Domain\Child;
+use App\Domain\Purchase;
 use App\GiftMessages;
 use Carbon\Carbon;
 
@@ -26,26 +24,17 @@ class LiveGiftController extends Controller
     	
     }
 
-   /**
-     * Show live gift page.
-     *
-     * @return live page view
-     */
-    public function index($slug){
-            
-            $user = Auth::user();
-            $gift_page =  GiftPage::where('slug', $slug)->where('user_id',$user->id)->first();
-            
-            $child_info =  ChildInfo::where('id', $gift_page->child_info_id)->first();
-            $child_image = $child_info->recipient_image;
-            
-            if(!empty(unserialize($gift_page->added_gifts))) {
-            $added_gifts_ids = unserialize($gift_page->added_gifts);
-            $added_gifts = Gift::whereIn('id',$added_gifts_ids)->orderByRaw('FIELD(id, '.implode(',', $added_gifts_ids).')')->get();
-            }
-            
-            return view('site.live-gift-page.live-gift', compact('child_info', 'added_gifts', 'gift_page', 'session_view','child_image'));
-      }
+	/**
+	 * Show live gift page.
+	 *
+	 * @return live page view
+	 */
+	public function index($slug)
+	{
+		$page =  Page::where('slug', $slug)->first();
+		$page->hydrateGifts();
+		return view('site.live-gift-page.live-gift', compact('page'));
+	}
     
     /**
      * Post message
@@ -56,11 +45,11 @@ class LiveGiftController extends Controller
      */
     public function sendMessage(Request $request) {
        
-        $message = $request->message;
+        $message = strip_tags($request->input('message'));
         $childs_id = $request->id;
         $formname = $request->name;
         
-        $child_info =  ChildInfo::where('id', $childs_id)->first();
+        $child_info =  Child::where('id', $childs_id)->first();
         
         $giftMessages = new GiftMessages;
         $giftMessages->child_info_id =  $childs_id;
@@ -79,22 +68,40 @@ class LiveGiftController extends Controller
      * 
      * return json success
      */
-    public function cart(Request $request) {
-       
-        $amount = $request->amount;
-        $gift_page_id = $request->gift_page_id;
-        $gift_id = $request->gift_id;
-        $session_id = session()->getId();
-        
-        $gift_purchase = GiftPurchase::updateOrCreate(
-            ['session_id' => $session_id, 'status' => 1, 'gift_id' => $gift_id],
-            ['status' => 1, 'amount' => $amount,'gift_page_id' => $gift_page_id, 'gift_id' => $gift_id]
-            );
-        
-        return response()->json(['success' => 1]);
-     
-        
-    }
+	public function cart(Request $request)
+	{
+		$amount = $request->amount;
+		$page_id = $request->gift_page_id;
+		$gift_id = $request->gift_id;
+		$session_id = session()->getId();
+		$purchase = Purchase::where("session_id", $session_id)->where('gift_id', $gift_id)->where('page_id', $page_id)->where('status', 1)->first();
+		if($purchase)
+		{
+			$purchase->amount = $amount;
+			$purchase->save();
+		}
+		else
+		{
+			$purchase = Purchase::create([
+				'session_id' => $session_id,
+				'gift_id' => $gift_id,
+				'page_id' => $page_id,
+				'amount' => $amount,
+				'status' => 1
+			]);
+		}
+		return response()->json(['success' => 1, 'balance' => Gift::getBalance($gift_id, $page_id)]);
+	}
+
+	public function cartEdit(Request $request)
+	{
+		$amount = $request->input('amount');
+		$purchaseId = $request->input('purchaseId');
+		$purchase = Purchase::find($purchaseId);
+		$purchase->amount = $amount;
+		$purchase->save();
+		return response()->json(['success' => 1, 'balance' => $purchase->giftBalance()]);
+	}
     
     /**
      * Current Date Time String

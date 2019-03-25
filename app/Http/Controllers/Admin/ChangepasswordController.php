@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Hash;
-use App\User;
+use App\Domain\User;
 use Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Validator;

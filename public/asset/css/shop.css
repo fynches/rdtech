@@ -506,3 +506,7 @@
 .gift-dets {
     display:none!important;
 }
+.gift_payment i.fa-asterisk, .gift_bill i.fa-asterisk{
+    color: #ff5d9a;
+    padding-right: 5px;
+}

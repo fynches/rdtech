@@ -2,28 +2,22 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Domain\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\UserMeta;
-use App\Gift;
-use App\UserGift;
-use App\GiftPage;
-use App\AgeRange;
+use App\Domain\Gift;
+use App\Domain\UserGift;
+use App\Domain\Page;
 use DOMDocument;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+
+//https://stackoverflow.com/questions/14395239/class-domdocument-not-found
 
 class ShopController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    	
-    }
-
    /**
      * Show shop view.
      *
@@ -34,7 +28,7 @@ class ShopController extends Controller
           if (Auth::check()) {
             
             $user = Auth::user();
-            $gift_page =  GiftPage::where('user_id', $user->id)->where('slug', $slug)->first();
+            $gift_page =  Page::where('user_id', $user->id)->where('slug', $slug)->first();
             
             if(isset($gift_page->added_gifts)) {
                 $added_gifts_ids = unserialize($gift_page->added_gifts);
@@ -68,49 +62,23 @@ class ShopController extends Controller
      * @param  $field child_name, category
      * 
      * return category page view
-     */ 
-     public function indexCategory($slug, $category) {
-         if (Auth::check()) {
-            
-            $user = Auth::user();
-            $gift_page =  GiftPage::where('user_id', $user->id)->where('slug', $slug)->first();
-            
-            if(isset($gift_page->added_gifts)) {
-                $added_gifts_ids = unserialize($gift_page->added_gifts);
-                $added_gifts = Gift::whereIn('id',$added_gifts_ids)->get();
-            }
-            
-            $gifts = Gift::all();
-            $custom = UserGift::where('user_id', $user->id)->get();
-            
-            $custom_gifts = array();
-            foreach($custom as $i => $gift) {
-                if(!$gift->gift) {
-                    $custom_gifts[$i] = $gift;
-                }
-            }
-            
-            $giftControl = new GiftController();
-            $age = $giftControl->getAge($gift_page->child->dob);
-            $ageRanges = AgeRange::all();
-            $age_range = null;
-            foreach($ageRanges as $range) {
-                if(in_array($age,unserialize($range->age_range))) {
-                    $age_range = $range->id;
-                }
-            }
-            if($age >= 13) {
-                $age_range = 5;
-            }
-            	return view('site.shop.shop', compact('user','gifts', 'custom_gifts','gift_page','added_gifts','added_gifts_ids','age_range'));
-            
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
-     }
+     */
+	public function indexCategory($slug, $selectedCategory)
+	{
+		$user = Auth::user();
+		$page =  Page::where('slug', $slug)->first();
+		$gifts = Gift::getUserGifts($user);
+		$categories = Category::all();
+		$ages = [
+			'1' => '0-2 YRS',
+			'2' => '2-5 YRS',
+			'3' => '5-8 YRS',
+			'4' => '8-13 YRS',
+			'5' => '13+ YRS'
+		];
+		return view('site.shop.shop', compact(
+			'gifts','page', 'categories', 'ages', 'selectedCategory'));
+	}
 	
 	 /**
      * Favorite
@@ -118,63 +86,49 @@ class ShopController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * 
      * return view with favorite
-     */    
-	public function favorite(Request $request)  {
-	    
-	    if (Auth::check()) {
-            
-            $user = Auth::user();
-   
-        $slug = $request->slug;
-        $page_fav = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
-        $favorites = unserialize($page_fav->favorites);
-        $new_fav = $request->id;
-        
-        if(!empty($favorites)  && in_array($new_fav,$favorites)){
-            
-            $is_favorite = 1;
-            unset($favorites[array_search($new_fav,$favorites)]);
-        
-       } else if(empty($favorites)) {
-            $is_favorite = 0;
-            $favorites = array($new_fav);
-       }
-        else {
-        
-            $is_favorite = 0;
-            array_push($favorites,$new_fav);
-        }
-        
-        $page_fav->favorites = serialize($favorites);
-        $page_fav->save();
-        
-        if(($gift = Gift::where('id',$new_fav))->exists()) {
-            if($gift->first()->custom) {
-                $gift = $gift->first()->custom;
-                $gift->id = $gift->gift_id;
-            }
-            else {
-                $gift  = $gift->first();
-            }
-        }
-        else {
-            $gift = UserGift::where('id',$new_fav)->first();
-        }
-        
-        //Added Check
-        $added = unserialize($page_fav->added_gifts);
-        
-        if(!empty($added)  && in_array($new_fav,$added)){
-            
-            $added = 1;
-        
-       } else {
-           
-           $added = 0;
-           
-       }
-        return response()->json(['giftPage' => $page_fav,'gift' => $gift,'business' => $gift->name,'age' => $gift->age_range->age_range,'image' => $gift->gift_image,'favorites' => $favorites, 'is' => $is_favorite, 'added' => $added]);
-        } 
+     */
+	public function favorite(Request $request)
+	{
+		$slug = $request->slug;
+		$page = Page::where('slug',$slug)->first();
+
+		$favorites = ($page->favorite_gifts) ? $page->favorite_gifts : [];
+		$id = (int)$request->id;
+
+		if(!empty($favorites)  && in_array($id,$favorites))
+		{
+			$is_favorite = 1;
+			unset($favorites[array_search($id,$favorites)]);
+		}
+		else if(empty($favorites))
+		{
+			$is_favorite = 0;
+			$favorites = array($id);
+		}
+		else
+			{
+			$is_favorite = 0;
+			array_push($favorites,$id);
+		}
+
+		$page->favorite_gifts = $favorites;
+		$page->save();
+
+		$gift = Gift::find($id);
+
+		$added = $page->added_gifts;
+		if(!empty($added)  && in_array($id,$added))
+		{
+			$added = 1;
+		}
+		else
+			{
+			$added = 0;
+		}
+		return response()->json([
+			'giftPage' => $page,'gift' => $gift,'business' => $gift->name,
+			'age' => $gift->min_age,'image' => $gift->getImage(),'favorites' => $favorites, 'is' => $is_favorite, 'added' => $added]);
+
 	} 
 	
 	    /**
@@ -184,33 +138,19 @@ class ShopController extends Controller
          * 
          * return view with favorited
          */
-		public function favorited(Request $request)  {
-	    
-	    if (Auth::check()) {
-            
-            $user = Auth::user();
-   
-        $slug = $request->slug;
-        $page_fav = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
-        $favorites = unserialize($page_fav->favorites);
-        $new_fav = $request->id;
-        if(!empty($favorites)  && in_array($new_fav,$favorites)){
-           
-            unset($favorites[array_search($new_fav,$favorites)]);
-       } 
-        
-        $page_fav->favorites = serialize($favorites);
-        $page_fav->update();
-        
-        $gift = Gift::where('id',$new_fav)->first();
-        
-        return response()->json(['removed' => $new_fav]);
-            
-        } else {
-            
-        return redirect()->route('home');
-        
-        }
+	public function favorited(Request $request)
+	{
+		$slug = $request->slug;
+		$page = Page::where('slug',$slug)->first();
+		$favorites = $page->favorite_gifts;
+		$id = $request->id;
+		if(!empty($favorites)  && in_array($id,$favorites)){
+
+			unset($favorites[array_search($id,$favorites)]);
+		}
+		$page->favorite_gifts = $favorites;
+		$page->save();
+		return response()->json(['removed' => $id]);
 	}
 	
 	/**
@@ -220,55 +160,53 @@ class ShopController extends Controller
      * 
      * return jason gift info
      */
-	public function addGift(Request $request) {
-          if (Auth::check()) {
-            
-            $user = Auth::user();
-        
-        $slug = $request->slug;
-        $giftPage = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
-        $added = unserialize($giftPage->added_gifts);
-        $favorites = unserialize($giftPage->favorites);
-        $id = (int)$request->id;
-        
-        if(!empty($added)  && in_array($id,$added)){
-            $is_added = 1;
-            
-       } else if(empty($added)) {
-            $is_added = 0;
-            $added = array($id);
-       }
-        else {
-        
-            $is_added = 0;
-            array_push($added,$id);
-        }
-        
-        if(in_array($id,$favorites)) {
-            $is_fav = 'favorited-button';
-        }
-        else {
-            $is_fav = 'favorite-button';
-        }
-        
-        $giftPage->added_gifts = serialize($added);
-        $giftPage->save();
-        
-        if(($gift = Gift::where('id',$id))->exists()) {
-            
-           
-                $gift  = $gift->first();
-           
-        } else {
-            
-          $gift = UserGift::where('id',$id)->first(); 
-            
-        }
-        
-        
-        return response()->json(['giftPage' => $giftPage,'gift' => $gift,'business' => $gift->name,'age' => $gift->age_range->age_range,'image' => $gift->gift_image,'added' => $added, 'is' => $is_added, 'favorite' => $is_fav]);
-            
-        } 
+	public function addGift(Request $request)
+	{
+		$slug = $request->slug;
+		$page = Page::where('slug',$slug)->first();
+		$id = (int)$request->id;
+
+		$added = ($page->added_gifts) ? $page->added_gifts : [];
+		if(!empty($added)  && in_array($id,$added))
+		{
+			$is_added = 1;
+		}
+		else if(empty($added))
+		{
+			$is_added = 0;
+			$added = array($id);
+		}
+		else
+			{
+			$is_added = 0;
+			array_push($added,$id);
+		}
+		$page->added_gifts = $added;
+		$page->save();
+
+		$favorites = ($page->favorite_gifts) ? $page->favorite_gifts : [];
+		if(in_array($id,$favorites))
+		{
+			$is_fav = 'favorited-button';
+		}
+		else
+			{
+			$is_fav = 'favorite-button';
+		}
+
+		if(($gift = Gift::where('id',$id))->exists())
+		{
+			$gift  = $gift->first();
+		}
+		else
+			{
+			$gift = UserGift::where('id',$id)->first();
+
+		}
+
+		return response()->json([
+			'giftPage' => $page,'gift' => $gift,'business' => $gift->name,'age' => $gift->min_age,
+			'image' => $gift->getImage(),'added' => $added, 'is' => $is_added, 'favorite' => $is_fav]);
 	}
 	
 	/**
@@ -278,40 +216,32 @@ class ShopController extends Controller
      * 
      * return jason gift info
      */
-	public function removeGift(Request $request) {
-          if (Auth::check()) {
-            
-            $user = Auth::user();
-        
-        $slug = $request->slug;
-        $giftPage = GiftPage::where('user_id',$user->id)->where('slug',$slug)->first();
-        $added = unserialize($giftPage->added_gifts);
-        $id = (int)$request->id;
-        
-        if(!empty($added)  && in_array($id,$added)){
-            $is_added = 1;
-            unset($added[array_search($id,$added)]);
-            
-       } else {
-            $is_added = 0;
-        }
-        
-        $giftPage->added_gifts = serialize($added);
-        $giftPage->save();
-        
-        if(($gift = Gift::where('id',$id))->exists()) {
-           
-                $gift  = $gift->first();
-           
-        } else {
-            
-          $gift = UserGift::where('id',$id)->first(); 
-            
-        }
-        
-        return response()->json(['id' => $gift->id,'is' => $is_added,'gift' => $gift]);
-            
-        } 
+	public function removeGift(Request $request)
+	{
+		$slug = $request->slug;
+		$page = Page::where('slug',$slug)->first();
+		$added = $page->added_gifts;
+		$id = (int)$request->id;
+		$is_added = 0;
+
+		if(!empty($added)  && in_array($id,$added))
+		{
+			$is_added = 1;
+			unset($added[array_search($id,$added)]);
+		}
+
+		$page->added_gifts = $added;
+		$page->save();
+
+		if(($gift = Gift::where('id',$id))->exists())
+		{
+			$gift  = $gift->first();
+		}
+		else
+			{
+			$gift = UserGift::where('id',$id)->first();
+		}
+		return response()->json(['id' => $gift->id,'is' => $is_added,'gift' => $gift]);
 	}
 	
 	/**
@@ -321,66 +251,65 @@ class ShopController extends Controller
      * 
      * return jason gift id
      */
-	public function category(Request $request){
-	    
-	    if(Auth::check()) {
-            $user_id = Auth::user()->id;
-        }
-        $categories = $request->categories;
-        $ages = $request->ages;
-        
-        $searchCategories = array();
-        $searchAges = array();
-        
-        $gifts = Gift::all();
-        
-        foreach($gifts as $i => $gift) {
-            $catArray = unserialize($gift->categories);
-            if(!empty($categories) && !empty($catArray) && !empty(array_intersect($catArray,$categories))) {
-                $searchCategories[$i] = $gift->id;
-            }
-            if(!empty($ages) && array_search($gift->for_ages,$ages) !== false) {
-                $searchAges[$i] = $gift->id;
-            }
-        }
-        
-        if(!empty($categories) && empty($ages)) {
-            $gift_ids = $searchCategories;
-        }
-        
-        else if(!empty($ages) && empty($categories)) {
-            $gift_ids = $searchAges;
-        }
-        else {
-            $gift_ids = array_intersect($searchCategories,$searchAges);
-        }
-        
-        $custom_gifts = UserGift::all();
-        
-        foreach($custom_gifts as $i => $gift) {
-            $catArray = unserialize($gift->categories);
-            if(!empty($categories) && !empty($catArray) && !empty(array_intersect($catArray,$categories))) {
-                $searchCategories[$i] = $gift->id;
-            }
-            if(!empty($ages) && array_search($gift->for_ages,$ages) !== false) {
-                $searchAges[$i] = $gift->id;
-            }
-        }
-        
-        if(!empty($categories) && empty($ages)) {
-            $custom_gift_ids = $searchCategories;
-        }
-        
-        else if(!empty($ages) && empty($categories)) {
-            $custom_gift_ids = $searchAges;
-        }
-        else {
-            $custom_gift_ids = array_intersect($searchCategories,$searchAges);
-        }
-        
-        $gift_ids = array_merge($gift_ids,$custom_gift_ids);
-	       
-        return response()->json(['gift_id' => $gift_ids]);
+	public function category(Request $request)
+	{
+		$userId = Auth::user()->id;
+		$categories = $request->input('categories', []);
+		$ages = $request->input('ages', []);
+
+		$query = DB::table('gifts')->select('gifts.id')
+			->join('category_gift', 'category_gift.gift_id', '=', 'gifts.id')
+			->join('categories', 'categories.id', '=', 'category_gift.category_id')
+			->whereRaw("(ISNULL(gifts.user_id) OR gifts.user_id = {$userId})");
+
+		if(count($categories))
+		{
+			$query->whereIn('categories.identifier', $categories);
+		}
+		if(count($ages))
+		{
+			$min = $max = null;
+			if(in_array('1', $ages))
+			{
+				$min = 0;
+				$max = 2;
+			}
+			if(in_array(2, $ages))
+			{
+				if($min === null)
+				{
+					$min = 2;
+				}
+				$max = 5;
+			}
+			if(in_array(3, $ages))
+			{
+				if($min === null)
+				{
+					$min = 5;
+				}
+				$max = 8;
+			}
+			if(in_array(4, $ages))
+			{
+				if($min === null)
+				{
+					$min = 8;
+				}
+				$max = 13;
+			}
+			if(in_array(5, $ages))
+			{
+				if($min === null)
+				{
+					$min = 13;
+				}
+				$max = 18;
+			}
+			$query->whereRaw("((gifts.min_age >= $min AND gifts.min_age <= $max) OR (gifts.max_age >=$min AND gifts.max_age <= $max))");
+		}
+		$ids = $query->get()->pluck('id')->toArray();
+		return response()->json(['gift_id' => $ids]);
 	}
 	
 	// File get contents curl
@@ -401,105 +330,104 @@ class ShopController extends Controller
 
 
 
-    public function getInfo(Request $request) {
-        $html = $this->file_get_contents_curl($request->url);
-        
-        
-        $title = null;
-        $description = null;
-        $image = null;
-        
-        //parsing begins here:
-        $doc = new DOMDocument();
-        if(@$doc->loadHTML($html) === false) {
-           return response()->json(['title' => null, 'description' => null, 'image' => null]); 
-        }
-        $nodes = $doc->getElementsByTagName('title');
-        $node = $doc->getElementsByTagName('img');
-        
-        
-        //get and display what you need:
-        $title = $nodes->item(0)->nodeValue;
-        
-        $metas = $doc->getElementsByTagName('meta');
-        
-            for ($i = 0; $i < $metas->length; $i++)
-            {
-                $meta = $metas->item($i);
-                if(strtolower($meta->getAttribute('name')) == 'description')
-                    $description = $meta->getAttribute('content');
-                if(strtolower($meta->getAttribute('property')) == 'og:image')
-                    $image = $meta->getAttribute('content');
-            }
-            
-            if ($image != '') { $image = $image; } 
-            else { 
-                $image = null;
-            }
-        
-        return response()->json(['title' => $title, 'description' => $description, 'image' => $image]);
-}
-	
-	public function addCustomGift(Request $request) {
-	    
-	    if(Auth::check()) {
-            $user_id = Auth::user()->id;
-        }
-	    $slug = $request->slug;
-	    $url = $request->url;
-	    $name = null;
-	    $title = $request->title;
-	    $description = $request->description;
-	    $price = $request->gift_amount;
-	    $image  = $request->image;
-	    $gift_id = null;
-	    $for_ages = 6;
-	    $categories = serialize(array());
-	    
-	    if(($gift = Gift::where('site_url',$url))->exists()) {
-	        $gift = $gift->first();
-	        $gift_id = $gift->id;
-	        $name = $gift->name;
-	        $for_ages = $gift->for_ages;
-	        $categories = $gift->categories;
-	    }
-	   
-	   $gift = UserGift::updateOrCreate(
-    	   ['user_id' => $user_id, 'gift_id' => $gift_id, 'site_url' => $url],
-    	   ['description' => $description, 'gift_id' => $gift_id, 
-    	   'name' => $name,'title' => $title, 'description' => $description, 
-    	   'price' => $price, 'site_url' => $url, 'for_ages' => $for_ages, 'categories' => $categories]
-	   );
-	   
-	   UserGift::updateOrCreate(
-    	   ['user_id' => $user_id, 'gift_id' => $gift_id, 'site_url' => $url],
-    	   ['gift_image' => 'https://fynches.codeandsilver.com/public/images/user_gift_images/'. $gift->id . '.png']
-	   );
-	   
-	   $gift_page = GiftPage::where('slug', $slug)->where('user_id',$user_id)->first();
-	   
-	   $added_array = unserialize($gift_page->added_gifts);
-	   
-	   array_push($added_array, $gift->id);
-	   $added_array = serialize($added_array);
-	   
-	   GiftPage::where('slug', $slug)->where('user_id',$user_id)->update(['added_gifts' => $added_array]);
-	   
-       $output = 'public/images/user_gift_images/'. $gift->id . '.png';
-       file_put_contents($output, file_get_contents($image));
-        
-        return response()->json(['gift' => $gift]);
-        
+	public function getInfo(Request $request)
+	{
+		$title = $description = $image = null;
+		$html = $this->file_get_contents_curl($request->url);
+		$doc = new DOMDocument();
+		if(@$doc->loadHTML($html) !== false)
+		{
+			$metas = $doc->getElementsByTagName('meta');
+			for ($i = 0; $i < $metas->length; $i++)
+			{
+				$meta = $metas->item($i);
+				if(strtolower($meta->getAttribute('property')) == 'og:title')
+				{
+					$title = $meta->getAttribute('content');
+				}
+				if(strtolower($meta->getAttribute('name')) == 'og:description')
+				{
+					$description = $meta->getAttribute('content');
+				}
+				if(strtolower($meta->getAttribute('name')) == 'description' && !$description)
+				{
+					$description = $meta->getAttribute('content');
+				}
+				if(strtolower($meta->getAttribute('property')) == 'og:image')
+				{
+					$image = $meta->getAttribute('content');
+				}
+			}
+			if(!$title)
+			{
+				$node = $doc->getElementsByTagName('title');
+				if(count($node))
+				{
+					$title = $node->item(0)->nodeValue;
+				}
+			}
+
+			//amazon
+			if(!$image)
+			{
+				$images = $doc->getElementsByTagName('img');
+				foreach ($images as $i)
+				{
+					if($i->getAttribute('id') == 'landingImage')
+					{
+						$image = $i->getAttribute('src');
+						break;
+					}
+				}
+			}
+
+		}
+		return response()->json(['title' => $title, 'description' => $description, 'image' => $image]);
 	}
-	
-	//public function checkSites($url, $doc) {
-	//    
-	//   if (strpos($url, 'amazon.com') !== false) {
-    //        //$image = $doc->find('div[id="imgTagWrapperId"] img.src', 0);
-    //    }
-    //    return; //$image;
-	//    
-	//}
+
+	public function addCustomGift(Request $request)
+	{
+		$user_id = Auth::user()->id;
+		$slug = $request->input('slug');
+		$url = $request->input('url');
+		$title = $request->input('title');
+		$description = $request->input('description');
+		$price = $request->input('gift_amount');
+		$image  = $request->input('image');
+		$gift = Gift::where('url',$url)->where("user_id", $user_id)->first();
+		if(!$gift)
+		{
+			$gift = Gift::create([
+				'user_id' => $user_id,
+				'name' => $title,
+				'title' => $title,
+				'description' => $description,
+				'price' => $price,
+				'cost' => $price,
+				'url' => $url,
+			]);
+		}
+		if($image)
+		{
+			$fileType = pathinfo($image, PATHINFO_EXTENSION);
+			$urlParts = parse_url($image);
+			if(isset($urlParts['query']) && strlen($urlParts['query']))
+			{
+				$fileType = str_replace('?' . $urlParts['query'], '', $fileType);
+			}
+			$fileName = 'user_gift/' . uniqid() . '.' . $fileType;
+			Storage::put('public/' . $fileName, file_get_contents($image), 'public');
+			$gift->image = $fileName;
+			$gift->save();
+		}
+		$page = Page::where('slug', $slug)->first();
+		$added_gifts = $page->added_gifts;
+		array_push($added_gifts, $gift->id);
+		$page->added_gifts = $added_gifts;
+		$page->save();
+		return response()->json(['gift' => $gift]);
+	}
+
 	
 	public function test() {
 	    
@@ -537,14 +465,14 @@ class ShopController extends Controller
     	   ['gift_image' => 'https://fynches.codeandsilver.com/public/images/user_gift_images/'. $gift->id . '.png']
 	   );
 	   
-	   $gift_page = GiftPage::where('slug', $slug)->where('user_id',$user_id->id)->first();
+	   $gift_page = Page::where('slug', $slug)->where('user_id',$user_id->id)->first();
 	   
 	   $added_array = unserialize($gift_page->added_gifts);
 	   
 	   array_push($added_array, $gift->id);
 	   $added_array = serialize($added_array);
 	   
-	   GiftPage::find($gift_page->id)->update(['added_gifts' => $added_array]);
+	   Page::find($gift_page->id)->update([ 'added_gifts' => $added_array]);
 	   
        $output = 'public/images/user_gift_images/'. $gift->id . '.png';
        file_put_contents($output, file_get_contents($image));

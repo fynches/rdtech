@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Products;
 use App\Registration;
 use App\Beta_Signup;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Response;
@@ -55,8 +54,6 @@ class UserController extends Controller {
 		}
 	}
 
-	//Added by Devang Mavani
-	//send mail to beta signup user
 	public function betaSignupMail($email) {
 		
         if ($email && $email != "") {

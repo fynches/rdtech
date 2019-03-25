@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\UserMeta;
-use App\Gift;
-use App\GiftPage;
+use App\Domain\Gift;
+use App\Domain\Page;
 use DateTime;
 
 class ReportController extends Controller
@@ -35,7 +35,7 @@ class ReportController extends Controller
             
             $user = Auth::user();
             
-                $gift_page = GiftPage::where('user_id',$user->id)->where('slug', $slug)->first();
+                $gift_page = Page::where('user_id',$user->id)->where('slug', $slug)->first();
                 
                 $purchases = $gift_page->purchases->sum('amount');
                 $purchases = number_format((float)$purchases, 2, '.', '');

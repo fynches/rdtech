@@ -24,8 +24,8 @@ Route::get('/login', function() {
 });
 
 //*************Start Gift_Dashboard******************//
-Route::get('/gift-dashboard', 'Site\GiftDashboardController@index');
-Route::get('/gifted', 'Site\GiftDashboardController@gifted');
+Route::get('/gift-dashboard', 'Site\GiftDashboardController@index')->middleware('auth');
+Route::get('/gifted', 'Site\GiftDashboardController@gifted')->middleware('auth');
 Route::post('/gift-dashboard/delete', 'Site\GiftDashboardController@deleteGift')->name('delete-gift');;
 Route::get('/event', 'Site\EventController@create')->name('event');
 
@@ -35,10 +35,10 @@ Route::get('/event', 'Site\EventController@create')->name('event');
 
 //************* Start Parent Child Info******************//
 
-Route::post('/create-page','Site\AccountController@createPage');
+Route::post('/create-page','Site\AccountController@createPage')->middleware('auth');
 
 //Depricated ======================================================
-Route::get('/parent-child-info','Site\ParentChildController@index')->name('info');
+Route::get('/parent-child-info','Site\ParentChildController@index')->name('info')->middleware('auth');
 Route::get('/date-location', function() {return Redirect::to("/parent-child-info");})->name('info');
 Route::get('/page-link', function() {return Redirect::to("/parent-child-info");})->name('info');
 Route::get('/congrats', function() {return Redirect::to("/parent-child-info");})->name('info');
@@ -73,30 +73,30 @@ Route::get('/account/test', 'Site\AccountController@test');
 
 //**************Start Gift_Page***************//
 
-Route::get('/gift/{child_name}', 'Site\GiftController@index')->name('gift');
-Route::post('/update-gift-page', 'Site\GiftController@updateGiftPage');
-Route::post('/background-image', 'Site\GiftController@saveBackgroundImages');
-Route::post('/profile-image', 'Site\GiftController@saveProfileImage');
-Route::post('/remove-image', 'Site\GiftController@removeProfileImage');
+Route::get('/gift/{child_name}', 'Site\GiftController@index')->name('gift')->middleware('auth');
+Route::post('/update-gift-page', 'Site\GiftController@updateGiftPage')->middleware('auth');
+Route::post('/background-image', 'Site\GiftController@saveBackgroundImages')->middleware('auth');
+Route::post('/profile-image', 'Site\GiftController@saveProfileImage')->middleware('auth');
+Route::post('/remove-image', 'Site\GiftController@removeProfileImage')->middleware('auth');
 Route::post('/update-child-zipcode', 'Site\GiftController@updateChildZipcode');
 Route::post('/giftDetails', 'Site\GiftController@giftDetails');
 Route::post('/giftSort', 'Site\GiftController@giftSort');
 Route::post('/addPrice','Site\GiftController@addPrice');
 Route::post('/editGift','Site\GiftController@editGift');
-Route::post('/make-live','Site\GiftController@makeLive');
-Route::post('/make-private','Site\GiftController@makePrivate');
+Route::post('/make-live','Site\GiftController@makeLive')->middleware('auth');
+Route::post('/make-private','Site\GiftController@makePrivate')->middleware('auth');
 
 //**************end Gift_Page***************//
 
 //**************Start Shop_Page***************//
 
 Route::get('/shop/{slug}', 'Site\ShopController@index')->name('shop');
-Route::get('/shop/{slug}/{category}', 'Site\ShopController@indexCategory');
-Route::post('/favorite','Site\ShopController@favorite');
-Route::post('/favorited','Site\ShopController@favorited');
-Route::post('/addGift','Site\ShopController@addGift');
-Route::post('/removeGift','Site\ShopController@removeGift');
-Route::post('/category','Site\ShopController@category');
+Route::get('/shop/{slug}/{category}', 'Site\ShopController@indexCategory')->middleware('auth');
+Route::post('/favorite','Site\ShopController@favorite')->middleware('auth');
+Route::post('/favorited','Site\ShopController@favorited')->middleware('auth');
+Route::post('/addGift','Site\ShopController@addGift')->middleware('auth');
+Route::post('/removeGift','Site\ShopController@removeGift')->middleware('auth');
+Route::post('/category','Site\ShopController@category')->middleware('auth');
 Route::post('/customDetails','Site\ShopController@getInfo');
 Route::post('/addCustomGift','Site\ShopController@addCustomGift');
 Route::get('/test', 'Site\ShopController@test');
@@ -115,8 +115,10 @@ Route::get('/checkout-success','Site\CheckoutController@checkoutsuccess');
 
 //**************Start Redeem_Page***************//
 
-Route::get('/redeem-gifts', 'Site\RedeemController@index')->name('redeem');
-Route::get('/redeem-success','Site\RedeemController@success');
+Route::get('/redeem-gifts', 'Site\RedeemController@index')->name('redeem')->middleware('auth');
+Route::post('/redeem-gifts','Site\RedeemController@doRedeem')->middleware('auth');
+Route::post('/redeem-gifts-account','Site\RedeemController@doRedeemAccount')->middleware('auth');
+Route::get('/redeem-success','Site\RedeemController@success')->middleware('auth');
 
 //**************end Redeem_Page***************//
 
@@ -143,6 +145,7 @@ Route::get('/gift-report/{slug}', 'Site\ReportController@index')->name('report')
 Route::get('/gift-page/{slug}', 'Site\LiveGiftController@index')->name('livegift');
 Route::post('/gift-live/message','Site\LiveGiftController@sendMessage');
 Route::post('/gift-live/cart','Site\LiveGiftController@cart');
+Route::post('/gift-live/cart-edit', 'Site\LiveGiftController@cartEdit');
 Route::get('/gift-live/test','Site\LiveGiftController@test');
 
 //**************End LiveGift_Page***************//
@@ -161,25 +164,14 @@ Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autolog
 //**************End Password Reset***************//
 
 //About Us
-	Route::get('/about-us', 'Site\UserController@getaboutUs');
-	
-	//Contact Us
-	Route::get('/contact-us', 'Site\UserController@getcontactUs');
-	
-	//Terms & Condition
-	Route::get('/terms-condition', 'Site\UserController@getTermsCondition');
-	
-	//Privacy Policy
-	Route::get('/privacy-policy', 'Site\UserController@getPrivacyPolicy');
-	
-	//Faq
-	Route::get('/faq', 'Site\UserController@getFAQ');
-	
-	//Need help
-	Route::get('/need-help', 'Site\UserController@NeedHelp');
-	
-	//How fynches workds
-	Route::get('/how-fynches-work', 'Site\UserController@getHowFynchesWorks');
+	Route::get('/about', 'Site\StaticController@about');
+	Route::get('/terms-condition', 'Site\StaticController@terms');
+	Route::get('/privacy-policy', 'Site\StaticController@privacy');
+	Route::get('/help', 'Site\StaticController@help');
+
+Route::post('/betasignup', 'Site\UserController@betaSignup');
+Route::get('/invite/{code}', 'Site\UserController@useInvite');
+
 	
 	Route::group(array('prefix' => 'admin', 'middlewareGroups' => 'auth', 'after' => 'auth'), function() {
 	
@@ -192,10 +184,11 @@ Route::get('autologin/{token}', ['as' => 'autologin', 'uses' => '\Watson\Autolog
 
 	//Betasignup
 	Route::post('/user/getBetaData', 'Admin\UserController@getBetaData');
-	Route::get('betaSignup', 'Admin\UserController@getbetaSignupData');
+	//Route::get('betaSignup', 'Admin\UserController@getbetaSignupData');
 	Route::get('delete_betaUser/{id}', 'Admin\UserController@delete_betaUser'); 
 	Route::get('delete_multiple_betaUser/{id}', 'Admin\UserController@multiple_row_delete');
 	Route::get('export_csv', 'Admin\UserController@export');
+
 
 	//User
 	Route::post('/user/getData', 'Admin\UserController@getData');

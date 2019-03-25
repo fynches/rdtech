@@ -1,56 +1,115 @@
-@extends('site.info.layout')
-
+@extends('layouts.standard.layout')
 @section('header')
-    <header style="min-height: 100px;">
-        <div class="container-fluid" style="padding: 0px 50px;">
-            <div class="row">
-                <div class="fheader col-md-8 col-sm-7">
-                   <a class="navbar-brand" href="https://fynches.codeandsilver.com">
-        	         <img src="https://fynches.codeandsilver.com/public/front/img/BirdLogo.png" alt="Fynches" title="" id="fyn_logo_1">
-        	        </a>
+    @include('layouts.standard.partials.header_clean')
+@stop
+@section('css')
+    <link href="{{ asset('asset/css/parent-child-info.css') }}" rel="stylesheet">
+@stop
+@section('js')
+    <script src="{{asset('js/info.js')}}"></script>
+    <script src="{{asset('js/crop.js')}}"> </script>
+    <script src="{{asset('js/croppie.js')}}"> </script>
+    <script src="{{asset('js/croppie.min.js')}}"> </script>
+@stop
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-10 offset-1 text-center">
+                <a href="#" id = 'back' class="btn btn-outline-success go-back float-left">GO BACK</a>
+                <h2 class = 'pl-2'>LET'S GET STARTED SETTING UP YOUR GIFT PAGE</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class = 'col-10 offset-1'>
+                <hr class = 'border-bottom'/>
+            </div>
+        </div>
+    </div>
+    @if(session('error'))
+        <div class = 'row'>
+            <div class = 'col-8 offset-2 alert alert-danger text-center mt-3'>
+                {{ session('error') }}
+            </div>
+        </div>
+    @endif
+    <form id = 'parent-child-info' method="POST" action="create-page" class = 'container-fluid'>
+        {{csrf_field()}}
+        <div class="row mt-4">
+            <div class="col-4 offset-1">
+                <h5>Host Info</h5>
+            </div>
+            <div class="col-4 offset-2">
+                <h5>Child Info
+                    <span data-toggle="tooltip" title="First name of the child for gift page" style="color:black;margin-top: 11px;cursor: pointer;">
+                        &nbsp&nbsp<i class="fas fa-info-circle"></i>
+                    </span>
+                </h5>
+            </div>
+        </div>
+        <div class = 'row mt-4'>
+            <div class="col-4 offset-1">
+                <label for="hostFirstName" class="required">FIRST NAME</label>
+                <input required type="text" class="form-control" name="hostFirstName" value="{{ old('hostFirstName') }}" />
+            </div>
+            <div class="col-4 offset-2">
+                <label for="childName" class="required">CHILD NAME</label>
+                <input type="text" class="form-control" name="childName" value="{{ old('childName') }}" style="width: 100%;" required />
+            </div>
+        </div>
+        <div class = 'row mt-4'>
+            <div class="col-4 offset-1">
+                <label for="hostLastName" class="required">LAST NAME</label>
+                <input required type="text" class="form-control" name="hostLastName" value="{{ old('hostLastName') }}" />
+            </div>
+            <div class="col-4 offset-2">
+                <label for="dob" class="required">DOB</label>
+                <input required id="dob" placeholder="Please Select Date" class="date-input form-control" name="dob" value="{{ old('dob') }}" type="date" data-date-inline-picker="false" data-date-open-on-focus="true"/>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-4 offset-1">
+                <label>DATE OF PARTY</label>
+                <input name="eventDate" value="{{ old('eventDate') }}" type="date" data-date-inline-picker="false" class="form-control" style = 'font-family: Avenir-Book' data-date-open-on-focus="true"/>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="not-decided" name = 'not-decided' value="1">
+                    <label class="form-check-label" for="not-decided" style = 'font-size: 13px; font-weight: normal'>We Are Still Deciding On The Date</label>
                 </div>
             </div>
-        </div>    
-    </header>
-    <div class="container-fluid">
-        <div class="row" id="hc">
-            
-            <div class="col-md-2">
-                <a hfref="/" id="back" class="btn btn-outline-success go-back">GO BACK</a>
-            </div>
-            
-            
-            <div class="col-md-8" id="hostChild" style="text-align: center;">
-                <h2 id="info-header" style="font-family:'Poppins',sans-serif;font-weight: 700;">LET'S GET STARTED SETTING UP YOUR GIFT PAGE</h2>
-            </div>
-            
-            <div class="col-md-2">
-                
-            </div>
-       
         </div>
-        
-        <div class="row border-bottom" style="margin:0 50px"></div>
-    </div>
-    
-    <form id="congrats" method="POST" action="create-page">
-    {{csrf_field()}}    
-    <div id="host-child">
-        @include('site.info.host-child')
-    </div>
-    <div id="date-location">
-        @include('site.info.date-location')
-    </div>
-    <div id="page-link">
-        @include('site.info.page-link')
-    </div>
+        <div class="row mt-4">
+            <div class="col-10 offset-1">
+                <h5>What Would You Like The Link to Your Gift Page To Be?</h5>
+                <div class="guest">This link is how your guests will find your gift page. Make it simple and easy to remember.</div>
+            </div>
+        </div>
+        <div class = 'row mt-2'>
+            <div class="col-4 offset-1 text-right pr-0">
+                <div class = 'url-column'>
+                    /gift-page/
+                </div>
+            </div>
+            <div class="col-6 text-left no-padding" >
+                <input required id="slug" name="slug" class = 'form-control url-input' type="text" value="{{ old('slug') }}" pattern="[A-Za-z0-9]*">
+                <p style = 'font-size: 10px;'>Please use only letters or numbers</p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <input id="page-link" type="submit" class="yellow-submit pointer" value="FINISH">
+            </div>
+        </div>
     </form>
-    
     <div id="page-link">
-        @include('site.info.congratulations')
+        <div id="creating" class="container" style="display:none;">
+            <div class="row py-5">
+                <div class="col-12 text-center">
+                    <img src="/front/img/Congrats.png" alt="bird" title="" class="img-fluid" width="450px">
+                </div>
+            </div>
+        </div>
     </div>
-    
-   
+    @include('modal.gift-crop')
 @stop
 
 
